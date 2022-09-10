@@ -41,6 +41,7 @@ master.mav.command_long_send(
     mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,0,1, 21196, 0, 0, 0, 0, 0)
 
 msg = master.recv_match(type="COMMAND_ACK",blocking=True)
+print(msg)
 
 # wait until arming confirmed (can manually check with master.motors_armed())
 print("Waiting for the vehicle to arm")
