@@ -33,21 +33,14 @@ master = mavutil.mavlink_connection('/dev/serial0',baud=916200)
 #  sending data.
 wait_conn()
 
-# Get some information !
-try:
-    print(master.recv_match().to_dict())
-except:
-    pass
-time.sleep(0.1)
-
 # Arm
 # master.arducopter_arm() or:
 master.mav.command_long_send(
     master.target_system,
     master.target_component,
-    mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,
-    0,
-    1, 21196, 0, 0, 0, 0, 0)
+    mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,0,1, 21196, 0, 0, 0, 0, 0)
+
+msg = master.recv_match(type="COMMAND_ACK",blocking=True)
 
 # wait until arming confirmed (can manually check with master.motors_armed())
 print("Waiting for the vehicle to arm")
