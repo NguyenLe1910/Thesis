@@ -27,7 +27,7 @@ def force_arm():
         # wait until arming confirmed (can manually check with master.motors_armed())
         print("Force the vehicle to arm")
         master.motors_armed_wait()
-        master.time_since(motors_armed_wait)
+        timestamp =master.time_since(motors_armed_wait)
         print('Armed!')
     except:
         print('Cannot Force Arm')
@@ -35,6 +35,7 @@ def force_arm():
 
 
 master = mavutil.mavlink_connection('/dev/serial0',baud=916200)
-
+the_connection.wait_heartbeat()
+print("Heartbeat from system (system %u component %u)" % (the_connection.target_system, the_connection.target_component))
 wait_conn()
 force_arm()
