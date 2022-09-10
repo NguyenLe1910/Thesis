@@ -35,7 +35,6 @@ def force_arm():
 
 
 master = mavutil.mavlink_connection('/dev/serial0',baud=916200)
-master.wait_heartbeat()
-print("Heartbeat from system (system %u component %u)" % (the_connection.target_system, the_connection.target_component))
 wait_conn()
+print("Heartbeat from system (system %u component %u)" % (master.target_system, master.target_component))
 force_arm()
