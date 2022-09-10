@@ -38,7 +38,7 @@ master = mavutil.mavlink_connection('/dev/serial0',baud=916200)
 wait_conn()
 print("Heartbeat from system (system %u component %u)" % (master.target_system, master.target_component))
 # Choose a mode
-mode = 'STABILIZE'
+mode = 'MANNUAL'
 
 # Check if mode is available
 if mode not in master.mode_mapping():
