@@ -32,29 +32,25 @@ def force_arm():
     except:
         print('Cannot Force Arm')
 
+def setmode(mode):
+    # Check if mode is available
+    if mode not in master.mode_mapping():
+        print('Unknown mode : {}'.format(mode))
+        print('Try:', list(master.mode_mapping().keys()))
+
+    # Get mode ID
+    mode_id = master.mode_mapping()[mode]
+    # Set new mode
+    # master.mav.command_long_send(
+    #    master.target_system, master.target_component,
+    #    mavutil.mavlink.MAV_CMD_DO_SET_MODE, 0,
+    #    0, mode_id, 0, 0, 0, 0, 0) or:
+    # master.set_mode(mode_id) or:
+    master.mav.set_mode_send(master.target_system,mavutil.mavlink.MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,mode_id)
 
 
 master = mavutil.mavlink_connection('/dev/serial0',baud=916200)
 wait_conn()
 print("Heartbeat from system (system %u component %u)" % (master.target_system, master.target_component))
-# Choose a mode
-mode = 'MANUAL'
-
-# Check if mode is available
-if mode not in master.mode_mapping():
-    print('Unknown mode : {}'.format(mode))
-    print('Try:', list(master.mode_mapping().keys()))
-
-# Get mode ID
-mode_id = master.mode_mapping()[mode]
-# Set new mode
-# master.mav.command_long_send(
-#    master.target_system, master.target_component,
-#    mavutil.mavlink.MAV_CMD_DO_SET_MODE, 0,
-#    0, mode_id, 0, 0, 0, 0, 0) or:
-# master.set_mode(mode_id) or:
-master.mav.set_mode_send(
-    master.target_system,
-    mavutil.mavlink.MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,
-    mode_id)
+setmode('MANUAL')
 force_arm()
