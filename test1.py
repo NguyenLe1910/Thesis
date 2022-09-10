@@ -21,8 +21,7 @@ def wait_conn():
 
 def force_arm():
     master.mav.command_long_send(master.target_system,master.target_component,mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,0,1, 0, 0, 0, 0, 0, 0)
-    ack_msg = master.recv_match(type="COMMAND_ACK",blocking=True)
-    print(ack_msg)
+
     try:
         # wait until arming confirmed (can manually check with master.motors_armed())
         print("Force the vehicle to arm")
@@ -40,13 +39,9 @@ def setmode(mode):
 
     # Get mode ID
     mode_id = master.mode_mapping()[mode]
-    # Set new mode
-    # master.mav.command_long_send(
-    #    master.target_system, master.target_component,
-    #    mavutil.mavlink.MAV_CMD_DO_SET_MODE, 0,
-    #    0, mode_id, 0, 0, 0, 0, 0) or:
-    # master.set_mode(mode_id) or:
     master.mav.set_mode_send(master.target_system,mavutil.mavlink.MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,mode_id)
+    ack_msg = master.recv_match(type="COMMAND_ACK",blocking=True)
+    print(ack_msg)
 
 
 master = mavutil.mavlink_connection('/dev/serial0',baud=916200)
