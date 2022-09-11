@@ -5,7 +5,23 @@ import socketserver
 from threading import Condition
 from http import server
 
-PAGE=index.html
+PAGE="""\
+<html>
+<head>
+<title>Raspberry Pi - Surveillance Camera</title>
+</head>
+<body>
+<center><h1>Raspberry Pi - Surveillance Camera</h1></center>
+<center><img src="stream.mjpg" width="640" height="480"></center>
+</body>
+<body>
+   <form action="/arming.html">
+      <input type="hidden" name="isButtonPressed" value="true">
+      <input type="Force Arm">
+   </form>
+ </body>
+</html>
+"""
 
 class StreamingOutput(object):
     def __init__(self):
