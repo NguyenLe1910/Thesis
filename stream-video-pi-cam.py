@@ -16,7 +16,7 @@ BeginPAGE="""\
 <center><img src="stream.mjpg" width="640" height="480"></center>
 </body>
 <body>
-    <form action="/thesis2.0/Arming">
+    <form action="/thesis2.0/Arming" method="post">
       <button type="submit" name="ForceArm" value="true"> Force Arm </button>
    </form>
 </body>
@@ -76,6 +76,13 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_header('Content-Length', len(content))
             self.end_headers()
             self.wfile.write(content)
+        elif self.path == '/stream.mjpg':
+            self.send_response(200)
+            self.send_header('Age', 0)
+            self.send_header('Cache-Control', 'no-cache, private')
+            self.send_header('Pragma', 'no-cache')
+            self.send_header('Content-Type', 'multipart/x-mixed-replace; boundary=FRAME')
+            self.end_headers()
             try:
                 while True:
                     with output.condition:
