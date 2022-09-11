@@ -50,6 +50,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path.find('Arming') > -1:
             content = PAGE.encode('utf-8')
+            self.wfile.write(content)
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
             self.send_header('Content-Length', len(content))
@@ -74,8 +75,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     'Removed streaming client %s: %s',
                     self.client_address, str(e))          
             #do whatever you want
-            self.end_headers()
-            self.wfile.write(content)
         elif self.path.find('Disarm') > -1:
             content = PAGE.encode('utf-8')
             self.send_response(200)
