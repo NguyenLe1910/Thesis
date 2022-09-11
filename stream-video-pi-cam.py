@@ -138,7 +138,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 logging.warning(
                     'Removed streaming client %s: %s',
                     self.client_address, str(e))      
-        elif self.path.find('Arming') > -1:
+        elif self.path.find('Disarm') > -1:
             content = DisarmPAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
