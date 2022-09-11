@@ -16,7 +16,7 @@ BeginPAGE="""\
 <center><img src="stream.mjpg" width="640" height="480"></center>
 </body>
 <body>
-    <form action="/thesis2.0/Arming" method="GET">
+    <form action="/thesis2.0/Arming" method="POST">
       <button type="submit" name="ForceArm" value="true"> Force Arm </button>
    </form>
 </body>
@@ -30,10 +30,10 @@ ArmingPAGE="""\
 <body>
 <center><h1>Thesis-V2.0</h1></center>
 <center><img src="stream.mjpg" width="640" height="480"></center>
-<center> The vehicle is arming
+<center> The vehicle is Arming
 </body>
 <body>
-    <form action="/thesis2.0" method="GET">
+    <form action="/thesis2.0" method="POST">
       <button type="submit" name="Disarm" value="true"> Disarm </button>
    </form>
 </body>
@@ -47,7 +47,6 @@ DisarmPAGE="""\
 <body>
 <center><h1>Thesis-V2.0</h1></center>
 <center><img src="stream.mjpg" width="640" height="480"></center>
-<center> The vehicle is disarming
 </body>
 <body>
     <form action="/thesis2.0/Disarm" method="POST">
@@ -86,20 +85,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_header('Content-Length', len(content))
             self.end_headers()
             self.wfile.write(content)
-        if self.path == '/thesis2.0//Arming?ForceArm=true':
-            content = ArmingPAGE.encode('utf-8')
-            self.send_response(200)
-            self.send_header('Content-Type', 'text/html')
-            self.send_header('Content-Length', len(content))
-            self.end_headers()
-            self.wfile.write(content)
-        elif self.path == '/thesis2.0/Disarm?Disarm=true':
-            content = DisarmPAGE.encode('utf-8')
-            self.send_response(200)
-            self.send_header('Content-Type', 'text/html')
-            self.send_header('Content-Length', len(content))
-            self.end_headers()
-            self.wfile.write(content)
         elif self.path == '/stream.mjpg':
             self.send_response(200)
             self.send_header('Age', 0)
@@ -129,9 +114,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             print("Run Force Arm")
             test1.force_arm()
             #do whatever you want
-        if self.path.find("Disarm=true") != -1:
-            print("Disarm")
-            #do whatever you want
+
 
     def do_POST(self):
         if self.path == '/thesis2.0/Arming':
