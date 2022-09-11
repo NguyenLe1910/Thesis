@@ -2,6 +2,8 @@ import time
 # Import mavutil
 from pymavlink import mavutil
 
+arm = 0
+
 master = mavutil.mavlink_connection('/dev/serial0',baud=916200)
 
 def wait_conn():
@@ -29,6 +31,7 @@ def force_arm():
         print("Force the vehicle to arm")
         master.motors_armed_wait()
         timestamp =master.time_since(motors_armed_wait)
+        arm = 1
         print('Armed!')
     except:
         print('Cannot Force Arm')
