@@ -14,6 +14,12 @@ PAGE="""\
 <center><h1>Raspberry Pi - Surveillance Camera</h1></center>
 <center><img src="stream.mjpg" width="640" height="480"></center>
 </body>
+<body>
+   <form action="/test.html">
+      <input type="hidden" name="isButtonPressed" value="true">
+      <input type="submit">
+   </form>
+ </body>
 </html>
 """
 
@@ -72,6 +78,12 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         else:
             self.send_error(404)
             self.end_headers()
+        def button_handle(self):
+       #this code execute when a GET request happen, then you have to check if the request happenned because the user pressed the button
+            if self.path.find("isButtonPressed=true") != -1:
+                print("Button clicked")
+                #do whatever you want
+            return super().do_GET()
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     allow_reuse_address = True
