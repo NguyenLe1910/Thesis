@@ -78,12 +78,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         else:
             self.send_error(404)
             self.end_headers()
-        def button_handle(self):
-       #this code execute when a GET request happen, then you have to check if the request happenned because the user pressed the button
-            if self.path.find("isButtonPressed=true") != -1:
-                print("Button clicked")
-                #do whatever you want
-            return super().do_GET()
+
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     allow_reuse_address = True
