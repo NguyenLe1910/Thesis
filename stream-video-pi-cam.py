@@ -101,6 +101,7 @@ with picamera.PiCamera(resolution='640x480', framerate=24) as camera:
     camera.start_recording(output, format='mjpeg')
     try:
         address = ('', 8160)
+        test1.connect()
         server = StreamingServer(address, StreamingHandler)
         server.serve_forever()
     finally:
