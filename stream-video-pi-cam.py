@@ -30,7 +30,7 @@ ArmingPAGE="""\
 <body>
 <center><h1>Thesis-V2.0</h1></center>
 <center><img src="stream.mjpg" width="640" height="480"></center>
-<center> The vehicle is Arming
+<center> The vehicle is Arming </center>
 </body>
 <body>
     <form action="/thesis2.0">
@@ -78,28 +78,40 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_response(301)
             self.send_header('Location', '/thesis2.0')
             self.end_headers()
-        elif self.path == '/thesis2.0':
+        if self.path == '/thesis2.0':
             content = BeginPAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
             self.send_header('Content-Length', len(content))
             self.end_headers()
             self.wfile.write(content)
-        elif self.path.find('Arming') > -1:
+        elif self.path == '/stream.mjpg':
+            self.send_response(200)
+            self.send_header('Age', 0)
+            self.send_header('Cache-Control', 'no-cache, private')
+            self.send_header('Pragma', 'no-cache')
+            self.send_header('Content-Type', 'multipart/x-mixed-replace; boundary=FRAME')
+            self.end_headers()
+            try:
+                while True:
+                    with output.condition:
+                        output.condition.wait()
+                        frame = output.frame
+                    self.wfile.write(b'--FRAME\r\n')
+                    self.send_header('Content-Type', 'image/jpeg')
+                    self.send_header('Content-Length', len(frame))
+                    self.end_headers()
+                    self.wfile.write(frame)
+                    self.wfile.write(b'\r\n')
+            except Exception as e:
+                logging.warning(
+                    'Removed streaming client %s: %s',
+                    self.client_address, str(e))      
+        if self.path.find('Arming') > -1:
             content = ArmingPAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
             self.send_header('Content-Length', len(content))
-            #do whatever you want
-            self.end_headers()
-            self.wfile.write(content)
-        elif self.path == '/thesis2.0/Disarm':
-            content = DisarmPAGE.encode('utf-8')
-            self.send_response(200)
-            self.send_header('Content-Type', 'text/html')
-            self.send_header('Content-Length', len(content))
-            if self.path.find("Disarm=true") != -1:
-                print("Disarm")
             #do whatever you want
             self.end_headers()
             self.wfile.write(content)
@@ -125,6 +137,17 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 logging.warning(
                     'Removed streaming client %s: %s',
                     self.client_address, str(e))      
+        elif self.path == '/thesis2.0/Disarm':
+            content = DisarmPAGE.encode('utf-8')
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/html')
+            self.send_header('Content-Length', len(content))
+            if self.path.find("Disarm=true") != -1:
+                print("Disarm")
+            #do whatever you want
+            self.end_headers()
+            self.wfile.write(content)
+
         else:
             self.send_error(404)
             self.end_headers()
