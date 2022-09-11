@@ -6,8 +6,13 @@ from threading import Condition
 from http import server
 import test1
 
-#PAGE="""\
-#"""
+PAGE="""\
+    <html>  
+        <<head>
+            <title>Blank Page</title>
+        </head>>
+    </html>
+"""
 
 #PAGE.path = 'index.html'
 
@@ -35,6 +40,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_header('Location', '/index.html')
             self.end_headers()
         elif self.path == '/index.html':
+            self.path = 'index.html'
             content = PAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
