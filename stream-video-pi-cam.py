@@ -16,15 +16,10 @@ PAGE="""\
 <center><img src="stream.mjpg" width="640" height="480"></center>
 </body>
 <body>
-    <button class="btn" id="general">#general</button>
-<script src="/index.js"></script>
- </body>
- <body>
-   <form action="/test.html">
-      <input type="hidden" name="isButtonPressed" value="true">
-      <input type="submit">
-   </form>
- </body>
+<button class="btn" id="ForceArm"> Force Arm 
+<input type="hidden" name="isButtonPressed" value="true">
+</button>
+</body>
 </html>
 """
 
