@@ -18,6 +18,12 @@ PAGE="""\
     <button class="btn" id="general">#general</button>
 <script src="index.js"></script>
  </body>
+ <body>
+   <form action="/test.html">
+      <input type="hidden" name="isButtonPressed" value="true">
+      <input type="submit">
+   </form>
+ </body>
 </html>
 """
 
@@ -76,6 +82,11 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         else:
             self.send_error(404)
             self.end_headers()
+        #this code execute when a GET request happen, then you have to check if the request happenned because the user pressed the button
+        if self.path.find("isButtonPressed=true") != -1:
+            print("Button clicked")
+            #do whatever you want
+            return super().do_GET()
 
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
