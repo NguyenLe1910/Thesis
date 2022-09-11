@@ -17,7 +17,7 @@ PAGE="""\
 </body>
 <body>
     <form action="/Arming.html">
-      <input type="submit" name="isButtonPressed" value="true"> Force Arm 
+      <button type="submit" name="ForceArm" value="true"> Force Arm </button>
    </form>
 </body>
 </html>
