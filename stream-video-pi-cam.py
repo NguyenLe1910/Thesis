@@ -86,7 +86,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         if self.path.find("isButtonPressed=true") != -1:
             print("Button clicked")
             #do whatever you want
-            return super().do_GET()
 
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
