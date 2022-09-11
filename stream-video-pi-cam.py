@@ -83,6 +83,9 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
             self.send_header('Content-Length', len(content))
+            if self.path.find("ForceArm=true") != -1:
+                print("Run Force Arm")
+                test1.force_arm()
             self.end_headers()
             self.wfile.write(content)
         elif self.path == '/stream.mjpg':
@@ -110,9 +113,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         else:
             self.send_error(404)
             self.end_headers()
-        if self.path.find("ForceArm=true") != -1:
-            print("Run Force Arm")
-            test1.force_arm()
             #do whatever you want
 
 
@@ -124,7 +124,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_header('Content-Length', len(content))
             if self.path.find("ForceArm=true") != -1:
                 print("Run Force Arm")
-            test1.force_arm()
+                test1.force_arm()
             #do whatever you want
             self.end_headers()
             self.wfile.write(content)
