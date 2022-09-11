@@ -33,7 +33,7 @@ ArmingPAGE="""\
 <center> The vehicle is Arming
 </body>
 <body>
-    <form action="/thesis2.0" method="POST">
+    <form action="/thesis2.0">
       <button type="submit" name="Disarm" value="true"> Disarm </button>
    </form>
 </body>
@@ -49,7 +49,7 @@ DisarmPAGE="""\
 <center><img src="stream.mjpg" width="640" height="480"></center>
 </body>
 <body>
-    <form action="/thesis2.0/Disarm" method="POST">
+    <form action="/thesis2.0/Disarm">
       <button type="submit" name="ForceArm" value="true"> Force Arm </button>
    </form>
 </body>
@@ -88,36 +88,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 test1.force_arm()
             self.end_headers()
             self.wfile.write(content)
-        elif self.path == '/stream.mjpg':
-            self.send_response(200)
-            self.send_header('Age', 0)
-            self.send_header('Cache-Control', 'no-cache, private')
-            self.send_header('Pragma', 'no-cache')
-            self.send_header('Content-Type', 'multipart/x-mixed-replace; boundary=FRAME')
-            self.end_headers()
-            try:
-                while True:
-                    with output.condition:
-                        output.condition.wait()
-                        frame = output.frame
-                    self.wfile.write(b'--FRAME\r\n')
-                    self.send_header('Content-Type', 'image/jpeg')
-                    self.send_header('Content-Length', len(frame))
-                    self.end_headers()
-                    self.wfile.write(frame)
-                    self.wfile.write(b'\r\n')
-            except Exception as e:
-                logging.warning(
-                    'Removed streaming client %s: %s',
-                    self.client_address, str(e))      
-        else:
-            self.send_error(404)
-            self.end_headers()
-            #do whatever you want
-
-
-    def do_POST(self):
-        if self.path == '/thesis2.0/Arming':
+        elif self.path.find(Arming) > -1:
             content = ArmingPAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
@@ -162,11 +133,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     self.client_address, str(e))      
         else:
             self.send_error(404)
-            self.end_headers()    
-        #this code execute when a GET request happen, then you have to check if the request happenned because the user pressed the button
-        
-        
-
+            self.end_headers()
+            #do whatever you want
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     allow_reuse_address = True
