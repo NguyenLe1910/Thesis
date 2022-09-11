@@ -5,6 +5,8 @@ import socketserver
 from threading import Condition
 from http import server
 
+PAGE=index.html
+
 class StreamingOutput(object):
     def __init__(self):
         self.frame = None
