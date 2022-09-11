@@ -22,40 +22,6 @@ BeginPAGE="""\
 </body>
 </html>
 """
-ArmingPAGE="""\
-<html>
-<head>
-<title>Arming</title>
-</head>
-<body>
-<center><h1>Thesis-V2.0</h1></center>
-<center><img src="stream.mjpg" width="640" height="480"></center>
-<center> The vehicle is Arming </center>
-</body>
-<body>
-    <form action="/thesis2.0">
-      <button type="submit" name="Disarm" value="true"> Disarm </button>
-   </form>
-</body>
-</html>
-"""
-DisarmPAGE="""\
-<html>
-<head>
-<title>Thesis-V2.0</title>
-</head>
-<body>
-<center><h1>Thesis-V2.0</h1></center>
-<center><img src="stream.mjpg" width="640" height="480"></center>
-<center> The vehicle is Disarming </center>
-</body>
-<body>
-    <form action="/thesis2.0/Disarm">
-      <button type="submit" name="ForceArm" value="true"> Force Arm </button>
-   </form>
-</body>
-</html>
-"""
 class StreamingOutput(object):
     def __init__(self):
         self.frame = None
@@ -107,8 +73,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             except Exception as e:
                 logging.warning(
                     'Removed streaming client %s: %s',
-                    self.client_address, str(e))    
-        
+                    self.client_address, str(e))      
         if self.path.find("ForceArm=true") != -1:
                 print("Run Force Arm")
                 test1.force_arm()
