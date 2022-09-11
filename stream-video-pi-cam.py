@@ -4,6 +4,7 @@ import logging
 import socketserver
 from threading import Condition
 from http import server
+from test1 import *
 
 PAGE="""\
 <html>
@@ -15,10 +16,7 @@ PAGE="""\
 <center><img src="stream.mjpg" width="640" height="480"></center>
 </body>
 <body>
-   <form action="/arming.html">
-      <input type="hidden" name="isButtonPressed" value="true">
-      <input type="Force Arm">
-   </form>
+    <button>
  </body>
 </html>
 """
