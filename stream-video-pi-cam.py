@@ -69,13 +69,13 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_header('Content-Length', len(content))
             self.end_headers()
             self.wfile.write(content)
-        elif self.path == '/stream.mjpg':
+        elif self.path == 'thesis2.0/Arming?ForceArm=true':
+            content = ArmingPAGE.encode('utf-8')
             self.send_response(200)
-            self.send_header('Age', 0)
-            self.send_header('Cache-Control', 'no-cache, private')
-            self.send_header('Pragma', 'no-cache')
-            self.send_header('Content-Type', 'multipart/x-mixed-replace; boundary=FRAME')
+            self.send_header('Content-Type', 'text/html')
+            self.send_header('Content-Length', len(content))
             self.end_headers()
+            self.wfile.write(content)
             try:
                 while True:
                     with output.condition:
@@ -90,14 +90,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             except Exception as e:
                 logging.warning(
                     'Removed streaming client %s: %s',
-                    self.client_address, str(e))
-        elif self.path == 'thesis2.0/Arming?ForceArm=true':
-            content = ArmingPAGE.encode('utf-8')
-            self.send_response(200)
-            self.send_header('Content-Type', 'text/html')
-            self.send_header('Content-Length', len(content))
-            self.end_headers()
-            self.wfile.write(content)
+                    self.client_address, str(e))      
         else:
             self.send_error(404)
             self.end_headers()
