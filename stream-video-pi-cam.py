@@ -107,7 +107,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             except Exception as e:
                 logging.warning(
                     'Removed streaming client %s: %s',
-                    self.client_address, str(e))      
+                    self.client_address, str(e))    
         
         if self.path.find("ForceArm=true") != -1:
                 print("Run Force Arm")
