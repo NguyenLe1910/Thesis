@@ -16,7 +16,7 @@ PAGE="""\
 <center><img src="stream.mjpg" width="640" height="480"></center>
 </body>
 <body>
-    <button>
+    <button class"btn" id="Force Arm">#ForceArm> </button>
  </body>
 </html>
 """
