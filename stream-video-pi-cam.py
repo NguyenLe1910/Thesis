@@ -78,7 +78,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_response(301)
             self.send_header('Location', '/thesis2.0')
             self.end_headers()
-        if self.path == '/thesis2.0':
+        elif self.path == '/thesis2.0':
             content = BeginPAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
@@ -107,7 +107,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 logging.warning(
                     'Removed streaming client %s: %s',
                     self.client_address, str(e))      
-        if self.path.find('Arming') > -1:
+        elif self.path.find('Arming') > -1:
             content = ArmingPAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
