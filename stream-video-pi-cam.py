@@ -1,18 +1,21 @@
+# Web streaming example
+# Source code from the official PiCamera package
+# http://picamera.readthedocs.io/en/latest/recipes2.html#web-streaming
+
 import io
 import picamera
 import logging
 import socketserver
 from threading import Condition
 from http import server
-import test1
 
-BeginPAGE="""\
+PAGE="""\
 <html>
 <head>
-<title>Thesis-V2.0</title>
+<title>Raspberry Pi - Surveillance Camera</title>
 </head>
 <body>
-<center><h1>Thesis-V2.0</h1></center>
+<center><h1>Raspberry Pi - Surveillance Camera</h1></center>
 <center><img src="stream.mjpg" width="640" height="480"></center>
 </body>
 <body>
@@ -22,6 +25,7 @@ BeginPAGE="""\
 </body>
 </html>
 """
+
 class StreamingOutput(object):
     def __init__(self):
         self.frame = None
@@ -43,10 +47,10 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/':
             self.send_response(301)
-            self.send_header('Location', '/thesis2.0')
+            self.send_header('Location', '/index.html')
             self.end_headers()
-        elif self.path == '/thesis2.0':
-            content = BeginPAGE.encode('utf-8')
+        elif self.path == '/index.html':
+            content = PAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
             self.send_header('Content-Length', len(content))
@@ -73,12 +77,10 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             except Exception as e:
                 logging.warning(
                     'Removed streaming client %s: %s',
-                    self.client_address, str(e))      
-        if self.path.find("ForceArm=true") != -1:
-                print("Run Force Arm")
-                test1.force_arm()
-                if(test1.arm == 0):
-                    output = 'alert("Cannot Force Arm")'
+                    self.client_address, str(e))
+        else:
+            self.send_error(404)
+            self.end_headers()
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     allow_reuse_address = True
@@ -91,7 +93,6 @@ with picamera.PiCamera(resolution='640x480', framerate=24) as camera:
     camera.start_recording(output, format='mjpeg')
     try:
         address = ('', 8160)
-        test1.connect()
         server = StreamingServer(address, StreamingHandler)
         server.serve_forever()
     finally:
