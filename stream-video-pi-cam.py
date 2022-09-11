@@ -79,7 +79,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_error(404)
             self.end_headers()
         #this code execute when a GET request happen, then you have to check if the request happenned because the user pressed the button
-        if self.path.find("ForceArm=true") != -1:
+        if self.path.find("button=true") != -1:
             print("Run Force Arm")
             test1.force_arm()
             #do whatever you want
