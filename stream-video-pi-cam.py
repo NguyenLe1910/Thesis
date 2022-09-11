@@ -22,7 +22,7 @@ PAGE="""\
  <body>
    <form action="/test.html">
       <input type="hidden" name="isButtonPressed" value="true">
-      <input type="Force Arm">
+      <input type="ForceArm">
    </form>
  </body>
 </html>
