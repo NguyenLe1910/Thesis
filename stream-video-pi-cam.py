@@ -6,7 +6,7 @@ from threading import Condition
 from http import server
 import test1
 
-PAGE="""\
+BeginPAGE="""\
 <html>
 <head>
 <title>Thesis-V2.0</title>
@@ -16,14 +16,28 @@ PAGE="""\
 <center><img src="stream.mjpg" width="640" height="480"></center>
 </body>
 <body>
-    <form action="/Arming.html">
+    <form action="/thesis2.0/Arming">
       <button type="submit" name="ForceArm" value="true"> Force Arm </button>
    </form>
 </body>
 </html>
 """
-
-#PAGE.path = 'index.html'
+ArmingPAGE="""\
+<html>
+<head>
+<title>Thesis-V2.0</title>
+</head>
+<body>
+<center><h1>Thesis-V2.0</h1></center>
+<center><img src="stream.mjpg" width="640" height="480"></center>
+</body>
+<body>
+    <form action="/thesis2.0">
+      <button type="submit" name="Disarm" value="true"> Disarm </button>
+   </form>
+</body>
+</html>
+"""
 
 class StreamingOutput(object):
     def __init__(self):
@@ -46,10 +60,10 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/':
             self.send_response(301)
-            self.send_header('Location', '/index.html')
+            self.send_header('Location', '/thesis2.0')
             self.end_headers()
-        elif self.path == '/index.html':
-            content = PAGE.encode('utf-8')
+        elif self.path == '/thesis2.0':
+            content = BeginPAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
             self.send_header('Content-Length', len(content))
@@ -77,6 +91,13 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 logging.warning(
                     'Removed streaming client %s: %s',
                     self.client_address, str(e))
+        elif self.path == 'thesis2.0/Arming':
+            content = ArmingPAGE.encode('utf-8')
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/html')
+            self.send_header('Content-Length', len(content))
+            self.end_headers()
+            self.wfile.write(content)
         else:
             self.send_error(404)
             self.end_headers()
