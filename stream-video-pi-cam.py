@@ -9,7 +9,7 @@ import test1
 #PAGE="""\
 #"""
 
-PAGE = 'index.html'
+PAGE.path = 'index.html'
 
 class StreamingOutput(object):
     def __init__(self):
