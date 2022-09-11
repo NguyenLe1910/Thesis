@@ -116,6 +116,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             #do whatever you want
             self.end_headers()
             self.wfile.write(content)
+
         elif self.path == '/stream.mjpg':
             self.send_response(200)
             self.send_header('Age', 0)
