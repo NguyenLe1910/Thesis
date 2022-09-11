@@ -4,7 +4,7 @@ import logging
 import socketserver
 from threading import Condition
 from http import server
-
+import test1
 PAGE="""\
 <html>
 <head>
@@ -85,7 +85,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         #this code execute when a GET request happen, then you have to check if the request happenned because the user pressed the button
         if self.path.find("isButtonPressed=true") != -1:
             print("Run Force Arm")
-            #test1.force_arm()
+            test1.force_arm()
             #do whatever you want
 
 
@@ -100,6 +100,7 @@ with picamera.PiCamera(resolution='640x480', framerate=24) as camera:
     camera.start_recording(output, format='mjpeg')
     try:
         address = ('', 8160)
+        test1.connect()
         server = StreamingServer(address, StreamingHandler)
         server.serve_forever()
     finally:

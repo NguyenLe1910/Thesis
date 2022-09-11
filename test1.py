@@ -49,5 +49,3 @@ def connect():
     print("Heartbeat from system (system %u component %u)" % (master.target_system, master.target_component))
     ack_msg = master.recv_match(type='SYS_STATUS',blocking=True)
     print(ack_msg)
-
-connect()
