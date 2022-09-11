@@ -16,7 +16,7 @@ BeginPAGE="""\
 <center><img src="stream.mjpg" width="640" height="480"></center>
 </body>
 <body>
-    <form action="/thesis2.0/Arming" method="POST">
+    <form action="/thesis2.0/Arming">
       <button type="submit" name="ForceArm" value="true"> Force Arm </button>
    </form>
 </body>
