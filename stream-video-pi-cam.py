@@ -4,7 +4,6 @@ import logging
 import socketserver
 from threading import Condition
 from http import server
-from test1 import *
 
 PAGE="""\
 <html>
