@@ -86,14 +86,14 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_header('Content-Length', len(content))
             self.end_headers()
             self.wfile.write(content)
-        if self.path == '/thesis2.0/Arming':
+        if self.path == '/thesis2.0//Arming?ForceArm=true':
             content = ArmingPAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
             self.send_header('Content-Length', len(content))
             self.end_headers()
             self.wfile.write(content)
-        elif self.path == '/thesis2.0/Disarm':
+        elif self.path == '/thesis2.0/Disarm?Disarm=true':
             content = DisarmPAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
