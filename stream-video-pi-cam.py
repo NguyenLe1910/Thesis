@@ -16,7 +16,7 @@ BeginPAGE="""\
 <center><img src="stream.mjpg" width="640" height="480"></center>
 </body>
 <body>
-    <form action="/thesis2.0/Arming" method="POST">
+    <form action="/thesis2.0/Arming" method="GET">
       <button type="submit" name="ForceArm" value="true"> Force Arm </button>
    </form>
 </body>
@@ -33,7 +33,7 @@ ArmingPAGE="""\
 <center> The vehicle is arming
 </body>
 <body>
-    <form action="/thesis2.0" method="POST">
+    <form action="/thesis2.0" method="GET">
       <button type="submit" name="Disarm" value="true"> Disarm </button>
    </form>
 </body>
@@ -86,6 +86,20 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_header('Content-Length', len(content))
             self.end_headers()
             self.wfile.write(content)
+        if self.path == '/thesis2.0/Arming':
+            content = ArmingPAGE.encode('utf-8')
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/html')
+            self.send_header('Content-Length', len(content))
+            self.end_headers()
+            self.wfile.write(content)
+        elif self.path == '/thesis2.0/Disarm':
+            content = DisarmPAGE.encode('utf-8')
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/html')
+            self.send_header('Content-Length', len(content))
+            self.end_headers()
+            self.wfile.write(content)
         elif self.path == '/stream.mjpg':
             self.send_response(200)
             self.send_header('Age', 0)
@@ -115,7 +129,9 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             print("Run Force Arm")
             test1.force_arm()
             #do whatever you want
-
+        if self.path.find("Disarm=true") != -1:
+            print("Disarm")
+            #do whatever you want
 
     def do_POST(self):
         if self.path == '/thesis2.0/Arming':
