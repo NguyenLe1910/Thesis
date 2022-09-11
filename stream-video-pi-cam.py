@@ -50,7 +50,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path.find('Arming') > -1:
             content = PAGE.encode('utf-8')
-            self.wfile.write(content)
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
             self.send_header('Content-Length', len(content))
@@ -70,6 +69,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     self.end_headers()
                     self.wfile.write(frame)
                     self.wfile.write(b'\r\n')
+                    self.wfile.write(content)
             except Exception as e:
                 logging.warning(
                     'Removed streaming client %s: %s',
