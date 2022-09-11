@@ -2,9 +2,7 @@ import time
 # Import mavutil
 from pymavlink import mavutil
 
-
 master = mavutil.mavlink_connection('/dev/serial0',baud=916200)
-wait_conn()
 
 def wait_conn():
     """
@@ -49,3 +47,6 @@ def setmode(mode):
 
 def connect():
     print("Heartbeat from system (system %u component %u)" % (master.target_system, master.target_component))
+
+
+wait_conn()
