@@ -16,7 +16,7 @@ BeginPAGE="""\
 <center><img src="stream.mjpg" width="640" height="480"></center>
 </body>
 <body>
-    <form action="/thesis2.0/Arming" method="get">
+    <form action="/thesis2.0/Arming" method="POST">
       <button type="submit" name="ForceArm" value="true"> Force Arm </button>
    </form>
 </body>
@@ -69,7 +69,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_header('Content-Length', len(content))
             self.end_headers()
             self.wfile.write(content)
-        elif self.path == 'thesis2.0/Arming?ForceArm=true':
+        elif self.path == 'thesis2.0/Arming':
             content = ArmingPAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
