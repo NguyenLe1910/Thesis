@@ -88,7 +88,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 test1.force_arm()
             self.end_headers()
             self.wfile.write(content)
-        elif self.path.find(Arming) > -1:
+        elif self.path.find('Arming') > -1:
             content = ArmingPAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
