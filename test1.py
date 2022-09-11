@@ -47,3 +47,5 @@ def connect():
     master = mavutil.mavlink_connection('/dev/serial0',baud=916200)
     #wait_conn()
     print("Heartbeat from system (system %u component %u)" % (master.target_system, master.target_component))
+
+connect()
