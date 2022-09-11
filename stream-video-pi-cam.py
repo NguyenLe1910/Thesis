@@ -25,11 +25,12 @@ BeginPAGE="""\
 ArmingPAGE="""\
 <html>
 <head>
-<title>Thesis-V2.0</title>
+<title>Thesis-V2.0-</title>
 </head>
 <body>
 <center><h1>Thesis-V2.0</h1></center>
 <center><img src="stream.mjpg" width="640" height="480"></center>
+<center> The vehicle is arming
 </body>
 <body>
     <form action="/thesis2.0" method="POST">
@@ -46,6 +47,7 @@ DisarmPAGE="""\
 <body>
 <center><h1>Thesis-V2.0</h1></center>
 <center><img src="stream.mjpg" width="640" height="480"></center>
+<center> The vehicle is disarming
 </body>
 <body>
     <form action="/thesis2.0/Disarm" method="POST">
@@ -121,10 +123,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
             self.send_header('Content-Length', len(content))
-            self.send_header('Age', 0)
-            self.send_header('Cache-Control', 'no-cache, private')
-            self.send_header('Pragma', 'no-cache')
-            self.send_header('Content-Type', 'multipart/x-mixed-replace; boundary=FRAME')
             self.end_headers()
             self.wfile.write(content)
         elif self.path == '/thesis2.0/Disarm':
@@ -132,10 +130,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
             self.send_header('Content-Length', len(content))
-            self.send_header('Age', 0)
-            self.send_header('Cache-Control', 'no-cache, private')
-            self.send_header('Pragma', 'no-cache')
-            self.send_header('Content-Type', 'multipart/x-mixed-replace; boundary=FRAME')
             self.end_headers()
             self.wfile.write(content)
         elif self.path == '/stream.mjpg':
