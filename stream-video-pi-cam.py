@@ -5,27 +5,11 @@ import socketserver
 from threading import Condition
 from http import server
 import test1
-PAGE="""\
-<html>
-<head>
-<title>Raspberry Pi - Surveillance Camera</title>
-</head>
-<body>
-<center><h1>Raspberry Pi - Surveillance Camera</h1></center>
-<center><img src="stream.mjpg" width="640" height="480"></center>
-</body>
-<body>
-    <button class="btn" id="general">#general</button>
-<script src="/index.js"></script>
- </body>
- <body>
-   <form action="/test.html">
-      <input type="hidden" name="isButtonPressed" value="true">
-      <input type="submit">
-   </form>
- </body>
-</html>
-"""
+
+#PAGE="""\
+#"""
+
+PAGE = 'index.html'
 
 class StreamingOutput(object):
     def __init__(self):
