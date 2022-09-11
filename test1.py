@@ -43,9 +43,7 @@ def setmode(mode):
     ack_msg = master.recv_match(type='COMMAND_ACK',blocking=True)
     print(ack_msg)
 
-
-master = mavutil.mavlink_connection('/dev/serial0',baud=916200)
-wait_conn()
-print("Heartbeat from system (system %u component %u)" % (master.target_system, master.target_component))
-setmode('MANUAL')
-force_arm()
+def connect():
+    master = mavutil.mavlink_connection('/dev/serial0',baud=916200)
+    wait_conn()
+    print("Heartbeat from system (system %u component %u)" % (master.target_system, master.target_component))

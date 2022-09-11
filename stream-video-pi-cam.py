@@ -4,6 +4,7 @@ import logging
 import socketserver
 from threading import Condition
 from http import server
+import test1
 
 PAGE="""\
 <html>
@@ -21,7 +22,7 @@ PAGE="""\
  <body>
    <form action="/test.html">
       <input type="hidden" name="isButtonPressed" value="true">
-      <input type="submit">
+      <input type="Force Arm">
    </form>
  </body>
 </html>
@@ -84,9 +85,9 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.end_headers()
         #this code execute when a GET request happen, then you have to check if the request happenned because the user pressed the button
         if self.path.find("isButtonPressed=true") != -1:
-            print("Button clicked")
+            print("Run Force Arm")
+            test1.force_arm()
             #do whatever you want
-
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     allow_reuse_address = True
