@@ -25,7 +25,7 @@ BeginPAGE="""\
 ArmingPAGE="""\
 <html>
 <head>
-<title>Thesis-V2.0-</title>
+<title>Arming</title>
 </head>
 <body>
 <center><h1>Thesis-V2.0</h1></center>
@@ -47,6 +47,7 @@ DisarmPAGE="""\
 <body>
 <center><h1>Thesis-V2.0</h1></center>
 <center><img src="stream.mjpg" width="640" height="480"></center>
+<center> The vehicle is Disarming </center>
 </body>
 <body>
     <form action="/thesis2.0/Disarm">
@@ -137,7 +138,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 logging.warning(
                     'Removed streaming client %s: %s',
                     self.client_address, str(e))      
-        elif self.path == '/thesis2.0/Disarm':
+        elif self.path.find('Arming') > -1:
             content = DisarmPAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
