@@ -22,7 +22,7 @@ PAGE="""\
  <body>
    <form action="/test.html">
       <input type="hidden" name="isButtonPressed" value="true">
-      <input type="ForceArm">
+      <input type="submit">
    </form>
  </body>
 </html>
@@ -88,6 +88,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             print("Run Force Arm")
             test1.force_arm()
             #do whatever you want
+
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     allow_reuse_address = True
