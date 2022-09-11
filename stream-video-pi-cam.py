@@ -12,7 +12,7 @@ PAGE="""\
 <title>Thesis-V2.0</title>
 </head>
 <body>
-<center><h1>Raspberry Pi - Surveillance Camera</h1></center>
+<center><h1>Thesis-V2.0</h1></center>
 <center><img src="stream.mjpg" width="640" height="480"></center>
 </body>
 <body>
@@ -54,7 +54,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_header('Location', '/index.html')
             self.end_headers()
         elif self.path == '/index.html':
-            content = open(self.path[1:]).read()
+            content = PAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
             self.send_header('Content-Length', len(content))
