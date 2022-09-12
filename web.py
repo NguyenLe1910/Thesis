@@ -110,6 +110,28 @@ class webHandler(server.BaseHTTPRequestHandler):
             self.send_header('Content-Length', len(content))
             self.end_headers()
             self.wfile.write(content)
+        if self.path.endswith('/stream.mjpg'):
+            self.send_response(200)
+            self.send_header('Age', 0)
+            self.send_header('Cache-Control', 'no-cache, private')
+            self.send_header('Pragma', 'no-cache')
+            self.send_header('Content-Type', 'multipart/x-mixed-replace; boundary=FRAME')
+            self.end_headers()
+            try:
+                while True:
+                    with output.condition:
+                        output.condition.wait()
+                        frame = output.frame
+                    self.wfile.write(b'--FRAME\r\n')
+                    self.send_header('Content-Type', 'image/jpeg')
+                    self.send_header('Content-Length', len(frame))
+                    self.end_headers()
+                    self.wfile.write(frame)
+                    self.wfile.write(b'\r\n')
+            except Exception as e:
+                logging.warning(
+                    'Removed streaming client %s: %s',
+                    self.client_address, str(e))
         else:
             self.send_error(404)
             self.end_headers()
@@ -120,8 +142,6 @@ with picamera.PiCamera(resolution='640x480', framerate=24) as camera:
     #camera.rotation = 90
     camera.start_recording(output, format='mjpeg')
     try:
-        #address1 = ('', 8000)
-        #server = StreamingServer(address1, StreamingHandler)
         address2 = ('', 8160)
         server = StreamingServer(address2, webHandler)
         server.serve_forever()

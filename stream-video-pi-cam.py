@@ -18,14 +18,6 @@ PAGE="""\
 <center><h1>Raspberry Pi - Surveillance Camera</h1></center>
 <center><img src="stream.mjpg" width="640" height="480"></center>
 </body>
-<body>
-    <form action="/thesis2.0/Arming">
-      <button type="submit" name="ForceArm" value="true"> Force Arm </button>
-   </form>
-   <form action="/thesis2.0/Disarm">
-      <button type="submit" name="Disarm" value="true"> Disarm </button>
-   </form>
-</body>
 </html>
 """
 
@@ -48,27 +40,11 @@ class StreamingOutput(object):
 
 class StreamingHandler(server.BaseHTTPRequestHandler):
     def do_GET(self):
-        if self.path.find('Arming') > -1:
-            content = PAGE.encode('utf-8')
-            self.send_response(200)
-            self.send_header('Content-Type', 'text/html')
-            self.send_header('Content-Length', len(content))
-            #do whatever you want
-            self.end_headers()
-            self.wfile.write(content)
-        elif self.path.find('Disarm') > -1:
-            content = PAGE.encode('utf-8')
-            self.send_response(200)
-            self.send_header('Content-Type', 'text/html')
-            self.send_header('Content-Length', len(content))
-            #do whatever you want
-            self.end_headers()
-            self.wfile.write(content)
-        elif self.path == '/':
+        if self.path == '/':
             self.send_response(301)
-            self.send_header('Location', '/thesis2.0')
+            self.send_header('Location', '/index.html')
             self.end_headers()
-        elif self.path == '/thesis2.0':
+        elif self.path == '/index.html':
             content = PAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
@@ -111,7 +87,7 @@ with picamera.PiCamera(resolution='640x480', framerate=24) as camera:
     #camera.rotation = 90
     camera.start_recording(output, format='mjpeg')
     try:
-        address = ('', 8160)
+        address = ('', 8000)
         server = StreamingServer(address, StreamingHandler)
         server.serve_forever()
     finally:
