@@ -18,13 +18,11 @@ PAGE="""\
 <body>
 <center><h1>Thesis - 2.0</h1></center>
 <center><img src="stream.mjpg" width="640" height="480"></center>
+<center><big>Vehicle is arming</big></center>
 </body>
 <body>
     <form action="/thesis2.0/Arming">
       <button type="submit" name="ForceArm" value="true"> Force Arm </button>
-   </form>
-   <form action="/thesis2.0/Disarm">
-      <button type="submit" name="Disarm" value="true"> Disarm </button>
    </form>
 </body>
 </html>
@@ -36,7 +34,8 @@ PAGEArming="""\
 </head>
 <body>
 <center><h1>Thesis - 2.0</h1></center>
-<center><img src="stream.mjpg" width="640" height="480"> Vehicle is arming </center>
+<center><img src="stream.mjpg" width="640" height="480"></center>
+<center><big>Vehicle is arming</big></center>
 </body>
 <body>
    <form action="/thesis2.0/Disarm">
