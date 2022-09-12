@@ -20,8 +20,9 @@ PAGE="""\
 <center><img src="stream.mjpg" width="640" height="480"></center>
 </body>
 <body>
+<big>Vehicle is Disarm, If you want to arm the vehicle: </big>
     <form action="/thesis2.0/Arming">
-      <big>Vehicle is Disarm, If you want to arm the vehicle: </big><button type="submit" name="ForceArm" value="true"> Force Arm </button>
+      <button type="submit" name="ForceArm" value="true"> Force Arm </button>
    </form>
 </body>
 </html>
@@ -37,8 +38,9 @@ PAGEArming="""\
 <center><big>Vehicle is arming</big></center>
 </body>
 <body>
+<big>Vehicle is arming, If you want to Disarm the vehicle: </big>
    <form action="/thesis2.0/Disarm">
-      <big>Vehicle is arming, If you want to Disarm the vehicle: </big><button type="submit" name="Disarm" value="true"> Disarm </button>
+      <button type="submit" name="Disarm" value="true"> Disarm </button>
    </form>
 </body>
 </html>
