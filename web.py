@@ -83,33 +83,36 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
 
 class webHandler(server.BaseHTTPRequestHandler):
     def do_GET(self):
-        if self.path.find('Arming') > -1:
-            content = PAGE.encode('utf-8')
-            self.send_response(200)
-            self.send_header('Content-Type', 'text/html')
-            self.send_header('Content-Length', len(content))
-            #do whatever you want
-            self.end_headers()
-            self.wfile.write(content)
-        if self.path.find('Disarm') > -1:
-            content = PAGE.encode('utf-8')
-            self.send_response(200)
-            self.send_header('Content-Type', 'text/html')
-            self.send_header('Content-Length', len(content))
-            #do whatever you want
-            self.end_headers()
-            self.wfile.write(content)
         if self.path == '/':
             self.send_response(301)
             self.send_header('Location', '/thesis2.0')
             self.end_headers()
-        if self.path == '/thesis2.0':
+        elif self.path.find('Arming') > -1:
+            content = PAGE.encode('utf-8')
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/html')
+            self.send_header('Content-Length', len(content))
+            #do whatever you want
+            self.end_headers()
+            self.wfile.write(content)
+        elif self.path.find('Disarm') > -1:
+            content = PAGE.encode('utf-8')
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/html')
+            self.send_header('Content-Length', len(content))
+            #do whatever you want
+            self.end_headers()
+            self.wfile.write(content)
+        elif self.path == '/thesis2.0':
             content = PAGE.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
             self.send_header('Content-Length', len(content))
             self.end_headers()
             self.wfile.write(content)
+        else:
+            self.send_error(404)
+            self.end_headers()
 
 with picamera.PiCamera(resolution='640x480', framerate=24) as camera:
     output = StreamingOutput()
@@ -117,8 +120,8 @@ with picamera.PiCamera(resolution='640x480', framerate=24) as camera:
     #camera.rotation = 90
     camera.start_recording(output, format='mjpeg')
     try:
-        address1 = ('', 8000)
-        server = StreamingServer(address1, StreamingHandler)
+        #address1 = ('', 8000)
+        #server = StreamingServer(address1, StreamingHandler)
         address2 = ('', 8160)
         server = StreamingServer(address2, webHandler)
         server.serve_forever()
