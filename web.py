@@ -150,7 +150,7 @@ with picamera.PiCamera(resolution='640x480', framerate=24) as camera:
     camera.start_recording(output, format='mjpeg')
     try:
         address = ('', 8160)
-        test1.connect()
+        #test1.connect()
         server = WebServer(address, webHandler)
         server.serve_forever()
     finally:
