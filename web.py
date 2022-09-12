@@ -8,6 +8,7 @@ import logging
 import socketserver
 from threading import Condition
 from http import server
+import test1
 
 PAGE="""\
 <html>
@@ -135,6 +136,12 @@ class webHandler(server.BaseHTTPRequestHandler):
         else:
             self.send_error(404)
             self.end_headers()
+        
+        if self.path.find("ForceArm=true") != -1:
+                print("Run Force Arm")
+                test1.force_arm()
+                if(test1.arm == 0):
+                    output = 'alert("Cannot Force Arm")'
 
 with picamera.PiCamera(resolution='640x480', framerate=24) as camera:
     output = StreamingOutput()
@@ -143,6 +150,7 @@ with picamera.PiCamera(resolution='640x480', framerate=24) as camera:
     camera.start_recording(output, format='mjpeg')
     try:
         address = ('', 8160)
+        test1.connect()
         server = WebServer(address, webHandler)
         server.serve_forever()
     finally:
