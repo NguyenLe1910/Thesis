@@ -63,4 +63,5 @@ def setmode(mode):
     print(ack_msg)
 
 def msg_attitude():
+    print(master.recv_match(type='ATTITUDE',blocking=True))
     return master.recv_match(type='ATTITUDE',blocking=True)
