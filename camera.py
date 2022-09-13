@@ -27,10 +27,3 @@ class VideoCamera(object):
         ret, jpeg = cv.imencode(self.file_type, frame)
         self.previous_frame = jpeg
         return jpeg.tobytes()
-
-    # Take a photo, called by camera button
-    def take_picture(self):
-        frame = self.flip_if_needed(self.vs.read())
-        ret, image = cv.imencode(self.file_type, frame)
-        today_date = datetime.now().strftime("%m%d%Y-%H%M%S") # get current time
-        cv.imwrite(str(self.photo_string + "_" + today_date + self.file_type), frame)
