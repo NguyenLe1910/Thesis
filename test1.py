@@ -4,7 +4,6 @@ from pymavlink import mavutil
 
 arm = 0
 master = mavutil.mavlink_connection('/dev/serial0',baud=916200)
-msg_attitude
 
 def wait_conn():
     """
@@ -61,7 +60,7 @@ def setmode(mode):
     ack_msg = master.recv_match(type='COMMAND_ACK',blocking=True)
     print(ack_msg)
 
-def connect():
+def msg_attitude():
     print("Heartbeat from system (system %u component %u)" % (master.target_system, master.target_component))
-    msg_attitude = ack_msg = master.recv_match(type='ATTITUDE',blocking=True)
+    msg_attitude = master.recv_match(type='ATTITUDE',blocking=True)
 
