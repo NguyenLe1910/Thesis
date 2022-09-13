@@ -10,7 +10,7 @@ from threading import Condition
 from http import server
 import test1
 
-PAGE="""\
+HOMEPAGE="""\
 <html>
 <head>
 <title>Thesis2.0 </title>
@@ -19,10 +19,26 @@ PAGE="""\
 <center><h1>Thesis - 2.0</h1></center>
 <center><img src="stream.mjpg" width="640" height="480"></center>
 </body>
+<center>
+    <form action="/thesis2.0/Connected">
+      <button type="submit" name="Connected" value="true"> Force Arm </button>
+   </form>
+</center>
+</html>
+"""
+PAGEConnected="""\
+<html>
+<head>
+<title>Thesis2.0 </title>
+</head>
 <body>
-<big>Vehicle is Disarm, If you want to arm the vehicle: </big>
-    <form action="/thesis2.0/Arming">
-      <button type="submit" name="ForceArm" value="true"> Force Arm </button>
+<center><h1>Thesis - 2.0</h1></center>
+<center><img src="stream.mjpg" width="640" height="480"></center>
+<center><big> THE VEHICLE CONNECTED </big></center>
+</body>
+<body>
+   <form action="/thesis2.0/Arming">
+      <button type="submit" name="ForceArm" value="true"> ForceArm </button>
    </form>
 </body>
 </html>
@@ -35,10 +51,9 @@ PAGEArming="""\
 <body>
 <center><h1>Thesis - 2.0</h1></center>
 <center><img src="stream.mjpg" width="640" height="480"></center>
-<center><big>Vehicle is arming</big></center>
+<center><big>THE VEHICLE IS ARMING</big></center>
 </body>
 <body>
-<big>Vehicle is arming, If you want to Disarm the vehicle: </big>
    <form action="/thesis2.0/Disarm">
       <button type="submit" name="Disarm" value="true"> Disarm </button>
    </form>
@@ -94,6 +109,21 @@ class webHandler(server.BaseHTTPRequestHandler):
                 logging.warning(
                     'Removed streaming client %s: %s',
                     self.client_address, str(e))
+        elif self.path == '/thesis2.0':
+            content = HOMEPAGE.encode('utf-8')
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/html')
+            self.send_header('Content-Length', len(content))
+            self.end_headers()
+            self.wfile.write(content)
+        elif self.path.find('Connected') > -1:
+            content = PAGEConnected.encode('utf-8')
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/html')
+            self.send_header('Content-Length', len(content))
+            #do whatever you want
+            self.end_headers()
+            self.wfile.write(content)
         elif self.path.find('Arming') > -1:
             content = PAGEArming.encode('utf-8')
             self.send_response(200)
@@ -103,24 +133,19 @@ class webHandler(server.BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(content)
         elif self.path.find('Disarm') > -1:
-            content = PAGE.encode('utf-8')
+            content = PAGEConnected.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
             self.send_header('Content-Length', len(content))
             #do whatever you want
             self.end_headers()
-            self.wfile.write(content)
-        elif self.path == '/thesis2.0':
-            content = PAGE.encode('utf-8')
-            self.send_response(200)
-            self.send_header('Content-Type', 'text/html')
-            self.send_header('Content-Length', len(content))
-            self.end_headers()
-            self.wfile.write(content)
+            self.wfile.write(content)       
         else:
             self.send_error(404)
             self.end_headers()
         
+        if self.path.find("Connected=true") != -1:
+                test1.wait_conn()
         if self.path.find("ForceArm=true") != -1:
                 test1.force_arm()
         if self.path.find("Disarm=true") != -1:

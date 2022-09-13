@@ -3,8 +3,8 @@ import time
 from pymavlink import mavutil
 
 arm = 0
-
-master = mavutil.mavlink_connection('/dev/serial0',baud=916200)
+master
+msg_attitude
 
 def wait_conn():
     """
@@ -21,6 +21,7 @@ def wait_conn():
         msg = master.recv_match()
         print('Try to connecting....')
         time.sleep(0.5)
+    master = mavutil.mavlink_connection('/dev/serial0',baud=916200)
     print('Connected')    
 
 def force_arm():
@@ -45,9 +46,9 @@ def disarm():
         master.motors_armed_wait()
         timestamp =master.time_since(motors_armed_wait)
         arm = 0
-        print('Armed!')
+        print('Disarm!')
     except:
-        print('Cannot Force Arm')
+        print('Cannot Disarm')
 
 def setmode(mode):
     # Check if mode is available
@@ -63,6 +64,5 @@ def setmode(mode):
 
 def connect():
     print("Heartbeat from system (system %u component %u)" % (master.target_system, master.target_component))
+    msg_attitude = ack_msg = master.recv_match(type='ATTITUDE',blocking=True)
 
-
-wait_conn()
