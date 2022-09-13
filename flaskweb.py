@@ -35,7 +35,7 @@ def arming():
     return render_template('arming.html', msg_attitude=msg_attitude)
 
 @app.route('/Disarm')
-def arming():
+def disarm():
     test1.disarm()()
     return render_template('conected.html')
 
