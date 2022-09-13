@@ -54,7 +54,7 @@ def test():
                 yield "data: %s %d\n\n" % (c, i)
                 time.sleep(.1)  # an artificial delay
         return Response(events(), content_type='text/event-stream')
-    return redirect(url_for('static', filename='test.html'))
+    return redirect(url_for(filename='test.html'))
 
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)
