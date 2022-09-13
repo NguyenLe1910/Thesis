@@ -35,7 +35,7 @@ def conected():
 
 @app.route('/Arming')
 def arming():
-    test1.force_arm()
+    #test1.force_arm()
     msg_attitude = str(test1.msg_attitude())
     return render_template('arming.html', attitude=msg_attitude)
 
