@@ -1,39 +1,41 @@
-#Modified by smartbuilds.io
-#Date: 27.09.20
-#Desc: This web application serves a motion JPEG stream
-# main.py
-# import the necessary packages
-from flask import Flask, render_template, Response, request, send_from_directory
-from camera import VideoCamera
-import os
+import cv2
+import sys
+from flask import Flask, render_template, Response
+from camera_pi import WebcamVideoStream
+from flask_basicauth import BasicAuth
+import time
+import threading
 
-pi_camera = VideoCamera(flip=False) # flip pi camera if upside down.
-
-# App Globals (do not edit)
 app = Flask(__name__)
+app.config['BASIC_AUTH_USERNAME'] = 'pi'
+app.config['BASIC_AUTH_PASSWORD'] = 'pi'
+app.config['BASIC_AUTH_FORCE'] = True
+
+basic_auth = BasicAuth(app)
+last_epoch = 0
+
 
 @app.route('/')
+@basic_auth.required
 def index():
-    return render_template('index.html') #you can customze index.html here
+    return render_template('index.html')
 
 def gen(camera):
-    #get camera frame
     while True:
-        frame = camera.get_frame()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+        if camera.stopped:
+            break
+        frame = camera.read()
+        ret, jpeg = cv2.imencode('.jpg',frame)
+        if jpeg is not None:
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n\r\n')
+        else:
+            print("frame is none")
 
 @app.route('/video_feed')
 def video_feed():
-    return Response(gen(pi_camera),
+    return Response(gen(WebcamVideoStream().start()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-# Take a photo when pressing camera button
-@app.route('/picture')
-def take_picture():
-    pi_camera.take_picture()
-    return "None"
-
 if __name__ == '__main__':
-
-    app.run(host='192.168.63.12', debug=False)
+    app.run(host='192.168.63.12', debug=True, threaded=True)
