@@ -27,6 +27,7 @@ HOMEPAGE="""\
 </center>
 <body>
 <button type="button" onclick="myFunction()">Click Me!</button>
+<p id="demo">This is a demonstration.</p>
 </body>
 
 </html>
@@ -155,6 +156,8 @@ class webHandler(server.BaseHTTPRequestHandler):
                 test1.force_arm()
         if self.path.find("Disarm=true") != -1:
                 test1.force_arm()
+    def myFunction():
+        document.getElementById("demo").innerHTML = "Hello JavaScript!"
 
 with picamera.PiCamera(resolution='640x480', framerate=24) as camera:
     output = StreamingOutput()
