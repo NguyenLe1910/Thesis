@@ -64,5 +64,3 @@ def setmode(mode):
 
 def msg_attitude():
     return master.recv_match(type='ATTITUDE',blocking=True)
-
-msg_attitude()
