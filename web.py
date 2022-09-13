@@ -150,7 +150,7 @@ class webHandler(server.BaseHTTPRequestHandler):
         elif self.path.find('test') > -1:
             putout = '<html><head><title>Thesis2.0 </title></head><body><center><h1>Thesis - 2.0</h1></center><center><img src="stream.mjpg" width="640" height="480"></center></body><br><center>    <form action="/thesis2.0/Connected"> <button type="submit" name="Connected" value="true"> Connect to USV </button>   </form></center><body><form action="/thesis2.0/test">     <button type="submit"> Test </button>   </form>' 
             a = 222
-            putout += a 
+            putout += str(a) 
             putout += '</body></html>'
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
