@@ -90,21 +90,32 @@ class webHandler(server.BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(content)
         elif self.path.find('Connected') > -1:
-            while True:
-                content = '<html>'
-                content += '<head><title>Thesis2.0 </title></head>'
-                content += '<body><center><h1>Thesis - 2.0</h1></center><center><img src="stream.mjpg" width="640" height="480"></center></body>'
-                content += '<br>'
-                content += str(test1.msg_attitude())
-                content += '<center> <form action="/thesis2.0/Connected"> <button type="submit" name="ForceArm" value="true"> Force Arm </button> </form> <center>'
-                content += '</html>'
-                self.send_response(200)
-                self.send_header('Content-Type', 'text/html')
-                self.send_header('Content-Length', len(content))
-                #do whatever you want
-                self.end_headers()
-                self.wfile.write(content.encode())
-        
+            msg_attitude = str(test1.msg_attitude())    
+            content = '<html>'
+            content += '<head><title>Thesis2.0 </title></head>'
+            content += '<body><center><h1>Thesis - 2.0</h1></center><center><img src="stream.mjpg" width="640" height="480"></center></body>'
+            content += '<br>'
+            content += msg_attitude
+            content += '<center> <form action="/thesis2.0/Connected"> <button type="submit" name="ForceArm" value="true"> Force Arm </button> </form> <center>'
+            content += '</html>'
+            self.send_response(200)
+            self.send_header('Age', 0)
+            self.send_header('Cache-Control', 'no-cache, private')
+            self.send_header('Pragma', 'no-cache')
+            self.send_header('Content-Type', 'multipart/x-mixed-replace; boundary=FRAME')
+            self.end_headers()
+            try:
+                while True :
+                    self.send_response(200)
+                    self.send_header('Content-Type', 'text/html')
+                    self.send_header('Content-Length', len(content))
+                    self.end_headers()
+                    msg_attitude = str(test1.msg_attitude())
+                    self.wfile.write(content.encode())
+            except Exception as e:
+                logging.warning(
+                    'Connected %s: %s',
+                    self.client_address, str(e))
         if self.path.find("Connected=true") != -1:
                 test1.wait_conn()
         if self.path.find("ForceArm=true") != -1:
