@@ -105,11 +105,11 @@ class webHandler(server.BaseHTTPRequestHandler):
             self.send_header('Content-Type', 'text/html')
             self.send_header('Content-Length', len(content))
             self.end_headers()
+            self.wfile.write(content.encode())
             while True :    
                 msg_attitude = str(test1.msg_attitude())
-                self.wfile.write(content.encode())
                 time.sleep(0.5)
-
+                                        
         if self.path.find("Connected=true") != -1:
                 test1.wait_conn()
         if self.path.find("ForceArm=true") != -1:
