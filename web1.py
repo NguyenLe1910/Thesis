@@ -7,12 +7,6 @@ import time
 import threading
 
 app = Flask(__name__)
-app.config['BASIC_AUTH_USERNAME'] = 'pi'
-app.config['BASIC_AUTH_PASSWORD'] = 'pi'
-app.config['BASIC_AUTH_FORCE'] = True
-
-basic_auth = BasicAuth(app)
-last_epoch = 0
 
 
 @app.route('/')
