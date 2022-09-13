@@ -67,3 +67,4 @@ def msg_attitude():
     msg_attitude = master.recv_match(type='ATTITUDE',blocking=True)
     print(msg_attitude)
 
+msg_attitude()
