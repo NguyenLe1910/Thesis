@@ -1,10 +1,12 @@
 from flask import Flask,render_template, Response, request, send_from_directory
 from camera import VideoCamera
 import os
+import itertools
+import time
+import test1
 
 app = Flask(__name__)
 pi_camera = VideoCamera(flip=False)
-import test1
 
 @app.route('/', methods = ['GET'])
 def index():
@@ -43,6 +45,16 @@ def arming():
 def disarm():
     msg_attitude = str(test1.msg_attitude())
     render_template('conected.html', attitude=msg_attitude)
+
+@app.route('/test')
+def index():
+    if request.headers.get('accept') == 'text/event-stream':
+        def events():
+            for i, c in enumerate(itertools.cycle('\|/-')):
+                yield "data: %s %d\n\n" % (c, i)
+                time.sleep(.1)  # an artificial delay
+        return Response(events(), content_type='text/event-stream')
+    return redirect(url_for('static', filename='test.html'))
 
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)
