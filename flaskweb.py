@@ -42,7 +42,8 @@ def arming():
 @app.route('/Disarm')
 def disarm():
     test1.disarm()
-    return render_template('conected.html')
+    msg_attitude = str(test1.msg_attitude())
+    render_template('conected.html', attitude=msg_attitude)
 
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)
