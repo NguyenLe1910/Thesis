@@ -28,7 +28,7 @@ def conected():
     return render_template('conected.html')
 
 @app.route('/Arming')
-def conected():
+def arming():
     test1.arm()
     return render_template('conected.html')
 
