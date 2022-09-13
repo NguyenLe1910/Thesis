@@ -26,8 +26,9 @@ HOMEPAGE="""\
    </form>
 </center>
 <body>
-<button type="button" onclick="myFunction()">Click Me!</button>
-<p id="demo">This is a demonstration.</p>
+<form action="/thesis2.0/test">
+      <button type="submit"> Test </button>
+   </form>
 </body>
 
 </html>
@@ -137,7 +138,7 @@ class webHandler(server.BaseHTTPRequestHandler):
             self.send_header('Content-Length', len(content))
             #do whatever you want
             self.end_headers()
-            output2 = '<html><head><title>Thesis2.0 </title></head><body><center><h1>Thesis - 2.0</h1></center><center><img src="stream.mjpg" width="640" height="480"></center><center><big>THE VEHICLE IS ARMING</big></center></body><body><form action="/thesis2.0/Disarm"> <button type="submit" name="Disarm" value="true"> Disarm </button></form></body></html>'
+            self.wfile.write(content)
         elif self.path.find('Disarm') > -1:
             content = PAGEConnected.encode('utf-8')
             self.send_response(200)
@@ -145,7 +146,15 @@ class webHandler(server.BaseHTTPRequestHandler):
             self.send_header('Content-Length', len(content))
             #do whatever you want
             self.end_headers()
-            self.wfile.write(content)       
+            self.wfile.write(content)
+        elif self.path.find('test') > -1:
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/html')
+            self.send_header('Content-Length', len(content))
+            #do whatever you want
+            self.end_headers()
+            putout = '<html><head><title>Thesis2.0 </title></head><body><center><h1>Thesis - 2.0</h1></center><center><img src="stream.mjpg" width="640" height="480"></center></body><br><center>    <form action="/thesis2.0/Connected"> <button type="submit" name="Connected" value="true"> Connect to USV </button>   </form></center><body><form action="/thesis2.0/test">     <button type="submit"> Test </button>   </form></body></html>'    
+            self.wfile.write(putout.encode())          
         else:
             self.send_error(404)
             self.end_headers()
@@ -156,8 +165,7 @@ class webHandler(server.BaseHTTPRequestHandler):
                 test1.force_arm()
         if self.path.find("Disarm=true") != -1:
                 test1.force_arm()
-    def myFunction():
-        document.getElementById("demo").innerHTML = "Hello JavaScript!"
+
 
 with picamera.PiCamera(resolution='640x480', framerate=24) as camera:
     output = StreamingOutput()
