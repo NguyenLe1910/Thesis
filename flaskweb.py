@@ -57,11 +57,12 @@ def stream_template(template_name, **context):
 
 @app.route('/test')
 def test():
-    msg_attitude = str(test1.msg_attitude())
     def g():
-        msg_attitude = str(test1.msg_attitude())
+        msg_attitude = test1.msg_attitude()
+        text_attitude = str(msg_attitude)
         while not msg_attitude :
-            msg_attitude = str(test1.msg_attitude())
+            msg_attitude = test1.msg_attitude()
+            text_attitude = str(msg_attitude)
             time.sleep(.5)  # an artificial delay
             return msg_attitude
     return Response(stream_template('test.html', data=g()))
