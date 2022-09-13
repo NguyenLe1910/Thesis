@@ -41,7 +41,6 @@ def arming():
 
 @app.route('/Disarm')
 def disarm():
-    test1.disarm()
     msg_attitude = str(test1.msg_attitude())
     render_template('conected.html', attitude=msg_attitude)
 
