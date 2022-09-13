@@ -8,7 +8,7 @@ import test1
 app = Flask(__name__)
 pi_camera = VideoCamera(flip=False)
 
-@app.route('/xx', methods = ['GET'])
+@app.route('/', methods = ['GET'])
 def index():
     return render_template('index.html') #you can customze index.html here
 
@@ -46,7 +46,7 @@ def disarm():
     msg_attitude = str(test1.msg_attitude())
     render_template('conected.html', attitude=msg_attitude)
 
-@app.route('/')
+@app.route('/test.html')
 def test():
     if request.headers.get('accept') == 'text/event-stream':
         def events():
