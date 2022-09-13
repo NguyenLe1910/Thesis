@@ -53,3 +53,5 @@ def connecting(self):
 def main():
     connecting(master)
     wait_conn(master)
+
+main()
