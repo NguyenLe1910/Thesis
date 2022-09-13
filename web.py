@@ -19,6 +19,7 @@ HOMEPAGE="""\
 <center><h1>Thesis - 2.0</h1></center>
 <center><img src="stream.mjpg" width="640" height="480"></center>
 </body>
+<br>
 <center>
     <form action="/thesis2.0/Connected">
       <button type="submit" name="Connected" value="true"> Connect to USV </button>
