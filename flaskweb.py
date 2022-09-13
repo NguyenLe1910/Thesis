@@ -46,7 +46,7 @@ def disarm():
     msg_attitude = str(test1.msg_attitude())
     render_template('conected.html', attitude=msg_attitude)
 
-@app.route('/test.html')
+@app.route('/static/test.html')
 def test():
     if request.headers.get('accept') == 'text/event-stream':
         def events():
@@ -54,7 +54,7 @@ def test():
                 yield "data: %s %d\n\n" % (c, i)
                 time.sleep(.1)  # an artificial delay
         return Response(events(), content_type='text/event-stream')
-    return redirect(url_for(filename='test.html'))
+    return redirect(url_for('static', filename='test.html'))
 
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)
