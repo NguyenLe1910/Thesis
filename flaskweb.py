@@ -46,7 +46,7 @@ def disarm():
     msg_attitude = str(test1.msg_attitude())
     render_template('conected.html', attitude=msg_attitude)
 
-@app.route('/static/test.html')
+@app.route('/test')
 def test():
     if request.headers.get('accept') == 'text/event-stream':
         def events():
