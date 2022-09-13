@@ -56,7 +56,7 @@ def stream_template(template_name, **context):
 
 
 @app.route('/test')
-def index():
+def test():
     def g():
         for i, c in enumerate("hello"*10):
             time.sleep(.1)  # an artificial delay
