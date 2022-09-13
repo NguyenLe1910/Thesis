@@ -3,6 +3,8 @@ import time
 from pymavlink import mavutil
 
 arm = 0
+master = mavutil.mavlink_connection('/dev/serial0',baud=916200)
+msg_attitude
 
 def wait_conn():
     """
@@ -18,9 +20,8 @@ def wait_conn():
         )
         msg = master.recv_match()
         print('Try to connecting....')
-        time.sleep(0.5)
-    master = mavutil.mavlink_connection('/dev/serial0',baud=916200)
-    print('Connected')    
+        time.sleep(0.5) 
+    print('Connected')
 
 def force_arm():
     master.mav.command_long_send(master.target_system,master.target_component,mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,0,1, 21196 , 0, 0, 0, 0, 0)
