@@ -63,8 +63,6 @@ def setmode(mode):
     print(ack_msg)
 
 def msg_attitude():
-    print("Heartbeat from system (system %u component %u)" % (master.target_system, master.target_component))
-    msg_attitude = master.recv_match(type='ATTITUDE',blocking=True)
-    print(msg_attitude)
+    return master.recv_match(type='ATTITUDE',blocking=True)
 
 msg_attitude()
