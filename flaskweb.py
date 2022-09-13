@@ -26,13 +26,13 @@ def video_feed():
 def conected():
     test1.wait_conn()
     msg_attitude = str(test1.msg_attitude())
-    return render_template('conected.html', msg_attitude=msg_attitude)
+    return render_template('conected.html', attitude=msg_attitude)
 
 @app.route('/Arming')
 def arming():
-    test1.arm()
+    test1.force_arm()
     msg_attitude = str(test1.msg_attitude())
-    return render_template('arming.html', msg_attitude=msg_attitude)
+    return render_template('arming.html', attitude=msg_attitude)
 
 @app.route('/Disarm')
 def disarm():
