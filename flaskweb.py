@@ -25,7 +25,7 @@ def video_feed():
 @app.route('/thesis2.0/Connected')
 def conected():
     test1.wait_conn()
-    return render_template('index.html')
+    return render_template('conected.html')
 
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)
