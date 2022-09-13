@@ -1,4 +1,4 @@
-from flask import Flask,render_template, Response, request, send_from_directory
+from flask import Flask,render_template, Response, request, send_from_directory,redirect
 from camera import VideoCamera
 import os
 import itertools
