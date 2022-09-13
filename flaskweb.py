@@ -57,10 +57,12 @@ def stream_template(template_name, **context):
 
 @app.route('/test')
 def test():
+    msg_attitude = str(test1.msg_attitude())
     def g():
-        for i, c in enumerate("hello"*10):
-            time.sleep(.1)  # an artificial delay
-            yield i, c
+        while True:
+            msg_attitude = str(test1.msg_attitude())
+            time.sleep(.5)  # an artificial delay
+            yield msg_attitude
     return Response(stream_template('test.html', data=g()))
 
 if __name__ == '__main__':
