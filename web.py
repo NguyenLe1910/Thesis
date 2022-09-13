@@ -25,6 +25,10 @@ HOMEPAGE="""\
       <button type="submit" name="Connected" value="true"> Connect to USV </button>
    </form>
 </center>
+<body>
+<button type="button" onclick="myFunction()">Click Me!</button>
+</body>
+
 </html>
 """
 PAGEConnected="""\
