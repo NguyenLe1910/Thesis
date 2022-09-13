@@ -50,6 +50,6 @@ def connect(self):
 
 def main(self):
     wait_conn(self)
-
+    connect(self)
 a = 1
 main(a)
