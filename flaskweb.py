@@ -47,7 +47,7 @@ def disarm():
     render_template('conected.html', attitude=msg_attitude)
 
 @app.route('/test')
-def index():
+def test():
     if request.headers.get('accept') == 'text/event-stream':
         def events():
             for i, c in enumerate(itertools.cycle('\|/-')):
