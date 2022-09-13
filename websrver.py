@@ -105,6 +105,7 @@ class webHandler(server.BaseHTTPRequestHandler):
                 self.end_headers()
                 msg_attitude = str(test1.msg_attitude())
                 self.wfile.write(content.encode())
+                time.sleep(0.5)
 
         if self.path.find("Connected=true") != -1:
                 test1.wait_conn()
