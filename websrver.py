@@ -96,14 +96,16 @@ class webHandler(server.BaseHTTPRequestHandler):
             content += '<head><title>Thesis2.0 </title></head>'
             content += '<body><center><h1>Thesis - 2.0</h1></center><center><img src="stream.mjpg" width="640" height="480"></center></body>'
             content += '<br>'
-            content += msg_attitude
+            content += '<right>' 
+            content += msg_attitude 
+            content += '</right>'
             content += '<center> <form action="/thesis2.0/Connected"> <button type="submit" name="ForceArm" value="true"> Force Arm </button> </form> <center>'
             content += '</html>'
-            while True :
-                self.send_response(200)
-                self.send_header('Content-Type', 'text/html')
-                self.send_header('Content-Length', len(content))
-                self.end_headers()
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/html')
+            self.send_header('Content-Length', len(content))
+            self.end_headers()
+            while True :    
                 msg_attitude = str(test1.msg_attitude())
                 self.wfile.write(content.encode())
                 time.sleep(0.5)
