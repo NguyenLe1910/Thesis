@@ -22,6 +22,11 @@ def video_feed():
     return Response(gen(pi_camera),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.route('/sys_status')
+def video_feed():
+    return Response(str(test1.msg_attitude()),
+                    mimetype='multipart/x-mixed-replace; boundary=text')
+
 @app.route('/Connected')
 def conected():
     test1.wait_conn()

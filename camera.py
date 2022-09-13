@@ -12,7 +12,7 @@ class VideoCamera(object):
         self.flip = flip # Flip frame vertically
         self.file_type = file_type # image type i.e. .jpg
         self.photo_string = photo_string # Name to save the photo
-        time.sleep(2.0)
+        time.sleep(1.0)
 
     def __del__(self):
         self.vs.stop()

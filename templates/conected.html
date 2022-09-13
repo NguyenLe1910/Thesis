@@ -7,11 +7,11 @@
     <center>
     <h1>Raspberry Pi Live Video Feed</h1>
     <div class="main" id="newpost">
-      <img  class="camera-bg" style="width: 50%; height:50%; background-attachment: fixed;" id="bg" class="center" src="{{ url_for('video_feed') }}">   
+      <img  class="camera-bg" style="width: 30%; height:30%; background-attachment: fixed;" id="bg" class="center" src="{{ url_for('video_feed') }}">   
     </div>
     <p> THE VEHICLE IS CONNEDCTED <p>
     </center>
-    <h1>{{attitude}}</h1>
+    <h3>{{attitude}}</h1>
     <form action="/Arming">
         <button type="submit"> Force Arm </button>
     </form>
