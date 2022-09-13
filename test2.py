@@ -6,6 +6,7 @@ def wait_conn(self):
     """
     Sends a ping to stabilish the UDP communication and awaits for a response
     """
+    self = mavutil.mavlink_connection('/dev/serial0',baud=916200)
     msg = None
     while not msg:
         self.mav.ping_send(
@@ -47,11 +48,7 @@ def connect(self):
     print("Heartbeat from system (system %u component %u)" % (self.target_system, self.target_component))
     msg_attitude =  self.recv_match(type='ATTITUDE',blocking=True)
 
-def connecting(self):
-    self = mavutil.mavlink_connection('/dev/serial0',baud=916200)
+def main(self):
+    wait_conn(self)
 
-def main():
-    connecting()
-    wait_conn()
-
-main()
+main(self)
