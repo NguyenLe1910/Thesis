@@ -22,9 +22,14 @@ def video_feed():
     return Response(gen(pi_camera),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/thesis2.0/Connected')
+@app.route('/Connected')
 def conected():
     test1.wait_conn()
+    return render_template('conected.html')
+
+@app.route('/Arming')
+def conected():
+    test1.arm()
     return render_template('conected.html')
 
 if __name__ == '__main__':
