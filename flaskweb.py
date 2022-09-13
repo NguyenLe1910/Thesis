@@ -60,7 +60,7 @@ def test():
     def g():
         msg_attitude = test1.msg_attitude()
         text_attitude = str(msg_attitude)
-        while not msg_attitude :
+        while not text_attitude :
             msg_attitude = test1.msg_attitude()
             text_attitude = str(msg_attitude)
             time.sleep(.5)  # an artificial delay
