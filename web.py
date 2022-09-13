@@ -137,7 +137,7 @@ class webHandler(server.BaseHTTPRequestHandler):
             self.send_header('Content-Length', len(content))
             #do whatever you want
             self.end_headers()
-            self.wfile.write(content)
+            output2 = '<html><head><title>Thesis2.0 </title></head><body><center><h1>Thesis - 2.0</h1></center><center><img src="stream.mjpg" width="640" height="480"></center><center><big>THE VEHICLE IS ARMING</big></center></body><body><form action="/thesis2.0/Disarm"> <button type="submit" name="Disarm" value="true"> Disarm </button></form></body></html>'
         elif self.path.find('Disarm') > -1:
             content = PAGEConnected.encode('utf-8')
             self.send_response(200)
