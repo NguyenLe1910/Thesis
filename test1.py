@@ -3,8 +3,6 @@ import time
 from pymavlink import mavutil
 
 arm = 0
-master
-msg_attitude
 
 def wait_conn():
     """
