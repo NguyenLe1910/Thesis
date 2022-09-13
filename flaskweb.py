@@ -4,6 +4,7 @@ import os
 
 app = Flask(__name__)
 pi_camera = VideoCamera(flip=False)
+import test1
 
 @app.route('/', methods = ['GET'])
 def index():
@@ -21,6 +22,10 @@ def video_feed():
     return Response(gen(pi_camera),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.route('/thesis2.0/Connected')
+def conected():
+    test1.wait_conn()
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)
