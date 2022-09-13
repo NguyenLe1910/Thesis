@@ -1,7 +1,7 @@
 import time
 # Import mavutil
 from pymavlink import mavutil
-
+master
 def wait_conn(self):
     """
     Sends a ping to stabilish the UDP communication and awaits for a response
