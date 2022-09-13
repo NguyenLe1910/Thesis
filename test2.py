@@ -51,7 +51,7 @@ def connecting(self):
     self = mavutil.mavlink_connection('/dev/serial0',baud=916200)
 
 def main():
-    connecting(master)
-    wait_conn(master)
+    connecting()
+    wait_conn()
 
 main()
