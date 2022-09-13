@@ -3,6 +3,7 @@ from camera import VideoCamera
 import os
 
 app = Flask(__name__)
+pi_camera = VideoCamera(flip=False)
 
 @app.route('/', methods = ['GET'])
 def index():
