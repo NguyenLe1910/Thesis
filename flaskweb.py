@@ -59,10 +59,11 @@ def stream_template(template_name, **context):
 def test():
     msg_attitude = str(test1.msg_attitude())
     def g():
-        while True:
+        msg_attitude = str(test1.msg_attitude())
+        while not msg_attitude :
             msg_attitude = str(test1.msg_attitude())
             time.sleep(.5)  # an artificial delay
-            yield msg_attitude
+            return msg_attitude
     return Response(stream_template('test.html', data=g()))
 
 if __name__ == '__main__':
