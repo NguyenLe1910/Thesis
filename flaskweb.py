@@ -46,15 +46,22 @@ def disarm():
     msg_attitude = str(test1.msg_attitude())
     render_template('conected.html', attitude=msg_attitude)
 
+def stream_template(template_name, **context):
+    app.update_template_context(context)
+    t = app.jinja_env.get_template(template_name)
+    rv = t.stream(context)
+    # uncomment if you don't need immediate reaction
+    ##rv.enable_buffering(5)
+    return rv
+
+
 @app.route('/test')
-def test():
-    if request.headers.get('accept') == 'text/event-stream':
-        def events():
-            for i, c in enumerate(itertools.cycle('\|/-')):
-                yield "data: %s %d\n\n" % (c, i)
-                time.sleep(.1)  # an artificial delay
-        return Response(events(), content_type='text/event-stream')
-    return redirect(url_for('static', filename='test.html'))
+def index():
+    def g():
+        for i, c in enumerate("hello"*10):
+            time.sleep(.1)  # an artificial delay
+            yield i, c
+    return Response(stream_template('test.html', data=g()))
 
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)
