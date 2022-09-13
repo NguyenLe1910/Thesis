@@ -33,40 +33,6 @@ HOMEPAGE="""\
 
 </html>
 """
-PAGEConnected="""\
-<html>
-<head>
-<title>Thesis2.0 </title>
-</head>
-<body>
-<center><h1>Thesis - 2.0</h1></center>
-<center><img src="stream.mjpg" width="640" height="480"></center>
-<center><big> THE VEHICLE CONNECTED </big></center>
-</body>
-<body>
-   <form action="/thesis2.0/Arming">
-      <button type="submit" name="ForceArm" value="true"> ForceArm </button>
-   </form>
-</body>
-</html>
-"""
-PAGEArming="""\
-<html>
-<head>
-<title>Thesis2.0 </title>
-</head>
-<body>
-<center><h1>Thesis - 2.0</h1></center>
-<center><img src="stream.mjpg" width="640" height="480"></center>
-<center><big>THE VEHICLE IS ARMING</big></center>
-</body>
-<body>
-   <form action="/thesis2.0/Disarm">
-      <button type="submit" name="Disarm" value="true"> Disarm </button>
-   </form>
-</body>
-</html>
-"""
 class StreamingOutput(object):
     def __init__(self):
         self.frame = None
@@ -124,32 +90,21 @@ class webHandler(server.BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(content)
         elif self.path.find('Connected') > -1:
-            content = PAGEConnected.encode('utf-8')
+            content = '<html>'
+            content += '<head><title>Thesis2.0 </title></head>'
+            content += '<body><center><h1>Thesis - 2.0</h1></center><center><img src="stream.mjpg" width="640" height="480"></center></body>'
+            content += '<br>'
+            content += '<body><big> ATTITUDE: </big>'
+            content += test1.msg_attitude()
+            content += '</body>'
+            content += '<center> <form action="/thesis2.0/Connected"> <button type="submit" name="ForceArm" value="true"> Force Arm </button> </form> <center>'
+            content += '</html>'
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
             self.send_header('Content-Length', len(content))
             #do whatever you want
             self.end_headers()
-            self.wfile.write(content)
-        elif self.path.find('Arming') > -1:
-            content = PAGEArming.encode('utf-8')
-            self.send_response(200)
-            self.send_header('Content-Type', 'text/html')
-            self.send_header('Content-Length', len(content))
-            #do whatever you want
-            self.end_headers()
-            self.wfile.write(content)
-        elif self.path.find('Disarm') > -1:
-            content = PAGEConnected.encode('utf-8')
-            self.send_response(200)
-            self.send_header('Content-Type', 'text/html')
-            self.send_header('Content-Length', len(content))
-            #do whatever you want
-            self.end_headers()
-            self.wfile.write(content)
-        else:
-            self.send_error(404)
-            self.end_headers()
+            self.wfile.write(content.encode())
         
         if self.path.find("Connected=true") != -1:
                 test1.wait_conn()
