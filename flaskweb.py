@@ -23,7 +23,7 @@ def video_feed():
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/sys_status')
-def video_feed():
+def sys_status():
     return Response(str(test1.msg_attitude()),
                     mimetype='multipart/x-mixed-replace; boundary=text')
 
