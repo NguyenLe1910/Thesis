@@ -95,7 +95,7 @@ class webHandler(server.BaseHTTPRequestHandler):
             content += '<body><center><h1>Thesis - 2.0</h1></center><center><img src="stream.mjpg" width="640" height="480"></center></body>'
             content += '<br>'
             content += '<body><big> ATTITUDE: </big>'
-            content += test1.msg_attitude()
+            content += str(test1.msg_attitude())
             content += '</body>'
             content += '<center> <form action="/thesis2.0/Connected"> <button type="submit" name="ForceArm" value="true"> Force Arm </button> </form> <center>'
             content += '</html>'
