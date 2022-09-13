@@ -11,6 +11,7 @@ def wait_conn():
     """
     msg = None
     while not msg:
+        wait_conn = 0
         master.mav.ping_send(
             int(time.time() * 1e6), # Unix time in microseconds
             0, # Ping number
@@ -19,7 +20,8 @@ def wait_conn():
         )
         msg = master.recv_match()
         print('Try to connecting....')
-        time.sleep(0.5) 
+        time.sleep(0.5)
+    wait_conn = 1; 
     print('Connected')
 
 def force_arm():
