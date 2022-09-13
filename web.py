@@ -21,7 +21,7 @@ HOMEPAGE="""\
 </body>
 <center>
     <form action="/thesis2.0/Connected">
-      <button type="submit" name="Connected" value="true"> Force Arm </button>
+      <button type="submit" name="Connected" value="true"> Connect to USV </button>
    </form>
 </center>
 </html>
