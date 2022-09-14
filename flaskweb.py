@@ -60,15 +60,11 @@ def test():
     def g():
         msg_attitude = test1.msg_attitude()
         text_attitude = str(msg_attitude)
-        x = 0
-        y = str(x)
-        for i in y:
-            x = x+1
-            y += str(x)
+        for i in text_attitude:
             msg_attitude = test1.msg_attitude()
             text_attitude = str(msg_attitude)
             time.sleep(.5)  # an artificial delay
-            return i
+            return text_attitude
     return Response(stream_template('test.html', data=g()))
 
 if __name__ == '__main__':
