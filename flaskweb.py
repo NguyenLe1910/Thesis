@@ -57,13 +57,11 @@ def stream_template(template_name, **context):
 
 @app.route('/test')
 def test():
-    if request.headers.get('accept') == 'text/event-stream':
-        def events():
-            for i, c in enumerate(itertools.cycle('\|/-')):
-                yield "data: %s %d\n\n" % (c, i)
-                time.sleep(1)  # an artificial delay
-        return Response(events(), content_type='text/event-stream')
-    return redirect(url_for('static', filename='test.html'))
+    def g():
+        for i, c in enumerate("hello"*10):
+            time.sleep(.1)  # an artificial delay
+            yield i, c
+    return Response(stream_template('test.html', data=g()))
 
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)
