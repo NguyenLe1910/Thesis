@@ -18,22 +18,30 @@ def gen(camera):
         frame = camera.get_frame()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+               
+def stream_template(template_name, **context):
+    app.update_template_context(context)
+    t = app.jinja_env.get_template(template_name)
+    rv = t.stream(context)
+    # uncomment if you don't need immediate reaction
+    ##rv.enable_buffering(5)
+    return rv
 
 @app.route('/video_feed')
 def video_feed():
     return Response(gen(pi_camera),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/sys_status')
-def sys_status():
-    return Response(str(test1.msg_attitude()),
-                    mimetype='multipart/x-mixed-replace; boundary=text')
-
 @app.route('/Connected')
 def conected():
     test1.wait_conn()
-    msg_attitude = str(test1.msg_attitude())
-    return render_template('conected.html', attitude=msg_attitude)
+    def g():
+        attitude = str(test1.msg_attitude())
+        while True :
+            attitude = str(test1.msg_attitude())
+            time.sleep(.2)  # an artificial delay
+            yield attitude
+    return Response(stream_template('conected.html', data=g()))
 
 @app.route('/Arming')
 def arming():
@@ -46,24 +54,6 @@ def disarm():
     msg_attitude = str(test1.msg_attitude())
     render_template('conected.html', attitude=msg_attitude)
 
-def stream_template(template_name, **context):
-    app.update_template_context(context)
-    t = app.jinja_env.get_template(template_name)
-    rv = t.stream(context)
-    # uncomment if you don't need immediate reaction
-    ##rv.enable_buffering(5)
-    return rv
-
-
-@app.route('/test')
-def test():
-    def g():
-        attitude = str(test1.msg_attitude())
-        for a in attitude:
-            attitude = str(test1.msg_attitude())
-            time.sleep(.01)  # an artificial delay
-            yield attitude
-    return Response(stream_template('test.html', data=g()))
 
 @app.route('/testxxx')
 def testxxx():

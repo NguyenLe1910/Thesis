@@ -11,7 +11,12 @@
     </div>
     <p> THE VEHICLE IS CONNEDCTED <p>
     </center>
-    <h3>{{attitude}}</h1>
+    <div id="data">nothing received yet</div>
+    {% for attitude in data: %}
+    <script>
+    $("#data").text("{{ attitude }}")
+    </script>
+    {% endfor %}
     <form action="/Arming">
         <button type="submit"> Force Arm </button>
     </form>
