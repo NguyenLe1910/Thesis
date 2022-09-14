@@ -7,8 +7,8 @@
 </style>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <div id="data">nothing received yet</div>
-{% for i, c in data: %}
+{% for a in data: %}
 <script>
-  $("#data").text("{{ i }} {{ c }}")
+  $("#data").text("{{ a }}")
 </script>
 {% endfor %}

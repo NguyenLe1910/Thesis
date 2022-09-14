@@ -59,10 +59,10 @@ def stream_template(template_name, **context):
 def test():
     def g():
         attitude = str(test1.msg_attitude())
-        for i, c in attitude:
+        for a in attitude:
             attitude = str(test1.msg_attitude())
             time.sleep(.2)  # an artificial delay
-            yield i, c
+            yield a
     return Response(stream_template('test.html', data=g()))
 
 if __name__ == '__main__':
