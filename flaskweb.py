@@ -1,4 +1,4 @@
-from flask import Flask,render_template, Response, request, send_from_directory,redirect, url_for
+from flask import Flask,render_template, Response, request, send_from_directory,redirect, url_for,stream_with_context
 from camera import VideoCamera
 import os
 import itertools
@@ -63,6 +63,14 @@ def sys_status_stream():
             time.sleep(.01)  # an artificial delay
             yield attitude
     return Response(stream_template('sys_status_stream.html', data=g()))
+
+@app.route('/stream')
+def streamed_response():
+    def generate():
+        yield 'Hello '
+        yield request.args['name']
+        yield '!'
+    return app.response_class(stream_with_context(generate()))
 
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)
