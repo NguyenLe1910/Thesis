@@ -27,14 +27,7 @@ def video_feed():
 @app.route('/Connected')
 def conected():
     test1.wait_conn()
-    def g():
-        attitude = str(test1.msg_attitude())
-        while True :
-            attitude = str(test1.msg_attitude())
-            time.sleep(.01)  # an artificial delay
-            yield attitude
-    render_template('conected.html')
-    return Response(stream_template('conected.html', data=g()))
+    return render_template('connected.html')
 
 @app.route('/Arming')
 def arming():

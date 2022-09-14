@@ -14,14 +14,9 @@
     <div class="main" id="newpost">
       <img  class="camera-bg" style="width: 30%; height:30%; background-attachment: fixed;" id="bg" class="center" src="{{ url_for('video_feed') }}">   
     </div>
-    <p> THE VEHICLE IS CONNEDCTED <p>
+    <p> THE VEHICLE IS CONNEDCTED </p>
     </center>
-    <div id="data">nothing received yet</div>
-    {% for attitude in data: %}
-    <script>
-    $("#data").text("{{ attitude }}")
-    </script>
-    {% endfor %}
+    <p  id= sys_status src="{{ url_for('sys_status_streaming') }}">   
     <form action="/Arming">
         <button type="submit"> Force Arm </button>
     </form>
