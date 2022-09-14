@@ -61,7 +61,7 @@ def test():
         attitude = str(test1.msg_attitude())
         for i, c in enumerate("hello"*10):
             attitude = str(test1.msg_attitude())
-            time.sleep(.1)  # an artificial delay
+            time.sleep(1)  # an artificial delay
             yield i, c
     return Response(stream_template('test.html', data=g()))
 
