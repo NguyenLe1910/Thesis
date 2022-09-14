@@ -41,7 +41,7 @@ def disarm():
     render_template('conected.html', attitude=msg_attitude)
 
 @app.route('/xxx')
-def video_feed():
+def xxx():
     def g():
         attitude = str(test1.msg_attitude())
         while True :
