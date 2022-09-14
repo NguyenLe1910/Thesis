@@ -33,7 +33,7 @@ def conected():
             attitude = str(test1.msg_attitude())
             time.sleep(.01)  # an artificial delay
             yield attitude
-    return render_template(stream_template('conected.html', data=g()))
+    return render_template(stream_template('conected.html', attitude = app.update_template_context(g())))
 
 @app.route('/Arming')
 def arming():
@@ -63,14 +63,6 @@ def sys_status_stream():
             time.sleep(.01)  # an artificial delay
             yield attitude
     return Response(stream_template('sys_status_stream.html', data=g()))
-
-@app.route('/stream')
-def streamed_response():
-    def generate():
-        yield 'Hello '
-        yield request.args['name']
-        yield '!'
-    return app.response_class(stream_with_context(generate()))
 
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)
