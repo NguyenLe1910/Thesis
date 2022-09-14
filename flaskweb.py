@@ -48,7 +48,8 @@ def xxx():
             attitude = str(test1.msg_attitude())
             time.sleep(.01)  # an artificial delay
             yield attitude
-    return Response(stream_template('xxx.html', data=g()))
+    return Response(stream_template('xxx.html', data=g()),gen(pi_camera),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 
