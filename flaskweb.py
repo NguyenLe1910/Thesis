@@ -33,7 +33,8 @@ def conected():
             attitude = str(test1.msg_attitude())
             time.sleep(.01)  # an artificial delay
             yield attitude
-    return render_template('conected.html'),Response(stream_template('conected.html', data=g()))
+    render_template('conected.html')
+    return Response(stream_template('conected.html', data=g()))
 
 @app.route('/Arming')
 def arming():
