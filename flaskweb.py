@@ -62,7 +62,7 @@ def test():
         for a in attitude:
             attitude = str(test1.msg_attitude())
             time.sleep(.2)  # an artificial delay
-            yield a
+            yield attitude
     return Response(stream_template('test.html', data=g()))
 
 if __name__ == '__main__':

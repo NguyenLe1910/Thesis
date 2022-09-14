@@ -7,8 +7,8 @@
 </style>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <div id="data">nothing received yet</div>
-{% for a in data: %}
+{% for attitude in data: %}
 <script>
-  $("#data").text("{{ a }}")
+  $("#data").text("{{ attitude }}")
 </script>
 {% endfor %}
