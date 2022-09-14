@@ -18,7 +18,7 @@ def gen(camera):
         frame = camera.get_frame()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-               
+
 def stream_template(template_name, **context):
     app.update_template_context(context)
     t = app.jinja_env.get_template(template_name)
@@ -64,5 +64,6 @@ def testxxx():
             time.sleep(.01)  # an artificial delay
             yield attitude
     return Response(stream_template('test.html', data=g()))
+    
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)
