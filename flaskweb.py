@@ -64,9 +64,9 @@ def test():
             time.sleep(.01)  # an artificial delay
             yield attitude
     return Response(stream_template('test.html', data=g()))
-    
+
 @app.route('/testxxx')
-def test():
+def testxxx():
     def g():
         attitude = str(test1.msg_attitude())
         while True :
