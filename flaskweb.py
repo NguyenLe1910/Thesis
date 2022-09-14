@@ -62,7 +62,7 @@ def test():
         text_attitude = str(msg_attitude)
         x = 0
         y = str(x)
-        for i in x:
+        for i in y:
             x = x+1
             y += str(x)
             msg_attitude = test1.msg_attitude()
