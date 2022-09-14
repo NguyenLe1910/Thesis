@@ -64,6 +64,15 @@ def test():
             time.sleep(.01)  # an artificial delay
             yield attitude
     return Response(stream_template('test.html', data=g()))
-
+    
+@app.route('/testxxx')
+def test():
+    def g():
+        attitude = str(test1.msg_attitude())
+        while True :
+            attitude = str(test1.msg_attitude())
+            time.sleep(.01)  # an artificial delay
+            yield attitude
+    return Response(stream_template('test.html', data=g()))
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)
