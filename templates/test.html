@@ -6,8 +6,8 @@
   }
 </style>
 <div id="data">nothing received yet</div>
-{% for text_attitude in data: %}
+{% for i in data: %}
 <script>
-  $("#data").text("{{ text_attitude }}")
+  $("#data").text("{{ i }}")
 </script>
 {% endfor %}
