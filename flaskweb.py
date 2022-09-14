@@ -61,7 +61,7 @@ def test():
         attitude = str(test1.msg_attitude())
         for a in attitude:
             attitude = str(test1.msg_attitude())
-            time.sleep(.2)  # an artificial delay
+            time.sleep(.01)  # an artificial delay
             yield attitude
     return Response(stream_template('test.html', data=g()))
 
