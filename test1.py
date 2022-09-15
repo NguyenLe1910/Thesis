@@ -81,5 +81,5 @@ def take_roll_pitch_yaw():
     print(pitch)
     print(yaw)
 
-print(take_roll_pitch_yaw.rool)
+print(take_roll_pitch_yaw.roll)
 
