@@ -19,6 +19,25 @@ def gen(camera):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
+def testing1(camera):
+        while True :
+            frame = camera.get_frame()
+            attitude = str(test1.msg_attitude())
+            roll_position=attitude.find('roll')
+            pitch_position=attitude.find('pitch')
+            yaw_position=attitude.find('yaw')
+            rollspeed_position=attitude.find('rollspeed')
+
+            roll = float(attitude[roll_position+7:pitch_position-2])
+            pitch = float(attitude[pitch_position+8:yaw_position-2])
+            yaw = float(attitude[yaw_position+6:rollspeed_position-2])
+            yield roll,pitch,yaw,(b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
+@app.route('/testing1')
+def testing():
+    return Response(stream_template('testing1.html', data=g(testing1)),mimetype='multipart/x-mixed-replace; boundary=frame')
+
 @app.route('/video_feed')
 def video_feed():
     return Response(gen(pi_camera),

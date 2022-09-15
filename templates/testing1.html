@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My thesis</title>
+    <style>
+        #data {
+          text-align: center;
+        }
+      </style>
+  </head>
+  <body>
+    <center>
+    <h1>My Ground Control Station</h1>
+    <div class="main" id="newpost">
+      <img  class="camera-bg" style="width: 30%; height:30%; background-attachment: fixed;" id="bg" class="center" src="{{ url_for('video_feed') }}">   
+    </div>
+    <p> THE VEHICLE IS CONNEDCTED </p>
+    </center>
+    {% for roll,pitch,yaw in data: %}
+    <script>
+     $("#data").text("{{ roll }},{{ pitch }},{{ yaw }}")
+    </script> 
+    <form action="/Arming">
+        <button type="submit"> Force Arm </button>
+    </form>
+  </body>
+</html>
