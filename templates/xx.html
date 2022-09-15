@@ -42,7 +42,7 @@
                                     host = "ws://192.168.63.12:8000/";
                             try{
                             socket = new WebSocket(host);
-    
+                                    
                             window.onbeforeunload = function(){ socket.close(); socket2.close(); }
                             //log('WebSocket - status '+socket.readyState);
                             socket.onopen    = function(msg){ document.getElementById("serverStatus").innerHTML = "onopen"; jsoncount=0; };
@@ -466,7 +466,7 @@
                     &lt;canvas&gt; feature.
                 </p>
             </canvas><br>
-            <div class="main" id="newpost">
+            <div>
                 <img  class="camera-bg" style="width: 100%; height:80%; background-attachment: fixed;" id="bg" class="center" src="{{ url_for('video_feed') }}">   
               </div>
             <div id="serverStatus" style="width: 500px; overflow-y: auto; flex-grow: 0;"></div>
