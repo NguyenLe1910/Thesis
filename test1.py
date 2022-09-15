@@ -74,7 +74,7 @@ def take_roll_pitch_yaw():
     yaw_position=attitude.find('yaw')
     rollspeed_position=attitude.find('rollspeed')
 
-    yaw = float(attitude[roll_position+7:pitch_position-2])
+    roll = float(attitude[roll_position+7:pitch_position-2])
     pitch = float(attitude[pitch_position+8:yaw_position-2])
     yaw = float(attitude[yaw_position+6:rollspeed_position-2])
 
