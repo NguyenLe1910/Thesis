@@ -66,7 +66,7 @@ def setmode(mode):
 def msg_attitude():
     return master.recv_match(type='ATTITUDE',blocking=True)
 
-sys_status_list = json.loads(msg_attitude())
+sys_status_list = json.loads(type(msg_attitude()))
 print(sys_status_list)
 
 
