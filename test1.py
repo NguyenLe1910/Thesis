@@ -67,6 +67,7 @@ def msg_attitude():
     return master.recv_match(type='ATTITUDE',blocking=True)
 
 attitude = str(msg_attitude())
+print(attitude)
 print(attitude.find('roll'))
 
 
