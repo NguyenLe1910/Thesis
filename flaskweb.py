@@ -76,9 +76,8 @@ def sys_status_stream():
             yield roll,pitch,yaw
     return Response(stream_template('sys_status_stream.html', data=g()))
 
-
-@app.route('/stream_template_test')
-def stream_template_test1():
+@app.route('/testing1')
+def testing1():
     def g():
         while True :
             attitude = str(test1.msg_attitude())
