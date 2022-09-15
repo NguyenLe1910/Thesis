@@ -16,11 +16,6 @@
     </div>
     <p> THE VEHICLE IS CONNEDCTED </p>
     </center>
-    {% for roll,pitch,yaw in data: %}
-    <script>
-     $("#data").text("{{ roll }},{{ pitch }},{{ yaw }}")
-    </script> 
-     {% endfor %}
     <form action="/Arming">
         <button type="submit"> Force Arm </button>
     </form>
