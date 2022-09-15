@@ -48,7 +48,7 @@ def xx():
             attitude = str(test1.msg_attitude())
             time.sleep(.01)  # an artificial delay
             yield attitude
-    return Response(stream_template('xxx.html', data=g()))
+    return Response(stream_template('xx.html', data=g()))
 
 
 def stream_template(template_name, **context):
