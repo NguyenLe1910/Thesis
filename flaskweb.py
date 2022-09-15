@@ -36,7 +36,7 @@ def testing1(camera):
 
 @app.route('/testing1')
 def testing():
-    return Response(stream_template('testing1.html', data=g(testing1)),mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(stream_template('testing1.html', data=testing1(pi_camera)),mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/video_feed')
 def video_feed():
