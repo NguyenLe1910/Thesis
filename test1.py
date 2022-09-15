@@ -77,5 +77,9 @@ def take_roll_pitch_yaw():
     roll = float(attitude[roll_position+7:pitch_position-2])
     pitch = float(attitude[pitch_position+8:yaw_position-2])
     yaw = float(attitude[yaw_position+6:rollspeed_position-2])
+    print(roll)
+    print(pitch)
+    print(yaw)
 
+take_roll_pitch_yaw()
 
