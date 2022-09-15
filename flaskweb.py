@@ -65,6 +65,7 @@ def sys_status_stream():
         attitude = str(test1.msg_attitude())
         while True :
             attitude = str(test1.msg_attitude())
+            attitude.find(roll)
             print (test1.msg_attitude())
             time.sleep(.01)  # an artificial delay
             yield attitude
