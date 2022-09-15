@@ -62,11 +62,14 @@ def stream_template(template_name, **context):
 @app.route('/sys_status_stream')
 def sys_status_stream():
     def g():
+        roll  = str(test1.take_roll_pitch_yaw.roll)
+        pitch = str(test1.take_roll_pitch_yaw.pitch)
+        yaw   = str(test1.take_roll_pitch_yaw.yaw)
         while True :
             roll  = str(test1.take_roll_pitch_yaw.roll)
             pitch = str(test1.take_roll_pitch_yaw.pitch)
             yaw   = str(test1.take_roll_pitch_yaw.yaw)
-            time.sleep(.01) 
+            time.sleep(.01)
             yield roll,pitch,yaw
     return Response(stream_template('sys_status_stream.html', data=g()))
 
