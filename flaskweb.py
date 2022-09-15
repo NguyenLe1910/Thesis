@@ -63,7 +63,7 @@ def stream_template(template_name, **context):
 def sys_status_stream():
     def g():
         while True :
-            msg_attitude()
+            test1.msg_attitude()
             roll  = str(test1.take_roll_pitch_yaw.roll)
             pitch = str(test1.take_roll_pitch_yaw.pitch)
             yaw   = str(test1.take_roll_pitch_yaw.yaw)
