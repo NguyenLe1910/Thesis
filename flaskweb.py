@@ -19,25 +19,6 @@ def gen(camera):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
-def testing1(camera):
-        while True :
-            frame = camera.get_frame()
-            attitude = str(test1.msg_attitude())
-            roll_position=attitude.find('roll')
-            pitch_position=attitude.find('pitch')
-            yaw_position=attitude.find('yaw')
-            rollspeed_position=attitude.find('rollspeed')
-
-            roll = float(attitude[roll_position+7:pitch_position-2])
-            pitch = float(attitude[pitch_position+8:yaw_position-2])
-            yaw = float(attitude[yaw_position+6:rollspeed_position-2])
-            yield roll,pitch,yaw,(b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-
-@app.route('/testing1')
-def testing():
-    return Response(stream_template('testing1.html', data=testing1(pi_camera)),mimetype='multipart/x-mixed-replace; boundary=frame')
-
 @app.route('/video_feed')
 def video_feed():
     return Response(gen(pi_camera),
@@ -69,6 +50,29 @@ def xx():
             yield attitude
     return Response(stream_template('xx.html', data=g()))
 
+
+def stream_template_test(**context):
+    app.update_template_context(context)
+    rv = t.stream(context)
+    # uncomment if you don't need immediate reaction
+    ##rv.enable_buffering(5)
+    return rv
+    
+@app.route('/stream_template_test')
+def stream_template_test1():
+    def g():
+        while True :
+            attitude = str(test1.msg_attitude())
+            roll_position=attitude.find('roll')
+            pitch_position=attitude.find('pitch')
+            yaw_position=attitude.find('yaw')
+            rollspeed_position=attitude.find('rollspeed')
+
+            roll = float(attitude[roll_position+7:pitch_position-2])
+            pitch = float(attitude[pitch_position+8:yaw_position-2])
+            yaw = float(attitude[yaw_position+6:rollspeed_position-2])
+            yield roll,pitch,yaw
+    return Response(stream_template_test(data=g()))
 
 def stream_template(template_name, **context):
     app.update_template_context(context)
