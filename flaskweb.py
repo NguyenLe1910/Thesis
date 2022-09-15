@@ -1,4 +1,4 @@
-from flask import Flask,render_template, Response, request, send_from_directory,redirect, url_for,stream_with_context
+from flask import Flask,render_template, Response, request, send_from_directory,redirect, url_for,stream_with_context,jsonify
 from camera import VideoCamera
 import os
 import itertools
@@ -19,20 +19,24 @@ def gen(camera):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
-def stream_template(template_name, **context):
-    app.update_template_context(context)
-    t = app.jinja_env.get_template(template_name)
-    rv = t.stream(context)
-    # uncomment if you don't need immediate reaction
-    ##rv.enable_buffering(5)
-    return rv
-
 
 @app.route('/video_feed')
 def video_feed():
     return Response(gen(pi_camera),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
+
+@app.route('/process', methods=['POST'])
+def process():
+    data = request.get_json()
+    print(data)
+    return jsonify(message='Success', stickdata=data)
+
+def stream_template(template_name, **context):
+    app.update_template_context(context)
+    t = app.jinja_env.get_template(template_name)
+    rv = t.stream(context)
+    return rv
 
 @app.route('/Connected')
 def conected():
