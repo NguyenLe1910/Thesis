@@ -7,7 +7,6 @@
           text-align: center;
         }
       </style>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
   </head>
   <body>
     <center>
@@ -17,15 +16,14 @@
     </div>
     <p> THE VEHICLE IS CONNEDCTED </p>
     </center>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     {% for roll,pitch,yaw in data: %}
     <script>
      $("#data").text("{{ roll }},{{ pitch }},{{ yaw }}")
     </script> 
-    <h1>This is a xxxx</h1> 
      {% endfor %}
     <form action="/Arming">
         <button type="submit"> Force Arm </button>
     </form>
-
   </body>
 </html>

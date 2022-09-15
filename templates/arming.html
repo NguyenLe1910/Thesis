@@ -11,6 +11,12 @@
     </div>
     <p> THE VEHICLE IS CONNEDCTED <p>
     </center>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    {% for roll,pitch,yaw in data: %}
+    <script>
+        $("#data").text("{{ roll }},{{ pitch }},{{ yaw }}")
+    </script>
+    {% endfor %}
     <form action="/Disarm">
         <button type="submit"> Disarm </button>
     </form>
