@@ -63,11 +63,15 @@ def stream_template(template_name, **context):
 def sys_status_stream():
     def g():
         while True :
-            test1.msg_attitude()
-            roll  = str(test1.take_roll_pitch_yaw.roll)
-            pitch = str(test1.take_roll_pitch_yaw.pitch)
-            yaw   = str(test1.take_roll_pitch_yaw.yaw)
-            time.sleep(.01)
+            attitude = str(test1.msg_attitude())
+            roll_position=attitude.find('roll')
+            pitch_position=attitude.find('pitch')
+            yaw_position=attitude.find('yaw')
+            rollspeed_position=attitude.find('rollspeed')
+
+            roll = float(attitude[roll_position+7:pitch_position-2])
+            pitch = float(attitude[pitch_position+8:yaw_position-2])
+            yaw = float(attitude[yaw_position+6:rollspeed_position-2])
             yield roll,pitch,yaw
     return Response(stream_template('sys_status_stream.html', data=g()))
 
