@@ -57,11 +57,12 @@ def stream_template_test(**context):
     # uncomment if you don't need immediate reaction
     ##rv.enable_buffering(5)
     return rv
-    
+
 @app.route('/stream_template_test')
 def stream_template_test1():
     def g():
         while True :
+            frame = camera.get_frame()
             attitude = str(test1.msg_attitude())
             roll_position=attitude.find('roll')
             pitch_position=attitude.find('pitch')
@@ -71,16 +72,10 @@ def stream_template_test1():
             roll = float(attitude[roll_position+7:pitch_position-2])
             pitch = float(attitude[pitch_position+8:yaw_position-2])
             yaw = float(attitude[yaw_position+6:rollspeed_position-2])
-            yield roll,pitch,yaw
-    return Response(stream_template_test(data=g()))
-
-def stream_template(template_name, **context):
-    app.update_template_context(context)
-    t = app.jinja_env.get_template(template_name)
-    rv = t.stream(context)
-    # uncomment if you don't need immediate reaction
-    ##rv.enable_buffering(5)
-    return rv
+            yield roll,pitch,yaw,(b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+    return Response(gen(pi_camera),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/sys_status_stream')
 def sys_status_stream():
