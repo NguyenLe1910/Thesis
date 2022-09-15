@@ -68,7 +68,16 @@ def msg_attitude():
 
 attitude = str(msg_attitude())
 print(attitude)
-print(attitude.find('roll'))
+roll_position=attitude.find('roll')
+pitch_position=attitude.find('pitch')
+yaw_position=attitude.find('yaw')
+rollspeed_position=attitude.find('rollspeed')
+
+
+print(attitude[roll_position+7:pitch_position-2])
+print(attitude[pitch_position+8:yaw_position-2])
+print(attitude[yaw_position+6:rollspeed_position-2])
+
 
 
 
