@@ -65,34 +65,3 @@ def setmode(mode):
 
 def msg_attitude():
     return master.recv_match(type='ATTITUDE',blocking=True)
-
-class take_roll_pitch_yaw():
-    attitude = str(msg_attitude())
-    roll_position=attitude.find('roll')
-    pitch_position=attitude.find('pitch')
-    yaw_position=attitude.find('yaw')
-    rollspeed_position=attitude.find('rollspeed')
-
-    roll = float(attitude[roll_position+7:pitch_position-2])
-    pitch = float(attitude[pitch_position+8:yaw_position-2])
-    yaw = float(attitude[yaw_position+6:rollspeed_position-2])
-    print(roll)
-    print(pitch)
-    print(yaw)
-
-def take_roll():
-    attitude = str(msg_attitude())
-    roll_position=attitude.find('roll')
-    pitch_position=attitude.find('pitch')
-    return float(attitude[roll_position+7:pitch_position-2])
-def take_pitch():
-    attitude = str(msg_attitude())
-    pitch_position=attitude.find('pitch')
-    yaw_position=attitude.find('yaw')
-    return float(attitude[pitch_position+8:yaw_position-2])
-def take_yaw():
-    attitude = str(msg_attitude())
-    yaw_position=attitude.find('yaw')
-    rollspeed_position=attitude.find('rollspeed')
-    return float(attitude[yaw_position+6:rollspeed_position-2])
-
