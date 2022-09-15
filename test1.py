@@ -68,7 +68,6 @@ def msg_attitude():
 
 class take_roll_pitch_yaw():
     attitude = str(msg_attitude())
-    print(attitude)
     roll_position=attitude.find('roll')
     pitch_position=attitude.find('pitch')
     yaw_position=attitude.find('yaw')
