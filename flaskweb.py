@@ -91,7 +91,7 @@ def stream_template_test1():
             pitch = float(attitude[pitch_position+8:yaw_position-2])
             yaw = float(attitude[yaw_position+6:rollspeed_position-2])
             yield roll,pitch,yaw
-    return Response(stream_template_test('testing1.html', data=g()))
+    return Response(stream_template('testing1.html', data=g()))
 
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)
