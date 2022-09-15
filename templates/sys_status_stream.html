@@ -7,8 +7,8 @@
 </style>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <div id="data">nothing received yet</div>
-{% for attitude in data: %}
+{% for roll,pitch,yaw in data: %}
 <script>
-  $("#data").text("{{ attitude }}")
+  $("#data").text("{{ rool }},{{ pitch }},{{ yaw }}")
 </script>
 {% endfor %}

@@ -62,13 +62,12 @@ def stream_template(template_name, **context):
 @app.route('/sys_status_stream')
 def sys_status_stream():
     def g():
-        attitude = str(test1.msg_attitude())
         while True :
-            attitude = str(test1.msg_attitude())
-            attitude.find(roll)
-            print (test1.msg_attitude())
-            time.sleep(.01)  # an artificial delay
-            yield attitude
+            roll  = test1.take_roll_pitch_yaw.roll
+            pitch = test1.take_roll_pitch_yaw.pitch
+            yaw   = test1.take_roll_pitch_yaw.yaw
+            time.sleep(.01) 
+            yield roll,pitch,yaw
     return Response(stream_template('sys_status_stream.html', data=g()))
 
 if __name__ == '__main__':
