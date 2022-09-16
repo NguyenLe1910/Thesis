@@ -83,4 +83,4 @@ def set_rc_channel_pwm(channel_id, pwm=1500):
 def msg_attitude():
     return master.recv_match(type='ATTITUDE',blocking=True)
 
-print(master.recv_match(type='GPS_GLOBAL_ORIGIN ',blocking=True))
+print(master.recv_match(type='GPS_FIX_TYPE ',blocking=True))
