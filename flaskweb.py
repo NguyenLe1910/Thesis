@@ -19,6 +19,23 @@ def gen(camera):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
+def sys_status_stream():
+        while True :
+            attitude = str(test1.msg_attitude())            
+            roll_position=attitude.find('roll')
+            pitch_position=attitude.find('pitch')
+            yaw_position=attitude.find('yaw')
+            rollspeed_position=attitude.find('rollspeed')
+
+            roll = float(attitude[roll_position+7:pitch_position-2])
+            pitch = float(attitude[pitch_position+8:yaw_position-2])
+            yaw = float(attitude[yaw_position+6:rollspeed_position-2])
+
+            GPS = str(test1.msg_GPS_RAW())
+            fix_type_position = GPS.find('fix_type')
+            fix_type = float(GPS[fix_type_position+11:fix_type_position-13])
+            
+            yield roll,pitch,yaw,fix_type
 
 @app.route('/video_feed')
 def video_feed():
@@ -90,19 +107,7 @@ def disarm():
 
 @app.route('/sys_status_stream')
 def sys_status_stream():
-    def g():
-        while True :
-            attitude = str(test1.msg_attitude())
-            roll_position=attitude.find('roll')
-            pitch_position=attitude.find('pitch')
-            yaw_position=attitude.find('yaw')
-            rollspeed_position=attitude.find('rollspeed')
-
-            roll = float(attitude[roll_position+7:pitch_position-2])
-            pitch = float(attitude[pitch_position+8:yaw_position-2])
-            yaw = float(attitude[yaw_position+6:rollspeed_position-2])
-            yield roll,pitch,yaw
-    return Response(stream_template('sys_status_stream.html', data=g()))
+    return Response(stream_template('sys_status_stream.html', data=sys_status_stream()))
 
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)
