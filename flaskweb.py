@@ -32,6 +32,10 @@ def process():
     print(data)
     return jsonify(message='Success', stickdata=data)
 
+@app.route('/joystick', methods=['POST'])
+def joystick():
+    return render_template('test-joystick2.html')
+
 def stream_template(template_name, **context):
     app.update_template_context(context)
     t = app.jinja_env.get_template(template_name)
