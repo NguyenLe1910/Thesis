@@ -34,8 +34,8 @@ def sys_status_needed():
             GPS = str(test1.msg_GPS_RAW())
             fix_type_position = GPS.find('fix_type')
             print(fix_type_position)
-            print(GPS[fix_type_position+12])
-            fix_type = int(GPS[fix_type_position+12])
+            print(GPS[fix_type_position+11])
+            fix_type = int(GPS[fix_type_position+11])
             
             yield roll,pitch,yaw,fix_type
 
