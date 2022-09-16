@@ -19,7 +19,7 @@ def gen(camera):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
-def sys_status_stream():
+def sys_status_needed():
         while True :
             attitude = str(test1.msg_attitude())            
             roll_position=attitude.find('roll')
@@ -107,7 +107,7 @@ def disarm():
 
 @app.route('/sys_status_stream')
 def sys_status_stream():
-    return Response(stream_template('sys_status_stream.html', data=sys_status_stream()))
+    return Response(stream_template('sys_status_stream.html', data=sys_status_needed()))
 
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)
