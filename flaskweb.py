@@ -32,7 +32,7 @@ def process():
     print(data)
     return jsonify(message='Success', stickdata=data)
 
-@app.route('/joystick', methods=['POST'])
+@app.route('/joystick')
 def joystick():
     return render_template('test-joystick2.html')
 
