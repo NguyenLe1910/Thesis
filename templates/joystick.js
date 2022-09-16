@@ -9,7 +9,7 @@ window.addEventListener('gamepaddisconnected', event => {
     console.log(event.gamepad)
 })
 
-const gamepadDisplay = document.getElementsById('gamepad-display')
+const gamepadDisplay = document.getElementById("gamepad-display")
 
 function update(){
     const gamepads = navigator.getGamepads()
@@ -24,12 +24,12 @@ function update(){
             ],
             buttons :[
                 {button_0: gamepads[0].buttons[0].pressed},
-                {button_0: gamepads[0].buttons[1].pressed},
-                {button_0: gamepads[0].buttons[2].pressed},
-                {button_0: gamepads[0].buttons[3].pressed},
-                {button_0: gamepads[0].buttons[4].pressed},
-                {button_0: gamepads[0].buttons[5].pressed},
-                {button_0: gamepads[0].buttons[6].pressed},
+                {button_1: gamepads[0].buttons[1].pressed},
+                {button_2: gamepads[0].buttons[2].pressed},
+                {button_3: gamepads[0].buttons[3].pressed},
+                {button_4: gamepads[0].buttons[4].pressed},
+                {button_5: gamepads[0].buttons[5].pressed},
+                {button_6: gamepads[0].buttons[6].pressed},
             ],
         }
         gamepadDisplay.textContent = JSON.stringify(gamepadState, null, 2)
