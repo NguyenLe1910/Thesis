@@ -26,15 +26,9 @@ def video_feed():
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
-@app.route('/process', methods=['POST'])
-def process():
-    data = request.get_json()
-    print(data)
-    return jsonify(message='Success', stickdata=data)
-
 @app.route('/joystick')
 def joystick():
-    return render_template('test-joystick2.html')
+    return render_template('joystick.html')
 
 def stream_template(template_name, **context):
     app.update_template_context(context)
