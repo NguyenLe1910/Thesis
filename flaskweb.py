@@ -33,11 +33,16 @@ def sys_status_needed():
 
             GPS = str(test1.msg_GPS_RAW())
             fix_type_position = GPS.find('fix_type')
-            print(fix_type_position)
-            print(GPS[fix_type_position+11])
             fix_type = int(GPS[fix_type_position+11])
-            
-            yield roll,pitch,yaw,fix_type
+
+            if 0< fix_type< 2:
+                yield roll,pitch,yaw,fix_type
+            else:
+                latitude_position = GPS.find('lat')
+                lontitude_position = GPS.find('lon')
+                altitude_position = GPS.find('alt')
+                Latitude = int(GPS[fix_type_position+11])
+                yield roll,pitch,yaw,fix_type
 
 @app.route('/video_feed')
 def video_feed():
@@ -57,54 +62,20 @@ def stream_template(template_name, **context):
 
 @app.route('/Connected')
 def conected():
-    def g():
-        while True :
-            attitude = str(test1.msg_attitude())
-            roll_position=attitude.find('roll')
-            pitch_position=attitude.find('pitch')
-            yaw_position=attitude.find('yaw')
-            rollspeed_position=attitude.find('rollspeed')
-
-            roll = float(attitude[roll_position+7:pitch_position-2])
-            pitch = float(attitude[pitch_position+8:yaw_position-2])
-            yaw = float(attitude[yaw_position+6:rollspeed_position-2])
-            yield roll,pitch,yaw
-    return Response(stream_template('connected.html', data=g()))
+    return Response(stream_template('connected.html', data=sys_status_needed()))
 
 
 @app.route('/Arming')
 def arming():
-    #test1.force_arm()
-    def g():
-        while True :
-            attitude = str(test1.msg_attitude())
-            roll_position=attitude.find('roll')
-            pitch_position=attitude.find('pitch')
-            yaw_position=attitude.find('yaw')
-            rollspeed_position=attitude.find('rollspeed')
-
-            roll = float(attitude[roll_position+7:pitch_position-2])
-            pitch = float(attitude[pitch_position+8:yaw_position-2])
-            yaw = float(attitude[yaw_position+6:rollspeed_position-2])
-            yield roll,pitch,yaw
-    return Response(stream_template('arming.html', data=g()))
-
-
+    try:
+        test1.force_arm()
+        return Response(stream_template('arming.html', data=sys_status_needed()))
+    except:
+        return Response(stream_template('connected.html', data=sys_status_needed()))
+    
 @app.route('/Disarm')
 def disarm():
-    def g():
-        while True :
-            attitude = str(test1.msg_attitude())
-            roll_position=attitude.find('roll')
-            pitch_position=attitude.find('pitch')
-            yaw_position=attitude.find('yaw')
-            rollspeed_position=attitude.find('rollspeed')
-
-            roll = float(attitude[roll_position+7:pitch_position-2])
-            pitch = float(attitude[pitch_position+8:yaw_position-2])
-            yaw = float(attitude[yaw_position+6:rollspeed_position-2])
-            yield roll,pitch,yaw
-    return Response(stream_template('connected.html', data=g()))
+    return Response(stream_template('connected.html', data=sys_status_needed()))
 
 
 @app.route('/sys_status_stream')
