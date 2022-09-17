@@ -1,5 +1,5 @@
 <!doctype html>
-<title>Send javascript with template demo</title>
+<title>System status</title>
 <style>
   #data {
     text-align: center;
@@ -17,3 +17,7 @@
   $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
 </script>
 {% endfor %}
+<body>
+  <script src="js/joystick"></script>
+  <pre id="gamepad-display"></pre>
+</body>
