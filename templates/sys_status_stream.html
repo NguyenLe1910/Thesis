@@ -14,7 +14,6 @@
 <div id="data">nothing received yet</div>
 {% for roll,pitch,yaw,fix_type in data: %}
 <script>
-   <pre id="gamepad-display"></pre>
   $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
 </script>
 {% endfor %}

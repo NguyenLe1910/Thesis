@@ -8,10 +8,6 @@ import test1
 app = Flask(__name__)
 pi_camera = VideoCamera(flip=False)
 
-@app.route('/', methods = ['GET'])
-def index():
-    return render_template('index.html') #you can customze index.html here
-
 def gen(camera):
     #get camera frame
     while True:
@@ -49,6 +45,9 @@ def video_feed():
     return Response(gen(pi_camera),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.route('/')
+def index():
+    return render_template('index.html') #you can customze index.html here
 
 @app.route('/joystick')
 def joystick():
