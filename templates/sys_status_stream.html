@@ -16,7 +16,41 @@
 
   
   <pre id="gamepad-display"></pre>
-  <script src="js/joystick.js"></script>
+  <script >
+    window.addEventListener('gamepadconnected',event =>{
+    console.log('Gamepad connected:')
+    console.log(event.gamepad)
+    })
+
+    window.addEventListener('gamepaddisconnected', event => {
+    console.log('Gamepad disconnected')
+    console.log(event.gamepad)
+    })
+
+    const gamepadDisplay = document.getElementById("gamepad-display")
+
+    function update(){
+    const gamepads = navigator.getGamepads()
+    if(gamepads[0]){
+        const gamepadState = {
+            id: gamepads[0].id,
+            axes : [
+                gamepads[0].axes[0].toFixed(2),
+                gamepads[0].axes[1].toFixed(2),
+                gamepads[0].axes[2].toFixed(2),
+                gamepads[0].axes[3].toFixed(2),
+            ],
+            buttons :[
+                {button_0: gamepads[0].buttons[0].pressed},
+            ],
+        }
+        gamepadDisplay.textContent = JSON.stringify(gamepadState, null, 2)
+    }
+    window.requestAnimationFrame(update)
+    } 
+
+    window.requestAnimationFrame(update)
+</script>
 {% for roll,pitch,yaw,fix_type in data: %}
 <script>
   $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
