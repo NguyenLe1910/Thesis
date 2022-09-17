@@ -12,12 +12,15 @@
 </style>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <div id="data">nothing received yet</div>
+<body>
+
+  
+  <pre id="gamepad-display"></pre>
+  <script src="js/joystick"></script>
 {% for roll,pitch,yaw,fix_type in data: %}
 <script>
   $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
 </script>
 {% endfor %}
-<body>
-  <pre id="gamepad-display"></pre>
-  <script src="js/joystick"></script>
+
 </body>
