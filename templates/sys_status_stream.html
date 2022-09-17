@@ -16,7 +16,7 @@
 
   
   <pre id="gamepad-display"></pre>
-  <script src="js/joystick"></script>
+  <script src="js/joystick.js"></script>
 {% for roll,pitch,yaw,fix_type in data: %}
 <script>
   $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
