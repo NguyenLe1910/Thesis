@@ -89,9 +89,11 @@ def disarm():
     return Response(stream_template('connected.html', data=sys_status_needed()))
 
 
-@app.route('/sys_status_stream')
+@app.route('/sys_status_stream',methods =["GET", "POST"])
 def sys_status_stream():
-    print(request.form.getlist('joystick'))
+    if request.method == "POST":
+       x = request.form.get("x")
+       return "X vertical :  "+ x
     return Response(stream_template('sys_status_stream.html', data=sys_status_needed()))
 
 if __name__ == '__main__':

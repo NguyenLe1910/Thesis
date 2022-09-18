@@ -14,6 +14,7 @@
 <div id="data">nothing received yet</div>
 <body>
   <pre type ="gamepad-display" name="gamepad-display" id="gamepad-display"></pre>
+  <form> <input name = x id="x"> </form>
   <script >
     window.addEventListener('gamepadconnected',event =>{
     console.log('Gamepad connected:')
@@ -26,14 +27,15 @@
     })
 
     const gamepadDisplay = document.getElementById("gamepad-display")
-
+    const x = document.getElementById("x")
+    
     function update(){
     const gamepads = navigator.getGamepads()
     if(gamepads[0]){
         const gamepadState = {
             id: gamepads[0].id,
             axes : [
-                gamepads[0].axes[0].toFixed(2),
+                x = gamepads[0].axes[0].toFixed(2),
                 gamepads[0].axes[1].toFixed(2),
                 gamepads[0].axes[2].toFixed(2),
                 gamepads[0].axes[3].toFixed(2),
