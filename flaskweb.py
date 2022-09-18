@@ -31,14 +31,26 @@ def sys_status_needed():
             fix_type_position = GPS.find('fix_type')
             fix_type = int(GPS[fix_type_position+11])
 
-            if 0< fix_type< 2:
-                yield roll,pitch,yaw,fix_type
-            else:
-                latitude_position = GPS.find('lat')
-                lontitude_position = GPS.find('lon')
-                altitude_position = GPS.find('alt')
-                Latitude = int(GPS[fix_type_position+11])
-                yield roll,pitch,yaw,fix_type
+            latitude_position = GPS.find('lat')
+            lontitude_position = GPS.find('lon')
+            altitude_position = GPS.find('alt')
+            eph_position = GPS.find('eph')
+            epv_position = GPS.find('epv')
+            vel_position = GPS.find('vel')
+            cog_position = GPS.find('cog')
+            satellites_visible_position	= GPS.find('satellites_visible')
+            alt_ellipsoid_position = GPS.find('alt_ellipsoid ')
+                
+            lat = float(GPS[latitude_position+6:lontitude_position-2])
+            lon = float(GPS[lontitude_position+6:altitude_position-2])
+            alt = float(GPS[altitude_position+6:eph_position-2])
+            eph	= float(GPS[eph_position+6:epv_position-2])
+            epv = float(GPS[epv_position+6:vel_position-2])
+            vel = float(GPS[vel_position+6:cog_position-2])
+            cog = float(GPS[cog_position+6:satellites_visible_position-2])
+            satellites_visible = float(GPS[satellites_visible_position+6:alt_ellipsoid_position-2])
+                
+            yield roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible
 
 @app.route('/video_feed')
 def video_feed():
@@ -79,6 +91,7 @@ def disarm():
 
 @app.route('/sys_status_stream')
 def sys_status_stream():
+    values=request.form.getlist('joystick')
     return Response(stream_template('sys_status_stream.html', data=sys_status_needed()))
 
 if __name__ == '__main__':
