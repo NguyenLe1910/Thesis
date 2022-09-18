@@ -12,13 +12,14 @@
     <center>
     <h1> My Ground Control Station</h1>
     <div class="main" id="newpost">
-      <img  class="camera-bg" style="width: 30%; height:30%; background-attachment: fixed;" id="bg" class="center" src="{{ url_for('video_feed') }}">   
+      <img  class="camera-bg" style="width: 30%; height:30%; background-attachment: fixed;" id="bg" class="center" src="http://192.168.63.12:8000/video_feed">   
     </div>
     <p> THE VEHICLE IS CONNEDCTED <p>
     </center>
     <form action="/Arming">
       <button type="submit"> Arm </button>
     </form>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     {% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible in data: %}
     <script>
       $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
