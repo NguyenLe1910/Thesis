@@ -49,15 +49,8 @@
             "content-type": "application/json"
           })
         })
-        $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
     }
     window.requestAnimationFrame(update)
     }
     window.requestAnimationFrame(update)
 </script>
-{% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible in data: %}
-<script>
-  $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
-</script>
-{% endfor %}
-</body>
