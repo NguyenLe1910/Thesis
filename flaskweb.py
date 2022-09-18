@@ -98,7 +98,7 @@ def disarm():
 
 @app.route('/attitude',methods =["GET","POST"])
 def sys_status_stream():
-    print(url_for("app.sys_status_stream")) # or Call with context
+    print(url_for("sys_status_stream")) # or Call with context
     return Response(stream_template('attitude.html', data=sys_status_needed()))
 
 
