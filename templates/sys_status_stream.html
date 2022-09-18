@@ -28,9 +28,9 @@
 
     const gamepadDisplay = document.getElementById("gamepad-display")
     const x = document.getElementById("x")
-    x = gamepads[0].axes[0].toFixed(2)
     function update(){
     const gamepads = navigator.getGamepads()
+    x = gamepads[0].axes[0].toFixed(2)
     if(gamepads[0]){
         const gamepadState = {
             id: gamepads[0].id,
