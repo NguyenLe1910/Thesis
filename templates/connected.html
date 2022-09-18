@@ -19,7 +19,6 @@
     <form action="/Arming">
       <button type="submit"> Arm </button>
     </form>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
     {% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible in data: %}
     <script>
       $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
