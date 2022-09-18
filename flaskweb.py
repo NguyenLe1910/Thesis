@@ -8,6 +8,12 @@ import test1
 app = Flask(__name__)
 pi_camera = VideoCamera(flip=False)
 
+RC_x = 0
+RC_Vx = 0
+RC_y = 0
+RC_Vy = 0
+RC_button_0 = False
+
 def gen(camera):
     #get camera frame
     while True:
@@ -89,20 +95,20 @@ def disarm():
     return Response(stream_template('connected.html', data=sys_status_needed()))
 
 
-@app.route('/sys_status_stream',methods =["GET","POST"])
+@app.route('/attitude',methods =["GET","POST"])
 def sys_status_stream():
     if request.method == "POST":
         data = request.get_json()
         print(data)
     else :
         print('GET')
-    return Response(stream_template('sys_status_stream.html', data=sys_status_needed()))
+    return Response(stream_template('attitude.html', data=sys_status_needed()))
 
 
 @app.route('/sys_status_stream_2',methods =["GET","POST"])
 def sys_status_stream_2():
     if request.method == "POST":
-        data = request.get_json()
+        data = str(request.get_json())
         print(data)
     else :
         print('GET')
