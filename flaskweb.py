@@ -82,10 +82,6 @@ def conected():
 @app.route('/Arming')
 def arming():
     test1.force_arm()
-    try:
-        time.sleep(10)
-    except:
-        print('Can not arm')
     return Response(stream_template('arming.html', data=sys_status_needed()))
 
 @app.route('/Disarm')
