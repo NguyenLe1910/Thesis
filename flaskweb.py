@@ -8,6 +8,7 @@ import test1
 app = Flask(__name__)
 pi_camera = VideoCamera(flip=False)
 
+RC_id =''
 RC_x = 0
 RC_Vx = 0
 RC_y = 0
@@ -109,7 +110,20 @@ def sys_status_stream():
 def sys_status_stream_2():
     if request.method == "POST":
         data = str(request.get_json())
-        print(data)
+        x_position  = data.find('x')
+        Vx_position = data.find('Vx')
+        y_position  = data.find('y')
+        Vy_position = data.find('Vy')        
+        RC_id = data[9:x-3]
+        RC_x  = float(data[x_position+4:x_position+14])
+        RC_Vx = float(data[Vx_position+4:Vx_position+14])
+        RC_y  = float(data[y_position+4:y_position+14])
+        RC_Vy = float(data[Vy_position+4:Vy_position+14])
+        print('RCid :' + RC_id)
+        print('RCx :' +RC_x)
+        print('RCVx :' +RC_Vx)
+        print('RCy :' +RC_y)
+        print('RCVy :' +RC_Vy)
     else :
         print('GET')
     return Response(stream_template('sys_status_stream.html', data=sys_status_needed()))
