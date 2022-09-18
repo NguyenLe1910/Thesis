@@ -6,6 +6,7 @@ import time
 import test1
 
 app = Flask(__name__)
+app2 = Flask(__name__)
 pi_camera = VideoCamera(flip=False)
 
 RC_id =''
@@ -68,10 +69,6 @@ def video_feed():
 def index():
     return render_template('index.html') #you can customze index.html here
 
-@app.route('/joystick')
-def joystick():
-    return render_template('joystick.html')
-
 def stream_template(template_name, **context):
     app.update_template_context(context)
     t = app.jinja_env.get_template(template_name)
@@ -93,7 +90,7 @@ def disarm():
     return Response(stream_template('connected.html', data=sys_status_needed()))
 
 
-@app.route('/RC_data_stream',methods =["GET","POST"])
+@app2.route('/RC_data_stream',methods =["GET","POST"])
 def RC_data_stream():
     if request.method == "POST":
         data = str(request.get_json())
@@ -109,9 +106,10 @@ def RC_data_stream():
         time.sleep(0.2)
     return Response(stream_template('RC_data_stream.html', data=sys_status_needed()))
 
-@app.route('/attitude',methods =["GET","POST"])
+@app2.route('/attitude',methods =["GET","POST"])
 def attitude():
     return Response(stream_template('attitude.html', data=sys_status_needed()))
 
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)
+    app2.run(host='192.168.63.12', port=9000)
