@@ -23,6 +23,12 @@ def gen(camera):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
+def stream_template(template_name, **context):
+    app.update_template_context(context)
+    t = app.jinja_env.get_template(template_name)
+    rv = t.stream(context)
+    return rv
+
 def sys_status_needed():
         while True :
             attitude = str(test1.msg_attitude())            
@@ -69,26 +75,17 @@ def video_feed():
 def index():
     return render_template('index.html') #you can customze index.html here
 
-def stream_template(template_name, **context):
-    app.update_template_context(context)
-    t = app.jinja_env.get_template(template_name)
-    rv = t.stream(context)
-    return rv
-
 @app.route('/Connected')
 def conected():
-    return render_template('connected.html')
-
+    return Response(stream_template('connected.html', data=sys_status_needed()))
 
 @app.route('/Arming')
 def arming():
     return Response(stream_template('arming.html', data=sys_status_needed()))
 
-
 @app.route('/Disarm')
 def disarm():
     return Response(stream_template('connected.html', data=sys_status_needed()))
-
 
 @app.route('/RC_data_stream',methods =["GET","POST"])
 def RC_data_stream():
