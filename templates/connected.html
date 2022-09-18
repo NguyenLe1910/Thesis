@@ -26,7 +26,6 @@
     </form>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <div id="data">nothing received yet</div>
-    <pre type ="GPS" name="GPS" id="GPS"></pre>
   <pre type ="gamepad-display" name="gamepad-display" id="gamepad-display"></pre>
   <br>
   <script >
@@ -73,9 +72,16 @@
 <script>
   $("#data").text("Attitude:")
   $("#data").text(" Roll:{{ roll }}, Pitch:{{ pitch }}, Yaw:{{ yaw }}")
-  const GPS = document.getElementById("GPS")
-  const GPS_display = text("{{fix_type}}")
-  GPS.textContent = JSON.stringify(GPS_display, null, 2) 
+  var fix_type =  '{{fix_type}}';
+  if (fix_type == 0){
+    $("#data").text("GPS: No signal")
+  }
+  else if (fix_type == 1){
+    $("#data").text("GPS: No Fix")
+  }
+  else {
+    $("#data").text("{{fix_type}}")
+  }
 </script>
 {% endfor %}
 </body>
