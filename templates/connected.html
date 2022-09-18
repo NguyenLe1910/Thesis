@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My thesis</title>
+    <title>Connected</title>
     <style>
       #data {
       text-align: center;
@@ -26,6 +26,7 @@
     </form>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <div id="data">nothing received yet</div>
+    <pre type ="GPS" name="GPS" id="GPS"></pre>
   <pre type ="gamepad-display" name="gamepad-display" id="gamepad-display"></pre>
   <br>
   <script >
@@ -70,7 +71,11 @@
 
 {% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible in data: %}
 <script>
-  $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
+  $("#data").text("Attitude:")
+  $("#data").text(" Roll:{{ roll }}, Pitch:{{ pitch }}, Yaw:{{ yaw }}")
+  const GPS = document.getElementById("GPS")
+  const GPS_display = text("{{fix_type}}")
+  GPS.textContent = JSON.stringify(GPS_display, null, 2) 
 </script>
 {% endfor %}
 </body>
