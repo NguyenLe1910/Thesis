@@ -12,6 +12,7 @@
 </style>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <div id="data">nothing received yet</div>
+<method: "POST"></method:>
 <body>
   <pre type ="gamepad-display" name="gamepad-display" id="gamepad-display"></pre>
   <br>
@@ -39,12 +40,6 @@
             button_0: gamepads[0].buttons[0].pressed
         }
         gamepadDisplay.textContent = JSON.stringify(gamepadState, null, 2)
-        fetch(`${window.origin}/sys_status_stream`, {
-          method: "POST",
-          credentials: "include",
-          body: JSON.stringify(gamepadState, null, 2),
-          cache: "no-cache"
-        })
     }
     window.requestAnimationFrame(update)
     }
