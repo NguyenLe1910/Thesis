@@ -109,7 +109,7 @@ def sys_status_stream():
         RC_Vx = float(data[Vx_position+6:Vx_position+14])
         RC_y  = float(data[y_position+5:y_position+14])
         RC_Vy = float(data[Vy_position+6:Vy_position+14])
-    return Response(sys_status_stream.html)
+    return render_template(sys_status_stream.html)
 
 @app.route('/attitude',methods =["GET","POST"])
 def attitude():
