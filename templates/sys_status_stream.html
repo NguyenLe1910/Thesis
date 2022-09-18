@@ -14,6 +14,7 @@
 <div id="data">nothing received yet</div>
 <body>
   <pre type ="gamepad-display" name="gamepad-display" id="gamepad-display"></pre>
+  
   <script >
     window.addEventListener('gamepadconnected',event =>{
     console.log('Gamepad connected:')
@@ -34,7 +35,7 @@
         const gamepadState = {
             id: gamepads[0].id,
             axes : [
-                x = gamepads[0].axes[0].toFixed(2),
+                gamepads[0].axes[0].toFixed(2),
                 gamepads[0].axes[1].toFixed(2),
                 gamepads[0].axes[2].toFixed(2),
                 gamepads[0].axes[3].toFixed(2),
