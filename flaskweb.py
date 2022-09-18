@@ -91,7 +91,7 @@ def disarm():
 
 @app.route('/sys_status_stream',methods =["GET", "POST"])
 def sys_status_stream():
-    RCid = request.values('RCid')
+    RCid = flask.get('RCid')
     print(RCid)
     return Response(stream_template('sys_status_stream.html', data=sys_status_needed()))
 
