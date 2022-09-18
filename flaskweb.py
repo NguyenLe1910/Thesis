@@ -57,7 +57,7 @@ def sys_status_needed():
             cog = float(GPS[cog_position+6:satellites_visible_position-2])
             satellites_visible = float(GPS[satellites_visible_position+21:alt_ellipsoid_position-2])
                 
-            yield roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible,RC_x
+            yield roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible
 
 @app.route('/video_feed')
 def video_feed():
@@ -96,8 +96,8 @@ def disarm():
     return Response(stream_template('connected.html', data=sys_status_needed()))
 
 
-@app.route('/sys_status_stream',methods =["GET","POST"])
-def sys_status_stream():
+@app.route('/RC_data_stream',methods =["GET","POST"])
+def RC_data_stream():
     if request.method == "POST":
         data = str(request.get_json())
         x_position  = data.find('x')
@@ -109,16 +109,12 @@ def sys_status_stream():
         RC_Vx = float(data[Vx_position+6:Vx_position+14])
         RC_y  = float(data[y_position+5:y_position+14])
         RC_Vy = float(data[Vy_position+6:Vy_position+14])
-        print (x+1)
-    return render_template('sys_status_stream.html')
+        x = x + 1
+        print (x)
+    return Response(RC_x)
 
 @app.route('/attitude',methods =["GET","POST"])
 def attitude():
-    print('RCid :' + RC_id)
-    print('RCx :' +str(RC_x))
-    print('RCVx :' +str(RC_Vx))
-    print('RCy :' +str(RC_y))
-    print('RCVy :' +str(RC_Vy))
     return Response(stream_template('attitude.html', data=sys_status_needed()))
 
 

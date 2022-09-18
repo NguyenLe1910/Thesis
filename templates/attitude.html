@@ -6,12 +6,13 @@
   }
 </style>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="{{ url_for('RC_data_stream') }}" ></script>
 
 <div id="data">nothing received yet</div>
 
-{% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible,RC_x in data: %}
+{% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible in data: %}
 <script>
-  $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}, RC_x :{{RC_x}}")
+  $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
 </script>
 {% endfor %}
 </body>
