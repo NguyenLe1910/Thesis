@@ -85,14 +85,13 @@ def arming():
     try:
         print("Force the vehicle to arm")
         test1.master.motors_armed_wait()
-        time.sleep(10)
+        time.sleep(2)
         print('Armed!')
         return Response(stream_template('arming.html', data=sys_status_needed()))
     except:
         print('Cannot Force Arm')
         return Response(stream_template('connected.html', data=sys_status_needed()))
    
-
 @app.route('/Disarm')
 def disarm():
     return Response(stream_template('connected.html', data=sys_status_needed()))
