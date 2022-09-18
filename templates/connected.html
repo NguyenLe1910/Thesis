@@ -70,21 +70,15 @@
 
 {% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible in data: %}
 <script>
-  $("#data").text("Attitude:")
-  $("#data").text(" Roll:{{ roll }}, Pitch:{{ pitch }}, Yaw:{{ yaw }}")
   var fix_type =  '{{fix_type}}';
   if (fix_type == 0){
-    $("#data").text("Attitude:")
-    $("#data").text(" Roll:{{ roll }}, Pitch:{{ pitch }}, Yaw:{{ yaw }}")
-    $("#data").text("GPS: No signal")
+    $("#data").text("Attitude: \n Roll:{{ roll }}, Pitch:{{ pitch }}, Yaw:{{ yaw }} \n GPS: No signal" )
   }
   else if (fix_type == 1){
-    $("#data").text("Attitude:")
-    $("#data").text(" Roll:{{ roll }}, Pitch:{{ pitch }}, Yaw:{{ yaw }}")
-    $("#data").text("GPS: No Fix")
+    $("#data").text("Attitude: \n Roll:{{ roll }}, Pitch:{{ pitch }}, Yaw:{{ yaw }} \n GPS: No Fix" )
   }
   else {
-    $("#data").text("{{fix_type}}")
+    $("#data").text("Attitude: \n Roll:{{ roll }}, Pitch:{{ pitch }}, Yaw:{{ yaw }} \n GPS: Good" )
   }
 </script>
 {% endfor %}
