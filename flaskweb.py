@@ -105,7 +105,7 @@ def sys_status_stream():
     return Response(stream_template('attitude.html', data=sys_status_needed()))
 
 
-@app.route('/sys_status_stream_2',methods =["GET","POST"])
+@app.route('/sys_status_stream',methods =["GET","POST"])
 def sys_status_stream_2():
     if request.method == "POST":
         data = str(request.get_json())
