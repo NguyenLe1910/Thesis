@@ -27,10 +27,9 @@ def wait_conn():
 
 def force_arm():
     master.mav.command_long_send(master.target_system,master.target_component,mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,0,1, 21196 , 0, 0, 0, 0, 0)
-
+    print("Force the vehicle to arm")
     try:
         # wait until arming confirmed (can manually check with master.motors_armed())
-        print("Force the vehicle to arm")
         master.motors_armed_wait()
         timestamp =master.time_since(motors_armed_wait)
         arm = 1
