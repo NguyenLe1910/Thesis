@@ -40,7 +40,15 @@
         }
         
         gamepadDisplay.textContent = JSON.stringify(gamepadState, null, 2)       
-
+        fetch(`${window.origin}/your_url`, {
+          method: "POST",
+          credentials: "include",
+          body: JSON.stringify(your_data),
+          cache: "no-cache",
+          headers: new Headers({
+            "content-type": "application/json"
+          })
+        })
     }
     window.requestAnimationFrame(update)
     }
