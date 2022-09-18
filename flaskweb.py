@@ -1,4 +1,4 @@
-from flask import Flask,render_template, Response, request, send_from_directory,redirect, url_for,stream_with_context,jsonify,get_flashed_messages
+from flask import Flask,render_template, Response, request, send_from_directory,redirect, url_for,stream_with_context,jsonify,get_data
 from camera import VideoCamera
 import os
 import itertools
@@ -91,7 +91,7 @@ def disarm():
 
 @app.route('/sys_status_stream',methods =["GET", "POST"])
 def sys_status_stream():
-    RCid = get_flashed_messages('RCid')
+    RCid = get_data('RCid')
     print(RCid)
     return Response(stream_template('sys_status_stream.html', data=sys_status_needed()))
 
