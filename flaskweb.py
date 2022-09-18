@@ -1,4 +1,4 @@
-from flask import Flask,render_template, Response, request
+from flask import Flask,render_template, Response, request, url_for
 from camera import VideoCamera
 import os
 import itertools
