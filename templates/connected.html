@@ -74,9 +74,13 @@
   $("#data").text(" Roll:{{ roll }}, Pitch:{{ pitch }}, Yaw:{{ yaw }}")
   var fix_type =  '{{fix_type}}';
   if (fix_type == 0){
+    $("#data").text("Attitude:")
+    $("#data").text(" Roll:{{ roll }}, Pitch:{{ pitch }}, Yaw:{{ yaw }}")
     $("#data").text("GPS: No signal")
   }
   else if (fix_type == 1){
+    $("#data").text("Attitude:")
+    $("#data").text(" Roll:{{ roll }}, Pitch:{{ pitch }}, Yaw:{{ yaw }}")
     $("#data").text("GPS: No Fix")
   }
   else {
