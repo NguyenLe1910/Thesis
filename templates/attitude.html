@@ -9,8 +9,8 @@
 
 <div id="data">nothing received yet</div>
 {% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible in data: %}
+<script src="http://192.168.63.12:8000/sys_status_stream"></script>
 <script>
-  src="http://192.168.63.12:8000/sys_status_stream"
   $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
 </script>
 {% endfor %}
