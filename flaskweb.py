@@ -120,7 +120,7 @@ def sys_status_stream():
 
 @app.route('/attitude',methods =["GET","POST"])
 def attitude():
-    sys_status_stream()
+    print(url_for("app.sys_status_stream"))
     print('RCid :' + RC_id)
     print('RCx :' +str(RC_x))
     print('RCVx :' +str(RC_Vx))
