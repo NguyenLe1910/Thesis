@@ -91,7 +91,7 @@ def disarm():
 
 @app.route('/sys_status_stream')
 def sys_status_stream():
-    print(alues=request.form.getlist('joystick'))
+    print(request.form.getlist('joystick'))
     return Response(stream_template('sys_status_stream.html', data=sys_status_needed()))
 
 if __name__ == '__main__':
