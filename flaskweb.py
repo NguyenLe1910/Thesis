@@ -119,7 +119,7 @@ def sys_status_stream_2():
         RC_Vx = float(data[Vx_position+6:Vx_position+14])
         RC_y  = float(data[y_position+5:y_position+14])
         RC_Vy = float(data[Vy_position+6:Vy_position+14])
-        print('RCid :' + str(RC_id))
+        print('RCid :' + RC_id)
         print('RCx :' +str(RC_x))
         print('RCVx :' +str(RC_Vx))
         print('RCy :' +str(RC_y))
