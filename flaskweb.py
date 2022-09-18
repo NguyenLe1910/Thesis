@@ -94,7 +94,8 @@ def sys_status_stream():
     if request.method == "POST":
         RCid = request.values('RCid')
         print(RCid)
-    print ('GET')
+    else:
+        print ('GET')
     return Response(stream_template('sys_status_stream.html', data=sys_status_needed()))
 
 if __name__ == '__main__':
