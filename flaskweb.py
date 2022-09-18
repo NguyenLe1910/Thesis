@@ -39,7 +39,7 @@ def sys_status_needed():
             vel_position = GPS.find('vel')
             cog_position = GPS.find('cog')
             satellites_visible_position	= GPS.find('satellites_visible')
-            alt_ellipsoid_position = GPS.find('alt_ellipsoid ')
+            #alt_ellipsoid_position = GPS.find('alt_ellipsoid ')
                 
             lat = float(GPS[latitude_position+6:lontitude_position-2])
             lon = float(GPS[lontitude_position+6:altitude_position-2])
@@ -48,9 +48,9 @@ def sys_status_needed():
             epv = float(GPS[epv_position+6:vel_position-2])
             vel = float(GPS[vel_position+6:cog_position-2])
             cog = float(GPS[cog_position+6:satellites_visible_position-2])
-            satellites_visible = float(GPS[satellites_visible_position+21:alt_ellipsoid_position-2])
+            #satellites_visible = float(GPS[satellites_visible_position+21:alt_ellipsoid_position-2])
                 
-            yield roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible
+            yield roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog
 
 @app.route('/video_feed')
 def video_feed():
