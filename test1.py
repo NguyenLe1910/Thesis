@@ -28,30 +28,9 @@ def wait_conn():
 def force_arm():
     master.mav.command_long_send(master.target_system,master.target_component,mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,0,1, 21196 , 0, 0, 0, 0, 0)
 
-    try:
-        # wait until arming confirmed (can manually check with master.motors_armed())
-        print("Force the vehicle to arm")
-        master.motors_armed_wait()
-        time.sleep(10)
-        arm = 1
-        print('Armed!')
-    except:
-        arm = 0
-        print('Cannot Force Arm')
-
 def disarm():
     master.mav.command_long_send(master.target_system,master.target_component,mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,0, 0, 0, 0, 0, 0, 0, 0)
-
-    try:
-        # wait until arming confirmed (can manually check with master.motors_armed())
-        print("Disarm the vehicle")
-        time.sleep(10)
-        arm = 0
-        print('Disarm!')
-    except:
-        arm = 1
-        print('Cannot Disarm')
-
+    
 def setmode(mode):
     # Check if mode is available
     if mode not in master.mode_mapping():

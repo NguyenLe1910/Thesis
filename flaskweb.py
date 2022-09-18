@@ -82,12 +82,16 @@ def conected():
 @app.route('/Arming')
 def arming():
     test1.force_arm()
-    time.sleep(11)
-    if test1.arm == 1 :
+    try:
+        print("Force the vehicle to arm")
+        test1.master.motors_armed_wait()
+        time.sleep(10)
+        print('Armed!')
         return Response(stream_template('arming.html', data=sys_status_needed()))
-    else :
-        flash('Looks like you have changed your name!')
+    except:
+        print('Cannot Force Arm')
         return Response(stream_template('connected.html', data=sys_status_needed()))
+   
 
 @app.route('/Disarm')
 def disarm():
