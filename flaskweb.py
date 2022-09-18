@@ -85,7 +85,7 @@ def arming():
     try:
         time.sleep(10)
     except:
-        print('Can not arm')
+        print('xx')
     return Response(stream_template('arming.html', data=sys_status_needed()))
 
 @app.route('/Disarm')

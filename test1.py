@@ -32,8 +32,7 @@ def force_arm():
         # wait until arming confirmed (can manually check with master.motors_armed())
         print("Force the vehicle to arm")
         master.motors_armed_wait()
-        timestamp =master.time_since(motors_armed_wait)
-        arm = 1
+        time.sleep(10)
         print('Armed!')
     except:
         print('Cannot Force Arm')
