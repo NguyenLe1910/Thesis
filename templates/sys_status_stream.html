@@ -9,12 +9,18 @@
         color: #5F5;
         padding: 30px;
       }
+  xxx {
+        background: rgb(22, 48, 16);
+        color: rgb(40, 148, 190);
+        padding: 30px;
+  }
 </style>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <div id="data">nothing received yet</div>
 <body>
   <pre type ="gamepad-display" name="gamepad-display" id="gamepad-display"></pre>
-  <div><var name="RCid" id="RCid"></var></div>
+  <br>
+  <xxx name="RCid" id="RCid"></xxx>
   <script >
     window.addEventListener('gamepadconnected',event =>{
     console.log('Gamepad connected:')
@@ -27,11 +33,11 @@
     })
 
     const gamepadDisplay = document.getElementById("gamepad-display")
-    var RCid = document.getElementById("RCid")
+    const RCid = document.getElementById("RCid")
     function update(){
     const gamepads = navigator.getGamepads()
     if(gamepads[0]){
-        RCid = gamepads[0].id
+        const RC_x = gamepads[0].axes[0].toFixed(10)
         const gamepadState = {
             RCid: gamepads[0].id,
             x : gamepads[0].axes[0].toFixed(2),
@@ -41,6 +47,7 @@
             button0: gamepads[0].buttons[0].pressed
         }
         gamepadDisplay.textContent = JSON.stringify(gamepadState, null, 2)
+        RCid.textContent = JSON.stringify(RC_x, null, 2)
     }
     window.requestAnimationFrame(update)
     } 
