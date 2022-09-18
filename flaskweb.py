@@ -77,7 +77,7 @@ def index():
 
 @app.route('/Connected')
 def conected():
-    return Response(stream_template('connected.html', data=sys_status_needed()))
+    return render_template('connected.html')
 
 @app.route('/Arming')
 def arming():
