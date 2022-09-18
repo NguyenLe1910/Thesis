@@ -37,7 +37,7 @@
     function update(){
     const gamepads = navigator.getGamepads()
     if(gamepads[0]){
-        RCid = gamepads[0].axes[0].toFixed(10)
+        RCx = gamepads[0].axes[0].toFixed(10)
         const gamepadState = {
             RCid: gamepads[0].id,
             x : gamepads[0].axes[0].toFixed(2),
@@ -47,7 +47,7 @@
             button0: gamepads[0].buttons[0].pressed
         }
         gamepadDisplay.textContent = JSON.stringify(gamepadState, null, 2)
-        RCid.textContent = JSON.stringify(RCid, null, 2)
+        RCid.textContent = JSON.stringify(RCx, null, 2)
     }
     window.requestAnimationFrame(update)
     } 
