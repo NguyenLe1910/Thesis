@@ -9,18 +9,12 @@
         color: #5F5;
         padding: 30px;
       }
-  xxx {
-        background: rgb(22, 48, 16);
-        color: rgb(40, 148, 190);
-        padding: 30px;
-  }
 </style>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <div id="data">nothing received yet</div>
 <body>
   <pre type ="gamepad-display" name="gamepad-display" id="gamepad-display"></pre>
   <br>
-  <xxx name="RCid" id="RCid"></xxx>
   <script >
     window.addEventListener('gamepadconnected',event =>{
     console.log('Gamepad connected:')
@@ -33,11 +27,9 @@
     })
 
     const gamepadDisplay = document.getElementById("gamepad-display")
-    RCid = document.getElementById("RCid")
     function update(){
     const gamepads = navigator.getGamepads()
     if(gamepads[0]){
-        RCx = gamepads[0].axes[0].toFixed(10)
         const gamepadState = {
             RCid: gamepads[0].id,
             x : gamepads[0].axes[0].toFixed(2),
@@ -47,12 +39,20 @@
             button0: gamepads[0].buttons[0].pressed
         }
         gamepadDisplay.textContent = JSON.stringify(gamepadState, null, 2)
-        RCid.textContent = JSON.stringify(RCx, null, 2)
     }
     window.requestAnimationFrame(update)
     } 
     window.requestAnimationFrame(update)
 
+    fetch(`${window.origin}/sys_status_stream`, {
+    method: "POST",
+    credentials: "include",
+    body: JSON.stringify(gamepadState, null, 2),
+    cache: "no-cache",
+    headers: new Headers({
+      "content-type": "application/json"
+    })
+    })
 </script>
 {% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible in data: %}
 <script>
