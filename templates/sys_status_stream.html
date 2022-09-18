@@ -15,7 +15,7 @@
 <body>
   <pre type ="gamepad-display" name="gamepad-display" id="gamepad-display"></pre>
   <br>
-  <method = "POST"></method>
+  <form><button action="/sys_status_stream" method = "POST"></button>
   <script >
     window.addEventListener('gamepadconnected',event =>{
     console.log('Gamepad connected:')
@@ -40,25 +40,14 @@
             button_0: gamepads[0].buttons[0].pressed
         }
         
-        gamepadDisplay.textContent = JSON.stringify(gamepadState, null, 2)
-        
-  fetch(`${window.origin}/sys_status_stream`, {
-    method: "POST",
-    credentials: "include",
-    body: JSON.stringify(gamepadState, null, 2),
-    cache: "no-cache",
-    headers: new Headers({
-      "content-type": "application/json"
-    })
-  })
+        gamepadDisplay.textContent = JSON.stringify(gamepadState, null, 2)       
 
     }
     window.requestAnimationFrame(update)
     }
     window.requestAnimationFrame(update)
-
 </script>
-
+</form>
 {% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible in data: %}
 <script>
   $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
