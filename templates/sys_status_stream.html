@@ -39,6 +39,7 @@
             Vy: gamepads[0].axes[4].toFixed(2),
             button_0: gamepads[0].buttons[0].pressed
         }
+        JSON.stringify(gamepadState, null, 2)
         gamepadDisplay.textContent = JSON.stringify(gamepadState, null, 2)
     }
     window.requestAnimationFrame(update)
