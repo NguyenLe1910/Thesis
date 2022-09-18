@@ -85,11 +85,8 @@ def conected():
 
 @app.route('/Arming')
 def arming():
-    try:
-        test1.force_arm()
-        return Response(stream_template('arming.html', data=sys_status_needed()))
-    except:
-        return Response(stream_template('connected.html', data=sys_status_needed()))
+    return Response(stream_template('arming.html', data=sys_status_needed()))
+
     
 @app.route('/Disarm')
 def disarm():
