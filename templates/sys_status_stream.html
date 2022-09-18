@@ -14,7 +14,7 @@
 <div id="data">nothing received yet</div>
 <body>
   <pre type ="gamepad-display" name="gamepad-display" id="gamepad-display"></pre>
-  <var name="x" id="x">
+  <div><var name="RCid" id="RCid"></var></div>
   <script >
     window.addEventListener('gamepadconnected',event =>{
     console.log('Gamepad connected:')
@@ -27,22 +27,17 @@
     })
 
     const gamepadDisplay = document.getElementById("gamepad-display")
-    var x = document.getElementById("x")
+    var RCid = document.getElementById("RCid")
     function update(){
     const gamepads = navigator.getGamepads()
-    x = gamepads[0].axes[0].toFixed(2)
     if(gamepads[0]){
         const gamepadState = {
-            id: gamepads[0].id,
-            axes : [
-                gamepads[0].axes[0].toFixed(2),
-                gamepads[0].axes[1].toFixed(2),
-                gamepads[0].axes[3].toFixed(2),
-                gamepads[0].axes[4].toFixed(2),
-            ],
-            buttons :[
-                {button_0: gamepads[0].buttons[0].pressed},
-            ],
+            RCid: gamepads[0].id,
+            x : gamepads[0].axes[0].toFixed(2),
+            Vx: gamepads[0].axes[1].toFixed(2),
+            y : gamepads[0].axes[3].toFixed(2),
+            Vy: gamepads[0].axes[4].toFixed(2),
+            button0: gamepads[0].buttons[0].pressed
         }
         gamepadDisplay.textContent = JSON.stringify(gamepadState, null, 2)
     }
