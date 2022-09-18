@@ -39,20 +39,21 @@
             button0: gamepads[0].buttons[0].pressed
         }
         gamepadDisplay.textContent = JSON.stringify(gamepadState, null, 2)
+        fetch(`${window.origin}/sys_status_stream`, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(gamepadState, null, 2),
+        cache: "no-cache",
+        headers: new Headers({
+          "content-type": "application/json"
+        })
+        })
     }
     window.requestAnimationFrame(update)
     } 
     window.requestAnimationFrame(update)
 
-    fetch(`${window.origin}/sys_status_stream`, {
-    method: "POST",
-    credentials: "include",
-    body: JSON.stringify(gamepadState, null, 2),
-    cache: "no-cache",
-    headers: new Headers({
-      "content-type": "application/json"
-    })
-    })
+    
 </script>
 {% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible in data: %}
 <script>
