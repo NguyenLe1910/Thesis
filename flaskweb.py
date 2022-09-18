@@ -106,10 +106,6 @@ def RC_data_stream():
 @app.route('/attitude',methods =["GET","POST"])
 def attitude():
     return Response(stream_template('attitude.html', data=sys_status_needed()))
-
-@app.route('/xx',methods =["GET","POST"])
-def xx():
-    return Response(stream_template('xx.html', data=sys_status_needed()))
-
+    
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)
