@@ -14,7 +14,7 @@ RC_Vx = 0
 RC_y = 0
 RC_Vy = 0
 RC_button_0 = False
-x =0
+
 def gen(camera):
     #get camera frame
     while True:
@@ -109,13 +109,12 @@ def RC_data_stream():
         RC_Vx = float(data[Vx_position+6:Vx_position+14])
         RC_y  = float(data[y_position+5:y_position+14])
         RC_Vy = float(data[Vy_position+6:Vy_position+14])
+        time.sleep(0.2)
     return Response(stream_template('RC_data_stream.html', data=sys_status_needed()))
 
 @app.route('/attitude',methods =["GET","POST"])
 def attitude():
     return Response(stream_template('attitude.html', data=sys_status_needed()))
 
-
- 
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)
