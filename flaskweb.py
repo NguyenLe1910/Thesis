@@ -91,7 +91,7 @@ def disarm():
 
 @app.route('/sys_status_stream',methods =["GET","POST"])
 def sys_status_stream():
-    if request.methods == "POST":
+    if request.method == "POST":
         data = request.get_json()
         print(data)
     else :
