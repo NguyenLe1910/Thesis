@@ -22,10 +22,53 @@
       <button type="submit"> Arm </button>
     </form>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    {% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible in data: %}
-    <script>
-      $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
-    </script>
-    {% endfor %}
-  </body>
+    <div id="data">nothing received yet</div>
+  <pre type ="gamepad-display" name="gamepad-display" id="gamepad-display"></pre>
+  <br>
+  <script >
+    window.addEventListener('gamepadconnected',event =>{
+    console.log('Gamepad connected:')
+    console.log(event.gamepad)
+    })
+
+    window.addEventListener('gamepaddisconnected', event => {
+    console.log('Gamepad disconnected')
+    console.log(event.gamepad)
+    })
+
+    const gamepadDisplay = document.getElementById("gamepad-display")
+    function update(){
+    const gamepads = navigator.getGamepads()
+    if(gamepads[0]){
+        const gamepadState = {
+            RCid: gamepads[0].id,
+            x : gamepads[0].axes[0].toFixed(10),
+            Vx: gamepads[0].axes[1].toFixed(10),
+            y : gamepads[0].axes[3].toFixed(10),
+            Vy: gamepads[0].axes[4].toFixed(10),
+            button_0: gamepads[0].buttons[0].pressed
+        }
+        
+        gamepadDisplay.textContent = JSON.stringify(gamepadState, null, 2)       
+        fetch(`${window.origin}/RC_data_stream`, {
+          method: "POST",
+          credentials: "include",
+          body: JSON.stringify(gamepadState, null, 2) ,
+          cache: "no-cache",
+          headers: new Headers({
+            "content-type": "application/json"
+          })
+        })
+    }
+    window.requestAnimationFrame(update)
+    }
+    window.requestAnimationFrame(update)
+</script>
+
+{% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible in data: %}
+<script>
+  $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
+</script>
+{% endfor %}
+</body>
 </html>
