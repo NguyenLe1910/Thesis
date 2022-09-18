@@ -97,13 +97,13 @@ def disarm():
 
 
 @app.route('/attitude',methods =["GET","POST"])
-def sys_status_stream():
+def attitude():
     print(url_for("sys_status_stream")) # or Call with context
     return Response(stream_template('attitude.html', data=sys_status_needed()))
 
 
 @app.route('/sys_status_stream',methods =["GET","POST"])
-def sys_status_stream_2():
+def sys_status_stream():
     if request.method == "POST":
         data = str(request.get_json())
         x_position  = data.find('x')
