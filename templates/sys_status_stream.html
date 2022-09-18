@@ -30,10 +30,10 @@
     if(gamepads[0]){
         const gamepadState = {
             RCid: gamepads[0].id,
-            x : gamepads[0].axes[0].toFixed(2),
-            Vx: gamepads[0].axes[1].toFixed(2),
-            y : gamepads[0].axes[3].toFixed(2),
-            Vy: gamepads[0].axes[4].toFixed(2),
+            x : gamepads[0].axes[0].toFixed(10),
+            Vx: gamepads[0].axes[1].toFixed(10),
+            y : gamepads[0].axes[3].toFixed(10),
+            Vy: gamepads[0].axes[4].toFixed(10),
             button_0: gamepads[0].buttons[0].pressed
         }
         
