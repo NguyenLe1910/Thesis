@@ -57,71 +57,7 @@
                             var roll ='{{pitch}}';
                             var yaw = '{{yaw}}';
                             
-                            function init() {
-                            // Data
-                            if (window["WebSocket"]) {
-                                var host = "ws://"+window.location.hostname+":8000/";
-                                if(window.location.hostname == "")
-                                    host = "ws://192.168.63.12:8000/";
-                            try{
-                            socket = new WebSocket(host);
-                                    
-                            socket.onopen    = function(msg){ document.getElementById("serverStatus").innerHTML = "onopen"; jsoncount=0; };
-                            socket.onmessage = function(msg){
-                                jsoncount++;
-    
-                                var data = JSON.parse(msg.data);
-    
-                                if(data.hasOwnProperty('FrameString'))
-                                {
-                                    MAV = data;
-                                }
-                                else if(data.hasOwnProperty('rateattitude'))
-                                {
-                                    cs = data;
-    
-                                    var status = "<ul style='columns: 3;'>";
-    
-                                    a=1;
-    
-                        var sortable = [];
-                            for (i in cs)
-                                    {
-                                    sortable.push(i);
-                                    }
-    
-                                    sortable.sort(function (a, b) {
-                            return a.toLowerCase().localeCompare(b.toLowerCase());
-                        });
-    
-                                    for (i in sortable)
-                                    {
-                                        var name = sortable[i];
-                                        var data = cs[sortable[i]];
-    
-                                        if(typeof data != 'object')
-                                            status += "<li style='overflow:hidden; white-space: nowrap;'><b onclick=graphitem('" + name + "')>" + name + ":</b><br> " + data + "</li>";
-    
-                                        //if(a%3==0)
-                                            //status += "<br>";
-    
-                                        a++;
-                                    }
-    
-                                    status+="</ul>";
-    
-                                    document.getElementById("serverStatus").innerHTML = status;
-    
-    
-                                    if(jsoncount < 5)
-                                    {
-                                        map.setZoom(18);
-                                    }
-    
-                                    roll = cs.roll;
-                                    pitch = cs.pitch;
-                                    yaw = cs.yaw;
-       
+                            function init() {    
              if (typeof viewer !== 'undefined') {
                 var orangeOutlined = viewer.entities.add({
                 name : 'Orange line with black outline at height and following the surface',
@@ -138,31 +74,6 @@
         
             //viewer.trackedEntity = orangeOutlined;
             }
-    
-                                    if(flightPath == null) {
-                                    flightPath = new google.maps.Polyline({
-                                    path: wpscoords,
-                                    geodesic: true,
-                                    strokeColor: '#FFFF00',
-                                    strokeOpacity: 1.0,
-                                    strokeWeight: 4
-                                    });
-    
-                                    flightPath.setMap(map);
-                                    } else {
-                                    flightPath.setPath(wpscoords);
-                                    }
-    
-                                } else { return; }
-    
-                            };
-                            socket.onerror   = function(msg){ document.getElementById("serverStatus").innerHTML = "Error: "+msg.data; };
-                            socket.onclose   = function(msg){ document.getElementById("serverStatus").innerHTML = "Disconnected - status "+this.readyState; setTimeout ( "init()", 1000 );  };
-                            }
-                            catch(ex){ if (window.console) console.log(exception);  document.getElementById("serverStatus").innerHTML = ex; }
-                            } else {
-                            document.getElementById("serverStatus").innerHTML = "This browser doesnt support websockets";
-                            }
     
                             draw();
     
