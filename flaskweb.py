@@ -90,7 +90,7 @@ def disarm():
     return Response(stream_template('connected.html', data=sys_status_needed()))
 
 
-@app2.route('/RC_data_stream',methods =["GET","POST"])
+@app.route('/RC_data_stream',methods =["GET","POST"])
 def RC_data_stream():
     if request.method == "POST":
         data = str(request.get_json())
@@ -106,10 +106,9 @@ def RC_data_stream():
         time.sleep(0.2)
     return Response(stream_template('RC_data_stream.html', data=sys_status_needed()))
 
-@app2.route('/attitude',methods =["GET","POST"])
+@app.route('/attitude',methods =["GET","POST"])
 def attitude():
     return Response(stream_template('attitude.html', data=sys_status_needed()))
 
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)
-    app2.run(host='192.168.63.12', port=9000)
