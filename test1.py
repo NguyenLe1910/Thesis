@@ -33,8 +33,10 @@ def force_arm():
         print("Force the vehicle to arm")
         master.motors_armed_wait()
         time.sleep(10)
+        arm = 1
         print('Armed!')
     except:
+        arm = 0
         print('Cannot Force Arm')
 
 def disarm():
@@ -43,11 +45,11 @@ def disarm():
     try:
         # wait until arming confirmed (can manually check with master.motors_armed())
         print("Disarm the vehicle")
-        master.motors_armed_wait()
-        timestamp =master.time_since(motors_armed_wait)
+        time.sleep(10)
         arm = 0
         print('Disarm!')
     except:
+        arm = 1
         print('Cannot Disarm')
 
 def setmode(mode):

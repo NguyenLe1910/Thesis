@@ -82,11 +82,12 @@ def conected():
 @app.route('/Arming')
 def arming():
     test1.force_arm()
-    try:
-        time.sleep(10)
-    except:
-        print('xx')
-    return Response(stream_template('arming.html', data=sys_status_needed()))
+    time.sleep(11)
+    if test1.arm == 1 :
+        return Response(stream_template('arming.html', data=sys_status_needed()))
+    else :
+        flash('Looks like you have changed your name!')
+        return Response(stream_template('connected.html', data=sys_status_needed()))
 
 @app.route('/Disarm')
 def disarm():
