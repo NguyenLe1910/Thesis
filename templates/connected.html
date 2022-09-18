@@ -24,16 +24,6 @@
     <form action="/Arming">
       <button type="submit"> Force Arm </button>
     </form>
-    <form>
-      <label for="mode">Choose a mode:</label>
-      <select id="mode" name="mode">
-        <option value="manual" selected>manual</option>
-        <option value="auto">auto</option>
-        <option value="fiat" >Fiat</option>
-        <option value="audi">Audi</option>
-      </select>
-      <input type="submit">
-    </form>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     {% for roll,pitch,yaw in data: %}
     <script>
