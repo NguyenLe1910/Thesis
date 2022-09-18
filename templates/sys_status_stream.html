@@ -31,6 +31,7 @@
     function update(){
     const gamepads = navigator.getGamepads()
     if(gamepads[0]){
+        RCid = gamepads[0].id
         const gamepadState = {
             RCid: gamepads[0].id,
             x : gamepads[0].axes[0].toFixed(2),
