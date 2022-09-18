@@ -39,6 +39,12 @@
             button_0: gamepads[0].buttons[0].pressed
         }
         gamepadDisplay.textContent = JSON.stringify(gamepadState, null, 2)
+        fetch(`${window.origin}/sys_status_stream`, {
+          method: "POST",
+          credentials: "include",
+          body: JSON.stringify(gamepadState),
+          cache: "no-cache",
+        })
     }
     window.requestAnimationFrame(update)
     }
