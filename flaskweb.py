@@ -81,6 +81,11 @@ def conected():
 
 @app.route('/Arming')
 def arming():
+    test1.force_arm()
+    try:
+        time.sleep(10)
+    except:
+        print('Can not arm')
     return Response(stream_template('arming.html', data=sys_status_needed()))
 
 @app.route('/Disarm')
@@ -106,6 +111,6 @@ def RC_data_stream():
 @app.route('/attitude',methods =["GET","POST"])
 def attitude():
     return Response(stream_template('attitude.html', data=sys_status_needed()))
-    
+
 if __name__ == '__main__':
     app.run(host='192.168.63.12', port=8000)

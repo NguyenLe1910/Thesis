@@ -1,34 +1,87 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My thesis</title>
-    <style>
-        #data {
-          text-align: center;
-        }
-      </style>
-  </head>
-  <body>
-        <center>
-        <h1>My Ground Control Station</h1>
-        <div class="main" id="newpost">
-        <img  class="camera-bg" style="width: 30%; height:30%; background-attachment: fixed;" id="bg" class="center" src=" http://192.168.63.12:8000/video_feed">   
-        </div>
-        <p> THE VEHICLE IS CONNEDCTED </p>
-        </center>
-    </body>
-
-    <body>
-        <form action="/Arming">
-            <button type="submit"> Force Arm </button>
-        </form>
-    
+    <title>Connected</title>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    {% for roll,pitch,yaw in data: %}
-    <script>
-     $("#data").text("{{ roll }},{{ pitch }},{{ yaw }}")
-    </script> 
-     {% endfor %}
-    
-  </body>
+    <style>
+      #data {
+        background: rgb(0, 0, 0);
+        color: rgb(172, 142, 255);
+        padding: 30px;
+      }
+      pre {
+        background: #555;
+        color: #5F5;
+        padding: 30px;
+      }
+    </style>
+  </head>
+ s
+    <canvas id="graphcanvas" width="500" height="80"></canvas><br />
+        <div id="data" style="width: 500px; height: 20px;">nothing received yet</div>
+          <div id="serverStatus" style="width: 500px; overflow-y: auto; flex-grow: 0;"></div>
+      </div>
+      <div style="height: 100%; display: flex; flex-direction: column; resize: horizontal; overflow: auto;">
+  
+          <!--<canvas id="canvas" width="300" height="200" style=""></canvas><br>
+          <div id="log"></div>
+          -->
+          <div id="cesiumContainer" style="height: 50%; display: none;"></div>
+          <div id="map"></div>
+      </div>
+  <script >
+    window.addEventListener('gamepadconnected',event =>{
+    console.log('Gamepad connected:')
+    console.log(event.gamepad)
+    })
+
+    window.addEventListener('gamepaddisconnected', event => {
+    console.log('Gamepad disconnected')
+    console.log(event.gamepad)
+    })
+
+    const gamepadDisplay = document.getElementById("gamepad-display")
+    function update(){
+    const gamepads = navigator.getGamepads()
+    if(gamepads[0]){
+        const gamepadState = {
+            RCid: gamepads[0].id,
+            x : gamepads[0].axes[0].toFixed(10),
+            Vx: gamepads[0].axes[1].toFixed(10),
+            y : gamepads[0].axes[3].toFixed(10),
+            Vy: gamepads[0].axes[4].toFixed(10),
+            button_0: gamepads[0].buttons[0].pressed
+        }
+        
+        gamepadDisplay.textContent = JSON.stringify(gamepadState, null, 2)       
+        fetch(`${window.origin}/RC_data_stream`, {
+          method: "POST",
+          credentials: "include",
+          body: JSON.stringify(gamepadState, null, 2) ,
+          cache: "no-cache",
+          headers: new Headers({
+            "content-type": "application/json"
+          })
+        })
+    }
+    window.requestAnimationFrame(update)
+    }
+    window.requestAnimationFrame(update)
+</script>
+
+{% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible in data: %}
+<script>
+  var fix_type = '{{fix_type}}';
+  if (fix_type == 0){
+    $("#data").text("Roll:{{ roll }}, Pitch:{{ pitch }}, Yaw:{{ yaw }} \n GPS: No signal" )
+  }
+  else if (fix_type == 1){
+    $("#data").text("Roll:{{ roll }}, Pitch:{{ pitch }}, Yaw:{{ yaw }} \n GPS: No Fix" )
+  }
+  else {
+    $("#data").text("Roll:{{ roll }}, Pitch:{{ pitch }}, Yaw:{{ yaw }} \n GPS: Good" )
+  }
+</script>
+{% endfor %}
+</body>
 </html>
