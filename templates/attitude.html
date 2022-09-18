@@ -7,8 +7,6 @@
 </style>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 
-<link rel="sys_status_stream" href="{{ url_for('sys_status_stream') }}"></link>
-
 <div id="data">nothing received yet</div>
 {% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible in data: %}
 <script>
