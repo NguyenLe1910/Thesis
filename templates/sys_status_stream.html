@@ -36,15 +36,15 @@
             Vx: gamepads[0].axes[1].toFixed(2),
             y : gamepads[0].axes[3].toFixed(2),
             Vy: gamepads[0].axes[4].toFixed(2),
-            button0: gamepads[0].buttons[0].pressed
+            button_0: gamepads[0].buttons[0].pressed
         }
         gamepadDisplay.textContent = JSON.stringify(gamepadState, null, 2)
     }
     window.requestAnimationFrame(update)
-    } 
+    }
     window.requestAnimationFrame(update)
-
 </script>
+
 {% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog in data: %}
 <script>
   $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
