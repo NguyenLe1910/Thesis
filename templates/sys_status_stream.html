@@ -43,7 +43,11 @@
         fetch(`${window.origin}/sys_status_stream`, {
           method: "POST",
           credentials: "include",
-          body: JSON.stringify(gamepadState, null, 2)
+          body: JSON.stringify(gamepadState, null, 2) ,
+          cache: "no-cache",
+          headers: new Headers({
+            "content-type": "application/json"
+          })
         })
         $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
     }
