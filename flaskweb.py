@@ -114,7 +114,7 @@ def sys_status_stream_2():
         Vx_position = data.find('Vx')
         y_position  = data.find('y')
         Vy_position = data.find('Vy')        
-        RC_id = data[9:x-3]
+        RC_id = data[9:x_position-3]
         RC_x  = float(data[x_position+4:x_position+14])
         RC_Vx = float(data[Vx_position+4:Vx_position+14])
         RC_y  = float(data[y_position+4:y_position+14])
