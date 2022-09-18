@@ -121,6 +121,11 @@ def sys_status_stream():
 @app.route('/attitude',methods =["GET","POST"])
 def attitude():
     sys_status_stream()
+    print('RCid :' + RC_id)
+    print('RCx :' +str(RC_x))
+    print('RCVx :' +str(RC_Vx))
+    print('RCy :' +str(RC_y))
+    print('RCVy :' +str(RC_Vy))
     return Response(stream_template('attitude.html', data=sys_status_needed()))
 
 
