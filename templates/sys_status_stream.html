@@ -15,7 +15,6 @@
 <body>
   <pre type ="gamepad-display" name="gamepad-display" id="gamepad-display"></pre>
   <br>
-  <form><button action="/sys_status_stream" method = "POST"> Connect to RC</button>
   <script >
     window.addEventListener('gamepadconnected',event =>{
     console.log('Gamepad connected:')
@@ -47,7 +46,6 @@
     }
     window.requestAnimationFrame(update)
 </script>
-</form>
 {% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible in data: %}
 <script>
   $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
