@@ -89,7 +89,7 @@ def disarm():
     return Response(stream_template('connected.html', data=sys_status_needed()))
 
 
-@app.route('/sys_status_stream',methods =["POST"])
+@app.route('/sys_status_stream',methods =["GET","POST"])
 def sys_status_stream():
     if request.method == 'POST':
         data = request.get_json()
