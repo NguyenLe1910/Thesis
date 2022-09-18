@@ -27,18 +27,18 @@
     })
 
     const gamepadDisplay = document.getElementById("gamepad-display")
-    const x = document.getElementById("x")
+    var x = document.getElementById("x")
     function update(){
     const gamepads = navigator.getGamepads()
-    x.textContent = JSON.stringify(gamepads[0].axes[0].toFixed(2), null, 2)
+    x = gamepads[0].axes[0].toFixed(2)
     if(gamepads[0]){
         const gamepadState = {
             id: gamepads[0].id,
             axes : [
                 gamepads[0].axes[0].toFixed(2),
                 gamepads[0].axes[1].toFixed(2),
-                gamepads[0].axes[2].toFixed(2),
                 gamepads[0].axes[3].toFixed(2),
+                gamepads[0].axes[4].toFixed(2),
             ],
             buttons :[
                 {button_0: gamepads[0].buttons[0].pressed},
