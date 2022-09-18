@@ -14,7 +14,7 @@ RC_Vx = 0
 RC_y = 0
 RC_Vy = 0
 RC_button_0 = False
-
+x =0
 def gen(camera):
     #get camera frame
     while True:
@@ -57,7 +57,7 @@ def sys_status_needed():
             cog = float(GPS[cog_position+6:satellites_visible_position-2])
             satellites_visible = float(GPS[satellites_visible_position+21:alt_ellipsoid_position-2])
                 
-            yield roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible
+            yield roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible,RC_x
 
 @app.route('/video_feed')
 def video_feed():
@@ -109,6 +109,7 @@ def sys_status_stream():
         RC_Vx = float(data[Vx_position+6:Vx_position+14])
         RC_y  = float(data[y_position+5:y_position+14])
         RC_Vy = float(data[Vy_position+6:Vy_position+14])
+        print (x+1)
     return render_template('sys_status_stream.html')
 
 @app.route('/attitude',methods =["GET","POST"])
