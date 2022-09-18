@@ -48,7 +48,7 @@ def sys_status_needed():
             epv = float(GPS[epv_position+6:vel_position-2])
             vel = float(GPS[vel_position+6:cog_position-2])
             cog = float(GPS[cog_position+6:satellites_visible_position-2])
-            satellites_visible = float(GPS[satellites_visible_position+6:alt_ellipsoid_position-2])
+            satellites_visible = float(GPS[satellites_visible_position+21:alt_ellipsoid_position-2])
                 
             yield roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible
 
@@ -91,7 +91,7 @@ def disarm():
 
 @app.route('/sys_status_stream')
 def sys_status_stream():
-    values=request.form.getlist('joystick')
+    print(alues=request.form.getlist('joystick'))
     return Response(stream_template('sys_status_stream.html', data=sys_status_needed()))
 
 if __name__ == '__main__':
