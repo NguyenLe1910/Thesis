@@ -1,39 +1,62 @@
 <html>
     <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="format-detection" content="telephone=no">
         <title>My Thesis</title>
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script src="/mav/Cesium/Cesium.js"></script>
-    
-        <script src="/mav/bundle.js"></script>
-    
+        <script src="https://www.gstatic.com/charts/loader.js"></script>
         <style>
             @import url(/mav/Cesium/Widgets/widgets.css);
         </style>
     
-        <script type="application/x-javascript">
-    
-                            var deg2rad = Math.PI / 180;
+        <script>
+            
+            window.addEventListener('gamepadconnected',event =>{
+    console.log('Gamepad connected:')
+    console.log(event.gamepad)
+    })
+
+    window.addEventListener('gamepaddisconnected', event => {
+    console.log('Gamepad disconnected')
+    console.log(event.gamepad)
+    })
+
+    const gamepadDisplay = document.getElementById("gamepad-display")
+    function update(){
+    const gamepads = navigator.getGamepads()
+    if(gamepads[0]){
+        const gamepadState = {
+            RCid: gamepads[0].id,
+            x : gamepads[0].axes[0].toFixed(10),
+            Vx: gamepads[0].axes[1].toFixed(10),
+            y : gamepads[0].axes[3].toFixed(10),
+            Vy: gamepads[0].axes[4].toFixed(10),
+            button_0: gamepads[0].buttons[0].pressed
+        }
+        
+        gamepadDisplay.textContent = JSON.stringify(gamepadState, null, 2)       
+        fetch(`${window.origin}/RC_data_stream`, {
+          method: "POST",
+          credentials: "include",
+          body: JSON.stringify(gamepadState, null, 2) ,
+          cache: "no-cache",
+          headers: new Headers({
+            "content-type": "application/json"
+          })
+        })
+    }
+    window.requestAnimationFrame(update)
+    }
+    window.requestAnimationFrame(update)
+</script>
+
+{% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible in data: %}
+<script>
+  var fix_type = '{{fix_type}}';
+  var deg2rad = Math.PI / 180;
                             var rad2deg = 180 / Math.PI;
     
-                            var pitch =0;
-                            var roll =0;
-                            var yaw = 0;
+                            var pitch ='{{roll}}';
+                            var roll ='{{pitch}}';
+                            var yaw = '{{yaw}}';
                             
-                            var jsoncount=0;
-                            var markers = [];
-                            var wpmarkers = [];
-                            var flightPath;
-                            var pathHistoryPoly;
-                            var pathHistory = [];
-                            var socket;
-                            var socket2;
-                            function graphitem(item)
-                            {
-                                line1item = "cs."+item;
-                            }
-    
                             function init() {
                             // Data
                             if (window["WebSocket"]) {
@@ -43,8 +66,6 @@
                             try{
                             socket = new WebSocket(host);
                                     
-                            window.onbeforeunload = function(){ socket.close(); socket2.close(); }
-                            //log('WebSocket - status '+socket.readyState);
                             socket.onopen    = function(msg){ document.getElementById("serverStatus").innerHTML = "onopen"; jsoncount=0; };
                             socket.onmessage = function(msg){
                                 jsoncount++;
@@ -442,6 +463,9 @@
                                 ctx.fillText(string,x,y + fontsize);
                                                                    }
         </script>
+</script>
+{% endfor %}
+                            
         <style>
             html,
             body {
@@ -461,7 +485,6 @@
         <div style="float: left;">
             <canvas id="canvas" width="500" height="375">
                 <p>
-                    This example requires a browser that supports the
                     <a href="http://www.w3.org/html/wg/html5/">HTML5</a>
                     &lt;canvas&gt; feature.
                 </p>
