@@ -66,4 +66,3 @@ def msg_attitude():
 def msg_GPS_RAW():
     return master.recv_match(type='GPS_RAW_INT',blocking=True)
 
-print(master.recv_match(type='SYS_STATUS',blocking=True))

@@ -17,7 +17,7 @@
     <center>
     <h1> My Ground Control Station</h1>
     <div class="main" id="newpost">
-      <img  class="camera-bg" style="width: 30%; height:30%; background-attachment: fixed;" id="bg" class="center" src="http://192.168.63.12:8000/video_feed">   
+      <img  class="camera-bg" style="width: 30%; height:30%; background-attachment: fixed;" id="bg" class="center" src="http://192.168.43.130:8000/video_feed">   
     </div>
     <p> THE VEHICLE IS CONNEDCTED <p>
     </center>
@@ -33,7 +33,7 @@
     console.log('Gamepad connected:')
     console.log(event.gamepad)
     })
-
+    
     window.addEventListener('gamepaddisconnected', event => {
     console.log('Gamepad disconnected')
     console.log(event.gamepad)
