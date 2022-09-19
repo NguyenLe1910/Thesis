@@ -83,7 +83,7 @@ def conected():
 def arming():
     test1.force_arm()
     try:
-        print("Force the vehicle to arm")
+        print("Try to arm the vehicle")
         test1.master.motors_armed_wait()
         time.sleep(2)
         print('Armed!')
@@ -94,8 +94,17 @@ def arming():
    
 @app.route('/Disarm')
 def disarm():
-    return Response(stream_template('connected.html', data=sys_status_needed()))
-
+    test1.disarm()()
+    try:
+        print("Try to Disarm the vehicle ")
+        test1.master.motors_armed_wait()
+        time.sleep(2)
+        print('Disarm!')
+        return Response(stream_template('connected.html', data=sys_status_needed()))
+    except:
+        print('Cannot Force Arm')
+        return Response(stream_template('arming.html', data=sys_status_needed()))
+        
 @app.route('/RC_data_stream',methods =["GET","POST"])
 def RC_data_stream():
     if request.method == "POST":
