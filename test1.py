@@ -66,5 +66,4 @@ def msg_attitude():
 def msg_GPS_RAW():
     return master.recv_match(type='GPS_RAW_INT',blocking=True)
 
-master.wait_heartbeat()
-print("Heartbeat from system (system %u component %u)" % (master.target_system, master.target_component))
+master.recv_match(type='SYS_STATUS',blocking=True)
