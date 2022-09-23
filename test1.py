@@ -62,7 +62,8 @@ def set_rc_channel_pwm(channel_id, pwm=1500):
         *rc_channel_values)                  # RC channel list, in microseconds.
 
 def msg_attitude():
-    count_recieve_msg = count_recieve_msg + 1 
+    global count_recieve_msg
+    count_recieve_msg = count_recieve_msg +1
     return master.recv_match(type='ATTITUDE',blocking=True)
 
 def msg_GPS_RAW():
