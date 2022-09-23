@@ -58,7 +58,7 @@ def sys_status_needed():
             cog = float(GPS[cog_position+6:satellites_visible_position-2])
             satellites_visible = float(GPS[satellites_visible_position+21:alt_ellipsoid_position-2])
                 
-            yield roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible
+            yield roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible,test1.count_recieve_msg
 
 @app.route('/video_feed')
 def video_feed():
@@ -123,7 +123,6 @@ def RC_data_stream():
 
 @app.route('/attitude',methods =["GET","POST"])
 def attitude():
-    print(test1.count_recieve_msg)
     return Response(stream_template('attitude.html', data=sys_status_needed()))
 
 if __name__ == '__main__':
