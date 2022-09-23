@@ -57,8 +57,17 @@
 </script>
 
 {% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible,count_recieve_msg in data: %}
+
 <script>
   $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}, {{count_recieve_msg}}")
+  console.log('recieve_msg_number:')
+  console.log(count_recieve_msg)
+  console.log('roll:')
+  console.log(roll)
+  console.log('pitch:')
+  console.log(pitch)
+  console.log('yaw:')
+  console.log(yaw)
 </script>
 {% endfor %}
 </body>
