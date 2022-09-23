@@ -61,13 +61,8 @@
 <script>
   $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}, {{count_recieve_msg}}")
   console.log('recieve_msg_number:')
-  console.log(count_recieve_msg)
-  console.log('roll:')
-  console.log(roll)
-  console.log('pitch:')
-  console.log(pitch)
-  console.log('yaw:')
-  console.log(yaw)
+  console.log("{{count_recieve_msg}} : {{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
+
 </script>
 {% endfor %}
 </body>
