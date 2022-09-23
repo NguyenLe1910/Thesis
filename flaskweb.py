@@ -57,8 +57,9 @@ def sys_status_needed():
             vel = float(GPS[vel_position+6:cog_position-2])
             cog = float(GPS[cog_position+6:satellites_visible_position-2])
             satellites_visible = float(GPS[satellites_visible_position+21:alt_ellipsoid_position-2])
+            count_recieve_msg = test1.count_recieve_msg
                 
-            yield roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible,test1.count_recieve_msg
+            yield roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible,count_recieve_msg
 
 @app.route('/video_feed')
 def video_feed():
