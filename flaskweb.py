@@ -123,6 +123,8 @@ def RC_data_stream():
 
 @app.route('/attitude',methods =["GET","POST"])
 def attitude():
+    test1.msg_recieve = test1.msg_recieve + 1
+    print(test1.msg_recieve)
     return Response(stream_template('attitude.html', data=sys_status_needed()))
 
 if __name__ == '__main__':
