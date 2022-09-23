@@ -3,8 +3,8 @@ import json
 # Import mavutil
 from pymavlink import mavutil
 
+count_recieve_msg =0
 arm = 0
-msg_recieve = 0
 master = mavutil.mavlink_connection('/dev/serial0',baud=916200)
 
 def wait_conn():
@@ -62,8 +62,7 @@ def set_rc_channel_pwm(channel_id, pwm=1500):
         *rc_channel_values)                  # RC channel list, in microseconds.
 
 def msg_attitude():
-    msg_recieve = msg_recieve + 1
-    print(msg_recieve)
+    count_recieve_msg = count_recieve_msg + 1 
     return master.recv_match(type='ATTITUDE',blocking=True)
 
 def msg_GPS_RAW():
