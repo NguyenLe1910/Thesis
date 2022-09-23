@@ -58,7 +58,7 @@
 
 {% for roll,pitch,yaw,fix_type,lat,lon,alt,eph,epv,vel,cog,satellites_visible,test1.count_recieve_msg in data: %}
 <script>
-  $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}")
+  $("#data").text("{{ roll }}, {{ pitch }}, {{ yaw }}, {{ fix_type }}, {{test1.count_recieve_msg}}")
 </script>
 {% endfor %}
 </body>
