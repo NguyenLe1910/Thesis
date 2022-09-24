@@ -4,6 +4,7 @@ import os
 import itertools
 import time
 import test1
+from timer import Timer
 
 app = Flask(__name__)
 app2 = Flask(__name__)
@@ -25,7 +26,10 @@ def gen(camera):
 
 def sys_status_needed():
         while True :
-            attitude = str(test1.msg_attitude())            
+            t = Timer()
+            t.start()
+            attitude = str(test1.msg_attitude())
+            t.stop()            
             roll_position=attitude.find('roll')
             pitch_position=attitude.find('pitch')
             yaw_position=attitude.find('yaw')
