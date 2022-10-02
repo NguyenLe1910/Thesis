@@ -75,9 +75,13 @@ def stream_template(template_name, **context):
     rv = t.stream(context)
     return rv
 
+@app.route('/Connect')
+def conect():
+    test1.wait_conn()
+    return Response(stream_template('connected.html', data=sys_status_needed()))
+
 @app.route('/Connected')
 def conected():
-    test1.wait_conn()
     return Response(stream_template('connected.html', data=sys_status_needed()))
 
 @app.route('/Arming')
