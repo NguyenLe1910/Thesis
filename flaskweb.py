@@ -4,7 +4,6 @@ import os
 import itertools
 import time
 import test1
-from timer import Timer
 
 app = Flask(__name__)
 app2 = Flask(__name__)
