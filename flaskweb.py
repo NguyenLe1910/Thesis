@@ -88,7 +88,7 @@ def arming():
 @app.route('/trytoarm')
 def trytoarm():
     test1.arm_test()
-    return Response(stream_template('arming.html', data=sys_status_needed()))
+    return Response(stream_template('connected.html', data=sys_status_needed()))
 
 @app.route('/Disarm')
 def disarm():
