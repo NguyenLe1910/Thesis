@@ -91,4 +91,3 @@ def disarm_test():
     time.sleep(0.7)
     print('Disarm !')
 
-wait_conn()
