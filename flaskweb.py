@@ -78,13 +78,19 @@ def stream_template(template_name, **context):
 
 @app.route('/Connected')
 def conected():
+    test1.wait_conn()
     return Response(stream_template('connected.html', data=sys_status_needed()))
 
 @app.route('/Arming')
 def arming():
+    test1.force_arm_test()
+    return Response(stream_template('arming.html', data=sys_status_needed()))
+
+@app.route('/trytoarm')
+def arming():
     test1.arm_test()
     return Response(stream_template('arming.html', data=sys_status_needed()))
-   
+
 @app.route('/Disarm')
 def disarm():
     test1.disarm_test()
