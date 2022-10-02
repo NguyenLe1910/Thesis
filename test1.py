@@ -27,7 +27,13 @@ def wait_conn():
     print('Connected')
 
 def force_arm():
-    master.mav.command_long_send(master.target_system,master.target_component,mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,0,1, 21196 , 0, 0, 0, 0, 0)
+    try:
+        master.mav.command_long_send(master.target_system,master.target_component,
+                                    mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,0,1, 21196 , 0, 0, 0, 0, 0)
+        ack_msg = master.recv_match(type='COMMAND_ACK',blocking=True)
+        print(ack_msg)
+    except :
+        print('Can not arm')
 
 def disarm():
     master.mav.command_long_send(master.target_system,master.target_component,mavutil.mavlink.MAV_CMD_COMPONENT_ARM_DISARM,0, 0, 0, 0, 0, 0, 0, 0)
@@ -68,4 +74,20 @@ def msg_attitude():
 
 def msg_GPS_RAW():
     return master.recv_match(type='GPS_RAW_INT',blocking=True)
+
+
+def arm_test():
+    print('Try to Arm')
+    time.sleep(3)
+    print('Can not Arm !')
+
+def force_arm_test():
+    print('Try to Arm')
+    time.sleep(0.7)
+    print('Arming!')
+
+def disarm_test():
+    print('Try to Disarm')
+    time.sleep(0.7)
+    print('Disarm !')
 

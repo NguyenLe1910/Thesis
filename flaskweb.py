@@ -26,10 +26,7 @@ def gen(camera):
 
 def sys_status_needed():
         while True :
-            t = Timer()
-            t.start()
-            attitude = str(test1.msg_attitude())
-            t.stop()            
+            attitude = str(test1.msg_attitude())     
             roll_position=attitude.find('roll')
             pitch_position=attitude.find('pitch')
             yaw_position=attitude.find('yaw')
@@ -86,29 +83,13 @@ def conected():
 
 @app.route('/Arming')
 def arming():
-    test1.force_arm()
-    try:
-        print("Try to arm the vehicle")
-        test1.master.motors_armed_wait()
-        time.sleep(2)
-        print('Armed!')
-        return Response(stream_template('arming.html', data=sys_status_needed()))
-    except:
-        print('Cannot Force Arm')
-        return Response(stream_template('connected.html', data=sys_status_needed()))
+    test1.arm_test()
+    return Response(stream_template('arming.html', data=sys_status_needed()))
    
 @app.route('/Disarm')
 def disarm():
-    test1.disarm()()
-    try:
-        print("Try to Disarm the vehicle ")
-        test1.master.motors_armed_wait()
-        time.sleep(2)
-        print('Disarm!')
-        return Response(stream_template('connected.html', data=sys_status_needed()))
-    except:
-        print('Cannot Force Arm')
-        return Response(stream_template('arming.html', data=sys_status_needed()))
+    test1.disarm_test()
+    return Response(stream_template('connected.html', data=sys_status_needed()))
         
 @app.route('/RC_data_stream',methods =["GET","POST"])
 def RC_data_stream():
@@ -123,7 +104,6 @@ def RC_data_stream():
         RC_Vx = float(data[Vx_position+6:Vx_position+14])
         RC_y  = float(data[y_position+5:y_position+14])
         RC_Vy = float(data[Vy_position+6:Vy_position+14])
-        time.sleep(0.2)
     return Response(stream_template('RC_data_stream.html', data=sys_status_needed()))
 
 @app.route('/attitude',methods =["GET","POST"])
